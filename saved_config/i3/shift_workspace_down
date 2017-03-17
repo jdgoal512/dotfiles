@@ -1,0 +1,28 @@
+#iash
+
+current_workspace=`i3-msg -t get_workspaces | jq '.[] | select(.focused==true).name' | cut -d"\"" -f2`
+
+echo $current_workspace
+
+case $current_workspace in
+	'1') new_workspace=4;;
+	'2') new_workspace=5;;
+	'3') new_workspace=6;;
+	'4') new_workspace=7;;
+	'5') new_workspace=8;;
+	'6') new_workspace=9;;
+	#'7') new_workspace=1;;
+	#'8') new_workspace=2;;
+	#'9') new_workspace=3;;
+	'7') exit ;;
+	'8') exit ;;
+	'9') exit ;;
+	*)
+		echo $current_workspace
+		new_workspace=10
+		;;
+esac
+
+i3-msg move container to workspace $new_workspace
+i3-msg workspace $new_workspace
+~/.config/i3/notify "Workspace $new_workspace"

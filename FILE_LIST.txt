@@ -1,0 +1,4 @@
+/home/$USER/.vimrc:vimrc
+/home/$USER/.bashrc:bashrc
+/home/$USER/.zshrc:zshrc
+/home/$USER/.config/i3:i3

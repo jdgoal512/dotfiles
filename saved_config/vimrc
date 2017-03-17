@@ -1,0 +1,40 @@
+set nocompatible
+filetype off
+
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+Plugin 'VundleVim/Vundle.vim'
+Plugin 'scrooloose/nerdcommenter'
+Plugin 'mbbill/undotree'
+Plugin 'scrooloose/syntastic'
+Plugin 'Valloric/YouCompleteMe'
+
+call vundle#end()
+
+filetype plugin indent on
+syntax on
+set relativenumber
+set number
+set hls
+set undodir=$HOME/.VIM_UNDO_FILES
+set undofile
+set undolevels=5000
+set pastetoggle=<F2>
+set magic "Something cool? (Regular expressions?)"
+"set foldmethod=syntax
+
+"Makes you be able to move around on wrapping lines
+noremap j gj
+noremap k gk
+set viminfo='100,<500,s50
+map <F3> :UndotreeToggle
+
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntatic_always_populate_loc_list = 1
+let g:syntatic_auto_loc_list = 1
+let g:syntatic_check_on_open = 1
+let g:syntatic_check_on_wq = 0
