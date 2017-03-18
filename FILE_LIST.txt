@@ -2,3 +2,4 @@
 /home/$USER/.bashrc:bashrc
 /home/$USER/.zshrc:zshrc
 /home/$USER/.config/i3:i3
+/home/$USER/.oh-my-zsh:oh-my-zsh
