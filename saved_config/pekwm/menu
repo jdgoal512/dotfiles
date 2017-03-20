@@ -1,0 +1,186 @@
+# Menu config for pekwm
+
+# Variables
+INCLUDE = "vars"
+
+RootMenu = "Pekwm" {
+	Entry = "Terminal" { Actions = "Exec $TERM &" }
+	Entry = "Run.." { Actions = "ShowCmdDialog" }
+	Entry = "Opera" { Actions = "Exec opera &" }
+	Entry = "Thunar" { Actions = "Exec thunar &" }
+	Entry = "Atom" { Actions = "Exec atom &" }
+
+	Separator {}
+######################
+	Submenu = "Development" { Icon = "(null)"
+		Entry = "Android SDK" { Icon = "/usr/share/pixmaps/android-sdk.png"; Actions = "Exec android &" }
+		Entry = "Android Studio" { Icon = "/usr/share/pixmaps/android-studio.png"; Actions = "Exec android-studio &" }
+		Entry = "Atom" { Icon = "/usr/share/pixmaps/atom.png"; Actions = "Exec /usr/bin/atom &" }
+		Entry = "CMake" { Icon = "/usr/share/icons/hicolor/32x32/apps/CMakeSetup.png"; Actions = "Exec cmake-gui &" }
+		Entry = "Java Mission Control" { Icon = "/usr/share/icons/hicolor/16x16/apps/sun-java-jdk8.png"; Actions = "Exec /usr/lib/jvm/java-8-jdk/bin/jmc &" }
+		Entry = "Java Monitoring and Management Console" { Icon = "/usr/share/icons/hicolor/16x16/apps/sun-java-jdk8.png"; Actions = "Exec /usr/lib/jvm/java-8-jdk/bin/jconsole &" }
+		Entry = "Java VisualVM" { Icon = "/usr/share/icons/hicolor/16x16/apps/sun-java-jdk8.png"; Actions = "Exec /usr/lib/jvm/java-8-jdk/bin/jvisualvm &" }
+		Entry = "Qt Assistant" { Icon = "/usr/share/icons/hicolor/32x32/apps/assistant.png"; Actions = "Exec /usr/lib/qt/bin/assistant &" }
+		Entry = "Qt Designer" { Icon = "/usr/share/icons/hicolor/128x128/apps/QtProject-designer.png"; Actions = "Exec /usr/lib/qt/bin/designer &" }
+		Entry = "Qt Linguist" { Icon = "/usr/share/icons/hicolor/16x16/apps/linguist.png"; Actions = "Exec /usr/lib/qt/bin/linguist &" }
+		Entry = "Qt QDbusViewer " { Icon = "/usr/share/icons/hicolor/32x32/apps/qdbusviewer.png"; Actions = "Exec /usr/lib/qt/bin/qdbusviewer &" }
+	}
+	Submenu = "Education" { Icon = "(null)"
+		Submenu = "Mathematics" { Icon = "(null)"
+			Entry = "LibreOffice Math" { Icon = "/usr/share/icons/hicolor/16x16/apps/libreoffice-math.png"; Actions = "Exec libreoffice --math &" }
+		}
+		Submenu = "Science" { Icon = "(null)"
+			Entry = "LibreOffice Math" { Icon = "/usr/share/icons/hicolor/16x16/apps/libreoffice-math.png"; Actions = "Exec libreoffice --math &" }
+		}
+	}
+	Submenu = "Games" { Icon = "(null)"
+		Submenu = "Card" { Icon = "(null)"
+			Entry = "AisleRiot Solitaire" { Icon = "/usr/share/icons/hicolor/16x16/apps/gnome-aisleriot.png"; Actions = "Exec sol &" }
+		}
+	}
+	Submenu = "Graphics" { Icon = "(null)"
+		Entry = "GNU Image Manipulation Program" { Icon = "/usr/share/icons/hicolor/16x16/apps/gimp.png"; Actions = "Exec gimp-2.8 &" }
+		Entry = "LibreOffice Draw" { Icon = "/usr/share/icons/hicolor/16x16/apps/libreoffice-draw.png"; Actions = "Exec libreoffice --draw &" }
+	}
+	Submenu = "Internet" { Icon = "(null)"
+		Entry = "Avahi SSH Server Browser" { Icon = "/usr/share/icons/Adwaita/16x16/devices/network-wired.png"; Actions = "Exec /usr/bin/bssh &" }
+		Entry = "Avahi VNC Server Browser" { Icon = "/usr/share/icons/Adwaita/16x16/devices/network-wired.png"; Actions = "Exec /usr/bin/bvnc &" }
+		Entry = "Links" { Icon = "/usr/share/pixmaps/links_32x32.xpm"; Actions = "Exec xlinks -g &" }
+		Entry = "Netctl GUI" { Icon = "/usr/share/pixmaps/netctl-gui.png"; Actions = "Exec netctl-gui &" }
+		Entry = "Opera" { Icon = "/usr/share/icons/hicolor/16x16/apps/opera.png"; Actions = "Exec opera &" }
+		Entry = "Vivaldi" { Icon = "/usr/share/icons/hicolor/16x16/apps/vivaldi.png"; Actions = "Exec /usr/bin/vivaldi-stable &" }
+	}
+	Submenu = "Multimedia" { Icon = "(null)"
+		Entry = "Cheese" { Icon = "(null)"; Actions = "Exec cheese &" }
+		Entry = "GNOME ALSA Mixer" { Icon = "/usr/share/pixmaps/gnome-alsamixer/gnome-alsamixer-icon.png"; Actions = "Exec gnome-alsamixer &" }
+		Entry = "Pithos" { Icon = "(null)"; Actions = "Exec pithos &" }
+		Entry = "Qt V4L2 test Utility" { Icon = "/usr/share/icons/hicolor/16x16/apps/qv4l2.png"; Actions = "Exec qv4l2 &" }
+	}
+	Submenu = "Office" { Icon = "(null)"
+		Entry = "LibreOffice" { Icon = "/usr/share/icons/hicolor/16x16/apps/libreoffice-startcenter.png"; Actions = "Exec libreoffice &" }
+		Entry = "LibreOffice Base" { Icon = "/usr/share/icons/hicolor/16x16/apps/libreoffice-base.png"; Actions = "Exec libreoffice --base &" }
+		Entry = "LibreOffice Calc" { Icon = "/usr/share/icons/hicolor/16x16/apps/libreoffice-calc.png"; Actions = "Exec libreoffice --calc &" }
+		Entry = "LibreOffice Draw" { Icon = "/usr/share/icons/hicolor/16x16/apps/libreoffice-draw.png"; Actions = "Exec libreoffice --draw &" }
+		Entry = "LibreOffice Impress" { Icon = "/usr/share/icons/hicolor/16x16/apps/libreoffice-impress.png"; Actions = "Exec libreoffice --impress &" }
+		Entry = "LibreOffice Math" { Icon = "/usr/share/icons/hicolor/16x16/apps/libreoffice-math.png"; Actions = "Exec libreoffice --math &" }
+		Entry = "LibreOffice Writer" { Icon = "/usr/share/icons/hicolor/16x16/apps/libreoffice-writer.png"; Actions = "Exec libreoffice --writer &" }
+	}
+	Submenu = "Settings" { Icon = "(null)"
+		Entry = "Adobe Flash Player" { Icon = "/usr/share/icons/hicolor/16x16/apps/flash-player-properties.png"; Actions = "Exec flash-player-properties &" }
+		Entry = "Customize Look and Feel" { Icon = "/usr/share/icons/Adwaita/16x16/apps/preferences-desktop-theme.png"; Actions = "Exec lxappearance &" }
+		Entry = "File Manager" { Icon = "/usr/share/icons/Adwaita/16x16/apps/system-file-manager.png"; Actions = "Exec thunar-settings &" }
+		Entry = "Guake Preferences" { Icon = "/usr/share/icons/hicolor/16x16/apps/guake-prefs.png"; Actions = "Exec guake-prefs &" }
+		Entry = "Java" { Icon = "/usr/share/icons/hicolor/16x16/apps/sun-jcontrol-jre8.png"; Actions = "Exec /usr/lib/jvm/java-8-jre/jre/bin/jcontrol &" }
+		Entry = "Java" { Icon = "/usr/share/icons/hicolor/16x16/apps/sun-jcontrol-jdk8.png"; Actions = "Exec /usr/lib/jvm/java-8-jdk/jre/bin/jcontrol &" }
+		Entry = "Java Policy Settings" { Icon = "/usr/share/icons/hicolor/16x16/apps/sun-java-jdk8.png"; Actions = "Exec /usr/lib/jvm/java-8-jdk/jre/bin/policytool &" }
+		Entry = "Java Policy Settings" { Icon = "/usr/share/icons/hicolor/16x16/apps/sun-java-jre8.png"; Actions = "Exec /usr/lib/jvm/java-8-jre/jre/bin/policytool &" }
+		Entry = "Network Connections" { Icon = "/usr/share/icons/Adwaita/16x16/categories/preferences-system-network.png"; Actions = "Exec nm-connection-editor &" }
+		Entry = "Preferred Applications" { Icon = "/usr/share/icons/Adwaita/16x16/categories/preferences-desktop.png"; Actions = "Exec libfm-pref-apps &" }
+		Entry = "Removable Drives and Media" { Icon = "/usr/share/icons/Adwaita/16x16/devices/drive-removable-media.png"; Actions = "Exec thunar-volman-settings &" }
+	}
+	Submenu = "System" { Icon = "(null)"
+		Entry = "Avahi Zeroconf Browser" { Icon = "/usr/share/icons/Adwaita/16x16/devices/network-wired.png"; Actions = "Exec /usr/bin/avahi-discover &" }
+		Entry = "Bulk Rename" { Icon = "/usr/share/icons/hicolor/16x16/apps/Thunar.png"; Actions = "Exec /usr/lib/Thunar/ThunarBulkRename &" }
+		Entry = "Cairo Composite Manager" { Icon = "/usr/share/pixmaps/cairo-compmgr/cairo-compmgr.png"; Actions = "Exec cairo-compmgr &" }
+		Entry = "Cairo-Dock" { Icon = "(null)"; Actions = "Exec cairo-dock &" }
+		Entry = "Cairo-Dock (Fallback Mode)" { Icon = "(null)"; Actions = "Exec cairo-dock -A &" }
+		Entry = "Color Profile Viewer" { Icon = "/usr/share/icons/hicolor/16x16/apps/gnome-color-manager.png"; Actions = "Exec gcm-viewer &" }
+		Entry = "Guake Terminal" { Icon = "/usr/share/icons/hicolor/16x16/apps/guake.png"; Actions = "Exec guake &" }
+		Entry = "Htop" { Icon = "/usr/share/pixmaps/htop.png"; Actions = "Exec xterm -e htop &" }
+		Entry = "LXTerminal" { Icon = "/usr/share/icons/hicolor/128x128/apps/lxterminal.png"; Actions = "Exec lxterminal &" }
+		Entry = "Task Manager" { Icon = "/usr/share/icons/Adwaita/16x16/apps/utilities-system-monitor.png"; Actions = "Exec lxtask &" }
+		Entry = "Thunar File Manager" { Icon = "/usr/share/icons/hicolor/16x16/apps/Thunar.png"; Actions = "Exec thunar &" }
+	}
+	Submenu = "Utilities" { Icon = "(null)"
+		Entry = "Atom" { Icon = "/usr/share/pixmaps/atom.png"; Actions = "Exec /usr/bin/atom &" }
+		Entry = "Bulk Rename" { Icon = "/usr/share/icons/hicolor/16x16/apps/Thunar.png"; Actions = "Exec /usr/lib/Thunar/ThunarBulkRename &" }
+		Entry = "Guake Terminal" { Icon = "/usr/share/icons/hicolor/16x16/apps/guake.png"; Actions = "Exec guake &" }
+		Entry = "GVim" { Icon = "/usr/share/pixmaps/gvim.png"; Actions = "Exec gvim -f &" }
+		Entry = "Leafpad" { Icon = "/usr/share/icons/hicolor/16x16/apps/leafpad.png"; Actions = "Exec leafpad &" }
+		Entry = "Text Editor" { Icon = "/usr/share/icons/hicolor/16x16/apps/gedit.png"; Actions = "Exec gedit &" }
+		Entry = "Thunar File Manager" { Icon = "/usr/share/icons/hicolor/16x16/apps/Thunar.png"; Actions = "Exec thunar &" }
+		Entry = "Xarchiver" { Icon = "/usr/share/icons/hicolor/16x16/apps/xarchiver.png"; Actions = "Exec xarchiver &" }
+	}
+
+#######################
+	Separator {}
+
+	Entry = "Take screenshot" { Actions = "Exec $_PEKWM_SCRIPT_PATH/pekwm_screenshot.sh" }
+
+	Separator {}
+
+	Submenu = "Go to" {
+		SubMenu = "Workspace" {
+			# Create goto menu once per pekwm config reload. The fast way that
+			# will work for most if not all users.
+			COMMAND = "$_PEKWM_SCRIPT_PATH/pekwm_ws_menu.sh goto"
+			# Create goto menu every time the menu is opened. The slow way.
+			# This is what you want if you are using external tools to make
+			# the amount of workspaces something else than what you define in
+			# ~/.pekwm/config. You will know if you want this.
+			# Entry = "" { Actions = "Dynamic $_PEKWM_SCRIPT_PATH/pekwm_ws_menu.sh goto dynamic" }
+		}
+		Entry = "Window.." { Actions = "ShowMenu GotoClient True" }
+	}
+
+	Submenu = "Pekwm" {
+		Submenu = "Themes" {
+			Entry { Actions = "Dynamic $_PEKWM_SCRIPT_PATH/pekwm_themeset.sh $_PEKWM_THEME_PATH" }
+			Entry { Actions = "Dynamic $_PEKWM_SCRIPT_PATH/pekwm_themeset.sh ~/.pekwm/themes" }
+		}
+		Entry = "Reload" { Actions = "Reload" }
+		Entry = "Restart" { Actions = "Restart" }
+		Entry = "Exit" { Actions = "Exit" }
+		Submenu = "Exit to" {
+			Entry = "Xterm" { Actions = "RestartOther xterm" }
+			Entry = "TWM" { Actions = "RestartOther twm" }
+		}
+	}
+}
+
+WindowMenu = "Window Menu" {
+	Entry = "(Un)Stick" { Actions = "Toggle Sticky" }
+	Entry = "(Un)Shade" { Actions = "Toggle Shaded" }
+	Entry = "Iconify" { Actions = "Set Iconified" }
+	Entry = "Command.." { Actions = "ShowCmdDialog" }
+
+	Submenu = "Maximize" {
+		Entry = "Toggle Full" { Actions = "Toggle Maximized True True" }
+		Entry = "Toggle Horizontal" { Actions = "Toggle Maximized True False" }
+		Entry = "Toggle Vertical" { Actions = "Toggle Maximized False True" }
+	}
+	Submenu = "Fill" {
+		Entry = "Full" { Actions = "MaxFill True True" }
+		Entry = "Horizontal" { Actions = "MaxFill True False" }
+		Entry = "Vertical" { Actions = "MaxFill False True" }
+	}
+	Submenu = "Stacking" {
+		Entry = "Raise" { Actions = "Raise" }
+		Entry = "Lower" { Actions = "Lower" }
+		Entry = "Toggle Always On Top" { Actions = "Toggle AlwaysOnTop" }
+		Entry = "Toggle Always Below" { Actions = "Toggle AlwaysBelow" }
+	}
+	Submenu = "Decorations" {
+		Entry = "Toggle Decorations" { Actions = "Toggle DecorBorder; Toggle DecorTitlebar" }
+		Entry = "Toggle Borders" { Actions = "Toggle DecorBorder" }
+		Entry = "Toggle Titlebar" { Actions = "Toggle DecorTitlebar" }
+	}
+	Submenu = "Skip" {
+		Entry = "Toggle showing this frame in menus" { Actions = "Toggle Skip Menus" }
+		Entry = "Toggle including this frame in focus toggle" { Actions = "Toggle Skip FocusToggle" }
+		Entry = "Toggle if this frame snaps to other windows" { Actions = "Toggle Skip Snap" }
+	}
+	SubMenu = "Send To" {
+		# Create sendto menu once per pekwm config reload. The fast way that
+		# will work for most if not all users.
+		COMMAND = "$_PEKWM_SCRIPT_PATH/pekwm_ws_menu.sh send"
+		# Create sendto menu every time the menu is opened. The slow way.
+		# This is what you want if you are using external tools to make
+		# the amount of workspaces something else than what you define in
+		# ~/.pekwm/config. You will know if you want this.
+		# Entry = "" { Actions = "Dynamic $_PEKWM_SCRIPT_PATH/pekwm_ws_menu.sh send dynamic" }
+	}
+	Separator {}
+	Entry = "Close" { Actions = "Close" }
+	Submenu = "Kill" { Entry = "Kill application" { Actions = "Kill" } }
+}

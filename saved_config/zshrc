@@ -88,6 +88,7 @@ alias todo='gedit ~/Dropbox/TODO.txt'
 alias schedule='cat ~/schedule.txt'
 alias sl='ls'
 alias leafpad='gedit'
+alias viewnetwork='sudo arp-scan --interface=wlp2s0 --localnet'
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 function findprocess {
