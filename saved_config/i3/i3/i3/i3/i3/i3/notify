@@ -1,0 +1,6 @@
+#!/bin/bash
+
+notification_daemon="notify-osd"
+killall $notification_daemon
+
+notify-send "$@"
