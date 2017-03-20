@@ -9,7 +9,7 @@
 #
 # Please see http://i3wm.org/docs/userguide.html for a complete reference!
 
-set $mod Mod1
+set $mod mod1
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
@@ -41,9 +41,9 @@ bindsym mod1+F4 kill
 
 # start dmenu (a program launcher)
 bindsym $mod+d exec dmenu_run -fn 'Droid Sans Mono-12' -sb '#4B81AF'
+bindsym $mod+space exec dmenu_run -fn 'Droid Sans Mono-12' -sb '#4B81AF'
 bindsym mod4+space exec dmenu_run -fn 'Droid Sans Mono-12' -sb '#4B81AF'
-bindsym mod1+space exec dmenu_run -fn 'Droid Sans Mono-12' -sb '#4B81AF'
-for_window [class="^.*"] border pixel 1
+for_window [class="^.*"] border pixel 3
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
@@ -102,16 +102,16 @@ bindsym $mod+a focus parent
 #bindsym XF86AudioLowerVolume exec /usr/bin/pactl set-sink-volume 0 -- '-5%'
 #bindsym XF86AudioRaiseVolume exec /usr/bin/pactl set-sink-volume @DEFAULT_SINK@ -- '+5%'
 # switch to workspace
-bindsym mod4+1 workspace 1
-bindsym mod4+2 workspace 2
-bindsym mod4+3 workspace 3
-bindsym mod4+4 workspace 4
-bindsym mod4+5 workspace 5
-bindsym mod4+6 workspace 6
-bindsym mod4+7 workspace 7
-bindsym mod4+8 workspace 8
-bindsym mod4+9 workspace 9
-bindsym mod4+0 workspace 10
+bindsym $mod+1 workspace 1
+bindsym $mod+2 workspace 2
+bindsym $mod+3 workspace 3
+bindsym $mod+4 workspace 4
+bindsym $mod+5 workspace 5
+bindsym $mod+6 workspace 6
+bindsym $mod+7 workspace 7
+bindsym $mod+8 workspace 8
+bindsym $mod+9 workspace 9
+bindsym $mod+0 workspace 10
 bindsym Control+Mod1+Up exec ~/.config/i3/workspace_up
 bindsym Control+Mod1+Down exec ~/.config/i3/workspace_down
 bindsym Control+Mod1+Right exec ~/.config/i3/workspace_right
@@ -140,7 +140,6 @@ bindsym $mod+Shift+c reload
 bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
-bindsym mod4+l exec "i3-nagbar -t warning -m 'You pressed the lock shortcut. Do you really want to lock i3?' -b 'Yes' 'exec i3lock'"
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -191,9 +190,12 @@ bindsym $mod+r exec "~/.config/i3/notify 'Resize Mode'; i3-msg mode resize"
 #}
 
 exec --no-startup-id nitrogen --restore &
-exec --no-startup-id cairo-compmgr &
+exec --no-startup-id compton &
 exec --no-startup-id guake &
 exec --no-startup-id xfce4-panel &
+exec --no-startup-id nm-applet &
+#exec --no-startup-id dunst &
 exec --no-startup-id xfce4-power-manager &
 exec --no-startup-id synclient HorizTwoFingerScroll=1
 exec --no-startup-id synclient TapButton1=1
+exec --no-startup-id setxkbmap -option caps:escape
