@@ -9,6 +9,7 @@ for f in $files; do
 		local_location=$(echo $f | tr ":" " " | awk '{print$2}')
 		if [ -e $original_location ]; then #make sure it exists
 			if [ -d $orginal_location ]; then #it is a directory
+				rm -rf $save_dir/$local_location
 				cp -r $original_location $save_dir/$local_location
 				echo Copied $original_location
 			else #it is a normal file
