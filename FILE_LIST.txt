@@ -4,3 +4,4 @@ $HOME/.zshrc:zshrc
 $HOME/.config/i3:i3
 $HOME/.oh-my-zsh:oh-my-zsh
 $HOME/.pekwm:pekwm
+$HOME/.zsh-syntax-highlighting:zsh-syntax-highlighting

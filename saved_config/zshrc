@@ -90,7 +90,7 @@ alias sl='ls'
 alias :q='exit'
 alias leafpad='gedit'
 alias viewnetwork='sudo arp-scan --interface=wlp2s0 --localnet'
-source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source $HOME/.zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 function findprocess {
   if [ -z "$1" ]; then
