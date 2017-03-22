@@ -1,6 +1,6 @@
-/home/$USER/.vimrc:vimrc
-/home/$USER/.bashrc:bashrc
-/home/$USER/.zshrc:zshrc
-/home/$USER/.config/i3:i3
-/home/$USER/.oh-my-zsh:oh-my-zsh
-/home/$USER/.pekwm:pekwm
+$HOME/.vimrc:vimrc
+$HOME/.bashrc:bashrc
+$HOME/.zshrc:zshrc
+$HOME/.config/i3:i3
+$HOME/.oh-my-zsh:oh-my-zsh
+$HOME/.pekwm:pekwm

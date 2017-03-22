@@ -1,9 +1,19 @@
 #
 # ~/.bashrc
 #
-export ANDROID_HOME=/opt/android-sdk
+if [ -d '/opt/android-sdk' ]; then
+	export ANDROID_HOME=/opt/android-sdk
+fi
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
 alias ls='ls --color=auto'
 PS1='[\u@\h \W]\$ '
+
+SHELL=`which zsh`
+if [ ! -z $SHELL ]; then
+	export SHELL=`which zsh`
+	exec $SHELL
+else
+	echo "Sorry, zsh is not installed on this system."
+fi
