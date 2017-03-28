@@ -1,4 +1,4 @@
-HOME/.vimrc:vimrc
+$HOME/.vimrc:vimrc
 $HOME/.bashrc:bashrc
 $HOME/.zshrc:zshrc
 $HOME/.config/i3:i3

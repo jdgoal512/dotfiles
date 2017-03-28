@@ -22,17 +22,16 @@ set undofile
 set undolevels=5000
 set pastetoggle=<F2>
 set magic "Something cool? (Regular expressions?)"
-"set foldmethod=syntax
+set viminfo='100,<500,s50
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
 
 "Makes you be able to move around on wrapping lines
 noremap j gj
 noremap k gk
-set viminfo='100,<500,s50
 map <F3> :UndotreeToggle
-
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
+cmap w!! w !sudo tee > /dev/null %
 
 let g:syntatic_always_populate_loc_list = 1
 let g:syntatic_auto_loc_list = 1
