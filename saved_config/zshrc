@@ -90,6 +90,7 @@ alias sl='ls'
 alias :q='exit'
 alias leafpad='gedit'
 alias viewnetwork='sudo arp-scan --interface=wlp2s0 --localnet'
+alias getip="ifconfig | grep inet | grep broadcast | awk "\''{print$2}'\'
 source $HOME/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 function findprocess {

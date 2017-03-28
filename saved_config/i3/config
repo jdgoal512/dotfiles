@@ -50,10 +50,10 @@ for_window [class="^.*"] border pixel 3
 # bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
 
 # change focus
-bindsym $mod+j focus left
-bindsym $mod+k focus down
-bindsym $mod+l focus up
-bindsym $mod+semicolon focus right
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
 bindsym mod4+Tab focus right 
 
 # alternatively, you can use the cursor keys:
@@ -75,7 +75,7 @@ bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
 # split in horizontal orientation
-bindsym $mod+h split h
+bindsym $mod+b split h
 
 # split in vertical orientation
 bindsym $mod+v split v
@@ -116,6 +116,10 @@ bindsym Control+Mod1+Up exec ~/.config/i3/workspace_up
 bindsym Control+Mod1+Down exec ~/.config/i3/workspace_down
 bindsym Control+Mod1+Right exec ~/.config/i3/workspace_right
 bindsym Control+Mod1+Left exec ~/.config/i3/workspace_left
+bindsym Control+Mod1+k exec ~/.config/i3/workspace_up
+bindsym Control+Mod1+j exec ~/.config/i3/workspace_down
+bindsym Control+Mod1+l exec ~/.config/i3/workspace_right
+bindsym Control+Mod1+h exec ~/.config/i3/workspace_left
 bindsym $mod+Tab workspace next 
 
 # move focused container to workspace
@@ -133,6 +137,10 @@ bindsym Control+Shift+Mod1+Up exec ~/.config/i3/shift_workspace_up
 bindsym Control+Shift+Mod1+Down exec ~/.config/i3/shift_workspace_down
 bindsym Control+Shift+Mod1+Right exec ~/.config/i3/shift_workspace_right
 bindsym Control+Shift+Mod1+Left exec ~/.config/i3/shift_workspace_left
+bindsym Control+Shift+Mod1+k exec ~/.config/i3/shift_workspace_up
+bindsym Control+Shift+Mod1+j exec ~/.config/i3/shift_workspace_down
+bindsym Control+Shift+Mod1+l exec ~/.config/i3/shift_workspace_right
+bindsym Control+Shift+Mod1+h exec ~/.config/i3/shift_workspace_left
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
@@ -149,10 +157,10 @@ mode "resize" {
         # Pressing right will grow the window’s width.
         # Pressing up will shrink the window’s height.
         # Pressing down will grow the window’s height.
-        bindsym j resize shrink width 10 px or 10 ppt
-        bindsym k resize grow height 10 px or 10 ppt
-        bindsym l resize shrink height 10 px or 10 ppt
-        bindsym semicolon resize grow width 10 px or 10 ppt
+        bindsym h resize shrink width 10 px or 10 ppt
+        bindsym j resize grow height 10 px or 10 ppt
+        bindsym k resize shrink height 10 px or 10 ppt
+        bindsym l resize grow width 10 px or 10 ppt
 
         # same bindings, but for the arrow keys
         bindsym Left resize shrink width 10 px or 10 ppt
@@ -170,6 +178,15 @@ mode "resize" {
         bindsym Control+Mod1+Right exec ~/.config/i3/notify "You are in resize mode"
         bindsym Control+Mod1+Left exec ~/.config/i3/notify "You are in resize mode"
         bindsym Control+$mod+q exec ~/.config/i3/notify "You are in resize mode"
+        bindsym Control+Shift+Mod1+k exec ~/.config/i3/notify "You are in resize mode"
+        bindsym Control+Shift+Mod1+j exec ~/.config/i3/notify "You are in resize mode"
+        bindsym Control+Shift+Mod1+h exec ~/.config/i3/notify "You are in resize mode"
+        bindsym Control+Shift+Mod1+l exec ~/.config/i3/notify "You are in resize mode"
+        bindsym Control+Mod1+k exec ~/.config/i3/notify "You are in resize mode"
+        bindsym Control+Mod1+j exec ~/.config/i3/notify "You are in resize mode"
+        bindsym Control+Mod1+l exec ~/.config/i3/notify "You are in resize mode"
+        bindsym Control+Mod1+h exec ~/.config/i3/notify "You are in resize mode"
+        bindsym Control+$mod+q exec ~/.config/i3/notify "You are in resize mode"
 
         # back to normal: Enter or Escape
         #bindsym Return mode "default"
@@ -182,21 +199,13 @@ mode "resize" {
 #bindsym $mod+r mode "resize"
 bindsym $mod+r exec "~/.config/i3/notify 'Resize Mode'; i3-msg mode resize"
 
-# Start i3bar to display a workspace bar (plus the system information i3status
-# finds out, if available)
-#bar {
-#        status_command i3status
-	#position top
-#}
-
 exec --no-startup-id nitrogen --restore &
-#exec --no-startup-id compton &
-exec --no-startup-id cairo-compmgr &
+exec --no-startup-id compton &
 exec --no-startup-id guake &
 exec --no-startup-id xfce4-panel &
 exec --no-startup-id nm-applet &
-#exec --no-startup-id dunst &
 exec --no-startup-id xfce4-power-manager &
 exec --no-startup-id synclient HorizTwoFingerScroll=1
 exec --no-startup-id synclient TapButton1=1
 exec --no-startup-id setxkbmap -option caps:escape
+exec --no-startup-id setxkbmap -option shift:both_capslock
