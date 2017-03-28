@@ -200,6 +200,7 @@ mode "resize" {
 bindsym $mod+r exec "~/.config/i3/notify 'Resize Mode'; i3-msg mode resize"
 
 exec --no-startup-id nitrogen --restore &
+#exec --no-startup-id compton &
 exec --no-startup-id compton &
 exec --no-startup-id guake &
 exec --no-startup-id xfce4-panel &
