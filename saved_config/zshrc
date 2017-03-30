@@ -91,23 +91,12 @@ alias :q='exit'
 alias leafpad='gedit'
 alias viewnetwork='sudo arp-scan --interface=wlp2s0 --localnet'
 alias getip="ifconfig | grep inet | grep broadcast | awk "\''{print$2}'\'
+function cd {
+	new_directory="$*";
+	if [ $# -eq 0 ]; then 
+		new_directory=${HOME};
+	fi;
+	builtin cd $new_directory
+	ls
+}
 source $HOME/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-
-function findprocess {
-  if [ -z "$1" ]; then
-    echo usage: $0 keyword
-  else
-    PROCESSES=`ps -a | grep $1 | awk '{print $1}'`
-    for A in $PROCESSES; do
-      echo $A
-    done
-  fi
-}
-
-function search {
-  if [ -z "$1" ]; then
-    echo usage: $0 keyword
-  else
-    grep -R "$1"
-  fi
-}
