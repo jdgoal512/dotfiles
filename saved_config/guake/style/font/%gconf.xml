@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<gconf>
+	<entry name="palette_name" mtime="1483812930" type="string">
+		<stringvalue>Teerb</stringvalue>
+	</entry>
+	<entry name="palette" mtime="1483812930" type="string">
+		<stringvalue>#1C1C1C1C1C1C:#D6D686868686:#AEAED6D68686:#D7D7AFAF8787:#8686AEAED6D6:#D6D6AEAED6D6:#8A8ADBDBB4B4:#D0D0D0D0D0D0:#1C1C1C1C1C1C:#D6D686868686:#AEAED6D68686:#E4E4C9C9AFAF:#8686AEAED6D6:#D6D6AEAED6D6:#B1B1E7E7DDDD:#EFEFEFEFEFEF:#D0D0D0D0D0D0:#262626262626</stringvalue>
+	</entry>
+	<entry name="allow_bold" mtime="1483812930" type="bool" value="true"/>
+</gconf>

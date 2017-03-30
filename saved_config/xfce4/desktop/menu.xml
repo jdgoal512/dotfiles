@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xfdesktop-menu []>
+<xfdesktop-menu>
+<title name="Desktop Menu"/>
+<separator/>
+<menu name="Development">
+    <app name="Android SDK" cmd="android"/>
+    <app name="Android Studio" cmd="android-studio"/>
+    <app name="ArgoUML" cmd="argouml"/>
+    <app name="DB Browser for SQLite" cmd="sqlitebrowser"/>
+    <app name="Electron" cmd="electron"/>
+    <app name="Fluid" cmd="fluid"/>
+    <app name="Geany" cmd="geany"/>
+    <app name="Gendarme" cmd="gendarme-wizard"/>
+    <app name="GHex" cmd="ghex"/>
+    <app name="gsharp" cmd="gsharp"/>
+    <app name="Java Mission Control" cmd="jmc"/>
+    <app name="Java Monitoring and Management Console" cmd="jconsole"/>
+    <app name="Java VisualVM" cmd="jvisualvm"/>
+    <app name="Mono Documentation" cmd="monodoc"/>
+    <app name="MonoDevelop" cmd="monodevelop"/>
+    <app name="Qt Assistant" cmd="assistant"/>
+    <app name="Qt Designer" cmd="designer"/>
+    <app name="Qt Linguist" cmd="linguist"/>
+    <app name="Qt QDbusViewer" cmd="qdbusviewer"/>
+    <app name="Qt4 Assistant" cmd="assistant-qt4"/>
+    <app name="Qt4 Designer" cmd="designer-qt4"/>
+    <app name="Qt4 Linguist" cmd="linguist-qt4"/>
+    <app name="Qt4 QDbusViewer" cmd="qdbusviewer-qt4"/>
+</menu>
+<menu name="Editors">
+    <app name="Emacs" cmd="emacs" term="true"/>
+    <app name="GVim" cmd="gvim"/>
+    <app name="Nano" cmd="nano" term="true"/>
+    <app name="Sublime Text" cmd="subl"/>
+    <app name="Text Editor" cmd="gedit"/>
+    <app name="Vi" cmd="vi" term="true"/>
+    <app name="Vim" cmd="vim" term="true"/>
+</menu>
+<menu name="Education">
+    <app name="Matlab" cmd="matlab"/>
+    <app name="Mnemosyne" cmd="mnemosyne"/>
+</menu>
+<menu name="Games">
+    <menu name="Adventure">
+        <app name="Cave Story" cmd="doukutsu"/>
+        <app name="Cave Story Configuration" cmd="doukutsu -c"/>
+    </menu>
+    <menu name="Arcade">
+        <app name="nsnake" cmd="nsnake" term="true"/>
+    </menu>
+    <menu name="Card">
+        <app name="AisleRiot Solitaire" cmd="sol"/>
+        <app name="Hearts" cmd="gnome-hearts"/>
+    </menu>
+    <app name="ASCIIpOrtal" cmd="asciiportal"/>
+    <app name="Minecraft" cmd="minecraft"/>
+    <app name="PlayOnLinux" cmd="playonlinux"/>
+    <app name="RoboCode" cmd="robocode"/>
+</menu>
+<menu name="Graphics">
+    <app name="GNU Image Manipulation Program" cmd="gimp-2.8"/>
+    <app name="Image Viewer" cmd="gpicview"/>
+    <app name="Inkscape" cmd="inkscape"/>
+    <app name="Krita KDE Bitmap Graphics Editor" cmd="krita"/>
+    <app name="Scribus" cmd="scribus"/>
+    <app name="xgps" cmd="xgps"/>
+    <app name="xgpsspeed" cmd="xgpsspeed"/>
+</menu>
+<menu name="Multimedia">
+    <app name="Audio Mixer" cmd="xfce4-mixer"/>
+    <app name="Cheese" cmd="cheese"/>
+    <app name="DeaDBeeF" cmd="deadbeef"/>
+    <app name="GNOME ALSA Mixer" cmd="gnome-alsamixer"/>
+    <app name="LXMusic simple music player" cmd="lxmusic"/>
+    <app name="Pithos" cmd="pithos"/>
+    <app name="PulseAudio Volume Control" cmd="pavucontrol"/>
+    <app name="Qt V4L2 test Utility" cmd="qv4l2"/>
+    <app name="VLC media player" cmd="vlc"/>
+</menu>
+<menu name="Network">
+    <app name="Avahi SSH Server Browser" cmd="bssh"/>
+    <app name="Avahi VNC Server Browser" cmd="bvnc"/>
+    <app name="Citrix Receiver" cmd="/home/jdgoal512/ICAClient/linuxx86/wfcmgr -icaroot /home/jdgoal512/ICAClient/linuxx86"/>
+    <app name="Dropbox" cmd="dropbox"/>
+    <app name="FileZilla" cmd="filezilla"/>
+    <app name="FireFox" cmd="firefox"/>
+    <app name="FTP" cmd="ftp" term="true"/>
+    <app name="Google Chrome (beta)" cmd="google-chrome-beta"/>
+    <app name="Links" cmd="links" term="true"/>
+    <app name="Links" cmd="xlinks -g"/>
+    <app name="Mail" cmd="mail" term="true"/>
+    <app name="Mail Reader" cmd="exo-open --launch MailReader"/>
+    <app name="Netctl GUI" cmd="netctl-gui"/>
+    <app name="Opera" cmd="opera"/>
+    <app name="Remote Desktop Viewer" cmd="vinagre"/>
+    <app name="Slack" cmd="slack"/>
+    <app name="Steam (Native)" cmd="steam-native"/>
+    <app name="Steam (Runtime)" cmd="steam-runtime"/>
+    <app name="Talk" cmd="talk" term="true"/>
+    <app name="Telnet" cmd="telnet" term="true"/>
+    <app name="TigerVNC Viewer" cmd="vncviewer"/>
+    <app name="Vivaldi" cmd="vivaldi-stable"/>
+    <app name="Web Browser" cmd="exo-open --launch WebBrowser"/>
+    <app name="Wireshark (GTK+)" cmd="wireshark-gtk"/>
+    <app name="Zenmap" cmd="zenmap"/>
+    <app name="Zenmap (as root)" cmd="/usr/share/zenmap/su-to-zenmap.sh"/>
+</menu>
+<menu name="Office">
+    <app name="Document Viewer" cmd="evince"/>
+    <app name="LibreOffice Impress" cmd="libreoffice"/>
+    <app name="Zotero" cmd="zotero"/>
+</menu>
+<menu name="Science">
+    <app name="SMath Studio" cmd="smath"/>
+    <app name="XMaxima" cmd="xmaxima" term="true"/>
+</menu>
+<menu name="Shells">
+    <app name="File Manager PCManFM" cmd="pcmanfm"/>
+    <app name="GIT" cmd="git" term="true"/>
+    <app name="Guake Terminal" cmd="guake"/>
+    <app name="LXTerminal" cmd="lxterminal"/>
+    <app name="MC" cmd="mc" term="true"/>
+    <app name="Oracle VM VirtualBox" cmd="VirtualBox"/>
+    <app name="Qemu Launcher" cmd="qemu-launcher"/>
+    <app name="Root Terminal" cmd="gksu -l gnome-terminal"/>
+    <app name="Thunar File Manager" cmd="thunar"/>
+    <app name="UXTerm" cmd="uxterm"/>
+    <app name="Xfce Terminal" cmd="xfce4-terminal"/>
+    <app name="Xterm" cmd="xterm"/>
+</menu>
+<menu name="System">
+    <menu name="Settings">
+        <menu name="GNOME">
+            <app name="Adobe Flash Player" cmd="flash-player-properties"/>
+            <app name="Bluetooth" cmd="blueberry"/>
+            <app name="Bluetooth Manager" cmd="blueman-manager"/>
+            <app name="Graphics Tablet" cmd="cinnamon-settings wacom"/>
+            <app name="Guake Preferences" cmd="guake-prefs"/>
+            <app name="Network Connections" cmd="nm-connection-editor"/>
+            <app name="Pointing devices" cmd="gpointing-device-settings"/>
+            <app name="Privilege granting" cmd="gksu-properties"/>
+        </menu>
+        <menu name="Xfce">
+            <app name="Bluetooth Adapters" cmd="blueman-adapters"/>
+            <app name="Settings Manager" cmd="xfce4-settings-manager"/>
+        </menu>
+        <app name="Accessibility" cmd="cinnamon-settings universal-access"/>
+        <app name="Accessibility" cmd="xfce4-accessibility-settings"/>
+        <app name="Account details" cmd="cinnamon-settings user"/>
+        <app name="Appearance" cmd="xfce4-appearance-settings"/>
+        <app name="Applets" cmd="cinnamon-settings applets"/>
+        <app name="Backgrounds" cmd="cinnamon-settings backgrounds"/>
+        <app name="Color" cmd="cinnamon-settings color"/>
+        <app name="Customize Look and Feel" cmd="lxappearance"/>
+        <app name="Date &amp; Time" cmd="cinnamon-settings calendar"/>
+        <app name="Default applications for LXSession" cmd="lxsession-default-apps"/>
+        <app name="Desklets" cmd="cinnamon-settings desklets"/>
+        <app name="Desktop" cmd="cinnamon-settings desktop"/>
+        <app name="Desktop" cmd="xfdesktop-settings"/>
+        <app name="Desktop Preferences" cmd="pcmanfm --desktop-pref"/>
+        <app name="Desktop Session Settings" cmd="lxsession-edit"/>
+        <app name="Display" cmd="xfce4-display-settings"/>
+        <app name="Display" cmd="cinnamon-settings display"/>
+        <app name="Effects" cmd="cinnamon-settings effects"/>
+        <app name="Extensions" cmd="cinnamon-settings extensions"/>
+        <app name="File Manager" cmd="thunar-settings"/>
+        <app name="Fonts" cmd="cinnamon-settings fonts"/>
+        <app name="General" cmd="cinnamon-settings general"/>
+        <app name="Hot Corners" cmd="cinnamon-settings hotcorner"/>
+        <app name="Java" cmd="/usr/lib/jvm/java-8-jre/jre/bin/jcontrol"/>
+        <app name="Java Policy Settings" cmd="/usr/lib/jvm/java-8-jre/jre/bin/policytool"/>
+        <app name="Keyboard" cmd="cinnamon-settings keyboard"/>
+        <app name="Keyboard" cmd="xfce4-keyboard-settings"/>
+        <app name="Keyboard and Mouse" cmd="lxinput"/>
+        <app name="Manage Printing" cmd="xdg-open http://localhost:631/"/>
+        <app name="MIME Type Editor" cmd="xfce4-mime-settings"/>
+        <app name="Monitor Settings" cmd="lxrandr"/>
+        <app name="Mouse and Touchpad" cmd="xfce4-mouse-settings"/>
+        <app name="Mouse and Touchpad" cmd="cinnamon-settings mouse"/>
+        <app name="Network" cmd="cinnamon-settings network"/>
+        <app name="nitrogen" cmd="nitrogen"/>
+        <app name="Notifications" cmd="cinnamon-settings notifications"/>
+        <app name="Panel" cmd="xfce4-panel --preferences"/>
+        <app name="Panel" cmd="cinnamon-settings panel"/>
+        <app name="Power Management" cmd="cinnamon-settings power"/>
+        <app name="Power Manager" cmd="xfce4-power-manager-settings"/>
+        <app name="Preferred Applications" cmd="exo-preferred-applications"/>
+        <app name="Preferred Applications" cmd="libfm-pref-apps"/>
+        <app name="Preferred Applications" cmd="cinnamon-settings default"/>
+        <app name="Privacy" cmd="cinnamon-settings privacy"/>
+        <app name="Removable Drives and Media" cmd="thunar-volman-settings"/>
+        <app name="Screensaver" cmd="cinnamon-settings screensaver"/>
+        <app name="Session and Startup" cmd="xfce4-session-settings"/>
+        <app name="Settings Editor" cmd="xfce4-settings-editor"/>
+        <app name="Sound" cmd="cinnamon-settings sound"/>
+        <app name="Startup Applications" cmd="cinnamon-settings startup"/>
+        <app name="System Info" cmd="cinnamon-settings info"/>
+        <app name="System Settings" cmd="cinnamon-settings"/>
+        <app name="Themes" cmd="cinnamon-settings themes"/>
+        <app name="Users and Groups" cmd="cinnamon-settings-users"/>
+        <app name="Window Manager" cmd="xfwm4-settings"/>
+        <app name="Window Manager Tweaks" cmd="xfwm4-tweaks-settings"/>
+        <app name="Window Tiling" cmd="cinnamon-settings tiling"/>
+        <app name="Windows" cmd="cinnamon-settings windows"/>
+        <app name="Workspaces" cmd="cinnamon-settings workspaces"/>
+        <app name="Workspaces" cmd="xfwm4-workspace-settings"/>
+    </menu>
+    <app name="Avahi Zeroconf Browser" cmd="avahi-discover"/>
+    <app name="Bulk Rename" cmd="/usr/lib/Thunar/ThunarBulkRename"/>
+    <app name="Cairo Composite Manager" cmd="cairo-compmgr"/>
+    <app name="Cairo-Dock" cmd="cairo-dock"/>
+    <app name="Cairo-Dock (Fallback Mode)" cmd="cairo-dock -A"/>
+    <app name="Color Profile Viewer" cmd="gcm-viewer"/>
+    <app name="dconf Editor" cmd="dconf-editor"/>
+    <app name="GParted" cmd="gparted_polkit"/>
+    <app name="Hardware Locality lstopo" cmd="lstopo"/>
+    <app name="Htop" cmd="htop" term="true"/>
+    <app name="Log Out" cmd="xfce4-session-logout"/>
+    <app name="NmapSI4 - User mode" cmd="nmapsi4"/>
+    <app name="Power Statistics" cmd="gnome-power-statistics"/>
+    <app name="Settings" cmd="gnome-control-center --overview"/>
+    <app name="Task Manager" cmd="lxtask"/>
+    <app name="Xsensors" cmd="xsensors"/>
+</menu>
+<menu name="Utilities">
+    <app name="About Xfce" cmd="xfce4-about"/>
+    <app name="Application Finder" cmd="xfce4-appfinder"/>
+    <app name="Calculator" cmd="gnome-calculator"/>
+    <app name="compton" cmd="compton --xrender-sync-fence"/>
+    <app name="File Manager" cmd="exo-open --launch FileManager"/>
+    <app name="GNOME Do" cmd="gnome-do"/>
+    <app name="Nemo" cmd="nemo"/>
+    <app name="Run Program..." cmd="xfce4-appfinder --collapsed"/>
+    <app name="Screenshot" cmd="xfce4-screenshooter"/>
+    <app name="Screenshot" cmd="gnome-screenshot --interactive"/>
+    <app name="Solaar" cmd="solaar"/>
+    <app name="SpeedCrunch" cmd="speedcrunch"/>
+    <app name="Terminal Emulator" cmd="exo-open --launch TerminalEmulator"/>
+    <app name="Winetricks" cmd="winetricks --gui"/>
+    <app name="Xarchiver" cmd="xarchiver"/>
+</menu>
+<separator/>
+<menu name="Xfce">
+    <app name="About" cmd="xfce4-about"/>
+    <separator/>
+    <builtin name="Quit" cmd="quit"/>
+</menu>
+</xfdesktop-menu>

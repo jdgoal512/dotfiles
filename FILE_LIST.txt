@@ -4,3 +4,6 @@ $HOME/.zshrc:zshrc
 $HOME/.config/i3:i3
 $HOME/.zsh:zsh
 $HOME/.pekwm:pekwm
+$HOME/.config/gconf/apps/guake:guake
+$HOME/.config/xfce4:xfce4
+$HOME/.config/lxterminal:lxterminal
