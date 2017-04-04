@@ -1,6 +1,7 @@
 #
 # ~/.bashrc
 #
+export EDITOR=/usr/bin/vim
 if [ -d '/opt/android-sdk' ]; then
 	export ANDROID_HOME=/opt/android-sdk
 fi
