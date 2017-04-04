@@ -100,3 +100,4 @@ function cd {
 	ls
 }
 source $HOME/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+export MAKEFLAGS="-j$(expr $(nproc) \+ 1)"
