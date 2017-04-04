@@ -54,7 +54,7 @@ bindsym $mod+h focus left
 bindsym $mod+j focus down
 bindsym $mod+k focus up
 bindsym $mod+l focus right
-bindsym mod4+Tab focus right 
+#bindsym mod4+Tab focus right 
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Left focus left
@@ -121,6 +121,7 @@ bindsym Control+Mod1+j exec ~/.config/i3/workspace_down
 bindsym Control+Mod1+l exec ~/.config/i3/workspace_right
 bindsym Control+Mod1+h exec ~/.config/i3/workspace_left
 bindsym $mod+Tab workspace next 
+bindsym mod4+Tab exec ~/.config/i3/to_other_desktop
 
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace 1
