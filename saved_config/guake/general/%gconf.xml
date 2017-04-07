@@ -6,8 +6,8 @@
 	</entry>
 	<entry name="open_tab_cwd" mtime="1483812930" type="bool" value="true"/>
 	<entry name="use_login_shell" mtime="1473380557" type="bool" value="false"/>
-	<entry name="window_height_f" mtime="1490311113" type="float" value="44.270833333333336"/>
-	<entry name="window_height" mtime="1490311113" type="int" value="44"/>
+	<entry name="window_height_f" mtime="1491423487" type="float" value="42.96875"/>
+	<entry name="window_height" mtime="1491423487" type="int" value="42"/>
 	<entry name="compat_delete" mtime="1483812930" type="string">
 		<stringvalue>delete-sequence</stringvalue>
 	</entry>

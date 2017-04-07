@@ -97,8 +97,21 @@ function cd {
 	if [ $# -eq 0 ]; then 
 		new_directory=${HOME};
 	fi;
-	builtin cd $new_directory
-	ls
+	if [ $1 = cd ] && [ ! -z $2 ]; then
+		builtin cd $2 2>/dev/null
+		if [ $? -eq 0 ]; then
+			ls
+		else
+			echo no such file or directory: $2
+		fi
+	else
+		builtin cd $new_directory 2>/dev/null
+		if [ $? -eq 0 ]; then
+			ls
+		else
+			echo no such file or directory: $1
+		fi
+	fi
 }
 source $HOME/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 export MAKEFLAGS="-j$(expr $(nproc) \+ 1)"
