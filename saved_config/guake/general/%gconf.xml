@@ -1,7 +1,19 @@
 <?xml version="1.0"?>
 <gconf>
+<<<<<<< HEAD
 	<entry name="window_height" mtime="1487788711" type="int" value="-2"/>
 	<entry name="compat_delete" mtime="1492105509" type="string">
+=======
+	<entry name="abbreviate_tab_names" mtime="1483812930" type="bool" value="false"/>
+	<entry name="default_shell" mtime="1483812930" type="string">
+		<stringvalue>/usr/bin/zsh</stringvalue>
+	</entry>
+	<entry name="open_tab_cwd" mtime="1483812930" type="bool" value="true"/>
+	<entry name="use_login_shell" mtime="1473380557" type="bool" value="false"/>
+	<entry name="window_height_f" mtime="1491423487" type="float" value="42.96875"/>
+	<entry name="window_height" mtime="1491423487" type="int" value="42"/>
+	<entry name="compat_delete" mtime="1483812930" type="string">
+>>>>>>> 8b42dfac4f3c59faefed504e190bb2986a9da0ed
 		<stringvalue>delete-sequence</stringvalue>
 	</entry>
 	<entry name="compat_backspace" mtime="1492105509" type="string">

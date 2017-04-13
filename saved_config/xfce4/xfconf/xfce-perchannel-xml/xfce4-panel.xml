@@ -50,7 +50,6 @@
     </property>
     <property name="plugin-7" type="string" value="launcher">
       <property name="items" type="array">
-        <value type="string" value="14860149723.desktop"/>
       </property>
     </property>
     <property name="plugin-8" type="string" value="mixer">
