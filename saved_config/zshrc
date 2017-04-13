@@ -92,6 +92,7 @@ alias :q='exit'
 alias leafpad='gedit'
 alias viewnetwork='sudo arp-scan --interface=wlp2s0 --localnet'
 alias getip="ifconfig | grep inet | grep broadcast | awk "\''{print$2}'\'
+alias cat="highlight -O ansi --stdout --force"
 function cd {
 	new_directory="$*";
 	if [ $# -eq 0 ]; then 
@@ -102,3 +103,9 @@ function cd {
 }
 source $HOME/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 export MAKEFLAGS="-j$(expr $(nproc) \+ 1)"
+
+PATH="/home/jdgoal512/perl5/bin${PATH:+:${PATH}}"; export PATH;
+PERL5LIB="/home/jdgoal512/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
+PERL_LOCAL_LIB_ROOT="/home/jdgoal512/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
+PERL_MB_OPT="--install_base \"/home/jdgoal512/perl5\""; export PERL_MB_OPT;
+PERL_MM_OPT="INSTALL_BASE=/home/jdgoal512/perl5"; export PERL_MM_OPT;

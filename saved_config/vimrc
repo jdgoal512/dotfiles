@@ -9,6 +9,7 @@ Plugin 'scrooloose/nerdcommenter'
 Plugin 'mbbill/undotree'
 Plugin 'scrooloose/syntastic'
 Plugin 'Valloric/YouCompleteMe'
+Plugin 'altercation/vim-colors-solarized'
 
 call vundle#end()
 
@@ -26,6 +27,7 @@ set viminfo='100,<500,s50
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
+color elflord
 
 "Makes you be able to move around on wrapping lines
 noremap j gj
