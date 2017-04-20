@@ -1,6 +1,7 @@
 $HOME/.vimrc:vimrc
 $HOME/.bashrc:bashrc
 $HOME/.zshrc:zshrc
+$HOME/.gitconfig:gitconfig
 $HOME/.config/i3:i3
 $HOME/.zsh:zsh
 $HOME/.pekwm:pekwm
