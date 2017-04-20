@@ -1,0 +1,17 @@
+[user]
+	email = jonathandgleason@gmail.com
+	name = jdgoal512
+[core]
+	editor = vim
+	autocrlf = input
+[diff]
+	tool = meld
+[difftool]
+	tool = meld
+[difftool "meld"]
+	cmd = meld "$LOCAL" "$REMOTE"
+
+[merge]
+    tool = meld
+[mergetool "meld"]
+    cmd = meld "$LOCAL" "$BASE" "$REMOTE" --output "$MERGED"
