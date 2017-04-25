@@ -93,6 +93,7 @@ alias leafpad='gedit'
 alias viewnetwork='sudo arp-scan --interface=wlp2s0 --localnet'
 alias getip="ifconfig | grep inet | grep broadcast | awk "\''{print$2}'\'
 alias cat="highlight -O ansi --stdout --force"
+alias sc='systemctl'
 function cd {
 	new_directory="$*";
 	if [ $# -eq 0 ]; then 
