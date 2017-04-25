@@ -96,7 +96,11 @@ alias :q='exit'
 alias leafpad='gedit'
 alias viewnetwork='sudo arp-scan --interface=wlp2s0 --localnet'
 alias getip="ifconfig | grep inet | grep broadcast | awk "\''{print$2}'\'
-alias cat="highlight -O ansi --stdout --force"
+
+if [ ! -z `which hightlight 2>/dev/null` ]; then
+	alias cat="highlight -O ansi --stdout --force"
+fi
+
 alias sc='systemctl'
 function cd {
 	new_directory="$*";
