@@ -8,7 +8,11 @@
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="eastwood"
+if [ $UID -ne 0 ]; then
+	ZSH_THEME="eastwood"
+else
+	ZSH_THEME="clean"
+fi
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
