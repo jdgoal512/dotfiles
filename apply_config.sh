@@ -11,10 +11,11 @@ for f in $files; do
 		if [ -e $save_dir/$local_location ]; then #make sure it exists
 			if [ -d $save_dir/$local_location ]; then #it is a directory
 				rm -rf $original_location
-				cp -r $save_dir/$local_location $original_location
+				ln -s `pwd`/$save_dir/$local_location $original_location
 				echo Applied $original_location
 			else #it is a normal file
-				cp $save_dir/$local_location $original_location
+				rm $original_location
+				ln -s `pwd`/$save_dir/$local_location $original_location
 				echo Applied $original_location
 			fi
 		else
