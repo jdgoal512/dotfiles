@@ -13,7 +13,7 @@ printf "[0;34mUptime:[0;37m "
 uptime -p | sed -e 's/^...//' | xargs echo -n
 printf "\n    [2;36m/###.   .###\     "
 printf "[0;34mDisk usage:[0;37m "
-df -h -t ext4 | grep / | awk '{print $3 "b / " $4 "b"}' | sed -r 's/([0-9])([a-zA-Z])/\1 \2/g; s/([a-zA-Z])([0-9])/\1 \2/g' | xargs echo -n
+df -h -t ext4 2>&1 | grep / | awk '{print $3 "b / " $4 "b"}' | sed -r 's/([0-9])([a-zA-Z])/\1 \2/g; s/([a-zA-Z])([0-9])/\1 \2/g; /^$/d' | xargs echo -n
 printf "\n   [2;36m/#'         '#\    "
 printf "[0;34mRam:[0;37m "
 free -h | grep Mem | awk '{print $3 "b / " $2 "b"}' | sed -r 's/([0-9])([a-zA-Z])/\1 \2/g; s/([a-zA-Z])([0-9])/\1 \2/g' | xargs echo -n
