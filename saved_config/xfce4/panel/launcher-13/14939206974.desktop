@@ -1,0 +1,14 @@
+[Desktop Entry]
+Name=LXTerminal
+GenericName=Terminal
+Comment=Use the command line
+TryExec=lxterminal
+Exec=lxterminal
+Icon=utilities-terminal
+Type=Application
+Categories=GTK;System;TerminalEmulator;
+Keywords=console;command line;execute;
+X-XFCE-Source=file:///usr/share/applications/lxterminal.desktop
+Path=
+Terminal=false
+StartupNotify=false
