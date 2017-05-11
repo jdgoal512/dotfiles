@@ -212,5 +212,5 @@ exec --no-startup-id nm-applet &
 exec --no-startup-id xfce4-power-manager &
 exec --no-startup-id synclient HorizTwoFingerScroll=1
 exec --no-startup-id synclient TapButton1=1
-exec --no-startup-id setxkbmap -option caps:escape
-exec --no-startup-id setxkbmap -option shift:both_capslock
+#exec --no-startup-id setxkbmap -option caps:escape
+#exec --no-startup-id setxkbmap -option shift:both_capslock
