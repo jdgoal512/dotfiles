@@ -1,8 +1,11 @@
 #!/bin/bash
 
-current_workspace=`i3-msg -t get_workspaces | jq '.[] | select(.focused==true).name' | cut -d"\"" -f2`
 
-echo $current_workspace
+monitor=$(i3-msg -t get_outputs | jq '.[] | select(.active == true and .current_workspace == '`i3-msg -t get_workspaces | jq '.[] | select(.focused==true).name'`') | .name' | cut -d"\"" -f2)
+
+current_workspace=$(i3-msg -t get_workspaces | jq '.[] | select(.focused==true).name' | cut -d"\"" -f2 | tr ':' ' ' | awk '{if(length($2) == 0) {print $1;} else {print $2;}}')
+
+echo $monitor":"$current_workspace
 
 case $current_workspace in
 	'1') new_workspace=4;;
@@ -23,5 +26,7 @@ case $current_workspace in
 		;;
 esac
 
+
+new_workspace=$monitor":"$new_workspace
 i3-msg workspace $new_workspace
 ~/.config/i3/notify "Workspace $new_workspace"

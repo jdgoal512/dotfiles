@@ -3,6 +3,7 @@ $HOME/.bashrc:bashrc
 $HOME/.zshrc:zshrc
 $HOME/.gitconfig:gitconfig
 $HOME/.config/i3:i3
+$HOME/.xinitrc:xinitrc
 $HOME/.zsh:zsh
 $HOME/.pekwm:pekwm
 $HOME/.config/gconf/apps/guake:guake

@@ -43,6 +43,9 @@ bindsym mod1+F4 kill
 bindsym $mod+d exec dmenu_run -fn 'Droid Sans Mono-12' -sb '#4B81AF'
 bindsym $mod+space exec dmenu_run -fn 'Droid Sans Mono-12' -sb '#4B81AF'
 bindsym mod4+space exec dmenu_run -fn 'Droid Sans Mono-12' -sb '#4B81AF'
+
+
+bindsym mod4+l exec i3lock
 for_window [class="^.*"] border pixel 3
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
@@ -209,5 +212,5 @@ exec --no-startup-id nm-applet &
 exec --no-startup-id xfce4-power-manager &
 exec --no-startup-id synclient HorizTwoFingerScroll=1
 exec --no-startup-id synclient TapButton1=1
-exec --no-startup-id setxkbmap -option caps:escape
-exec --no-startup-id setxkbmap -option shift:both_capslock
+#exec --no-startup-id setxkbmap -option caps:escape
+#exec --no-startup-id setxkbmap -option shift:both_capslock
