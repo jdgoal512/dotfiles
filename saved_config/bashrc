@@ -11,7 +11,7 @@ fi
 alias ls='ls --color=auto'
 PS1='[\u@\h \W]\$ '
 
-SHELL=`which zsh`
+SHELL=`which zsh 2>/dev/null`
 if [ ! -z $SHELL ]; then
 	export SHELL=`which zsh`
 	exec $SHELL
