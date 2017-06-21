@@ -13,7 +13,7 @@ printf "[0;34mUptime:[0;37m "
 uptime -p | sed -e 's/^...//' | xargs echo -n
 printf "\n    [2;36m/###.   .###\     "
 printf "[0;34mDisk usage:[0;37m "
-df -h -t ext4 -t ext3 | grep / | awk '{print "[\033[36m"$6"\033[37m "($5+0<50 ? "\033[92m" : ($5+0<75 ? "\033[33m" : "\033[31m"))$5"\033[37m "$3 "b/" $4 "b]"}' | tr '\n' ' ' 
+df -h -t ext4 -t ext3 2>&1 | grep / | awk '{print "[\033[36m"$6"\033[37m "($5+0<50 ? "\033[92m" : ($5+0<75 ? "\033[33m" : "\033[31m"))$5"\033[37m "$3 "b/" $4 "b]"}' | tr '\n' ' ' 
 printf "\n   [2;36m/#'         '#\    "
 free | grep Mem | awk '{p=$3/$2*100;printf "\033[0;34mRam: "(p<50?"\033[92m":(p<75?"\033[33m":"\033[21m")); printf "%.2f%\033[37m ", p}' | tr -d '\n'
 free -h | grep Mem | awk '{print $3 "b/" $2 "b"}' | sed -r 's/([0-9])([a-zA-Z])/\1 \2/g; s/([a-zA-Z])([0-9])/\1 \2/g' | xargs echo -n
