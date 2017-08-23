@@ -1,6 +1,3 @@
 #!/bin/bash
 
-notification_daemon="notify-osd"
-killall $notification_daemon
-
-notify-send "$@"
+twmnc --id 123 --content "$@" 

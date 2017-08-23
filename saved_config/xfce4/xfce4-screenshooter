@@ -1,8 +1,8 @@
 delay=1
-region=3
-action=1
+region=1
+action=3
 show_mouse=0
 screenshot_dir=file:/home/jdgoal512/Pictures
-app=gpicview
+app=gimp-2.8
 last_user=
 

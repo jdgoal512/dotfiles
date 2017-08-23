@@ -34,6 +34,8 @@ floating_modifier mod1
 # start a terminal
 bindsym $mod+Return exec lxterminal
 bindsym $mod+t exec thunar
+bindsym --release $mod+Escape exec xkill
+#bindsym Control+k exec ~/.config/i3/workspace_up
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -46,7 +48,11 @@ bindsym mod4+space exec dmenu_run -fn 'Droid Sans Mono-12' -sb '#4B81AF'
 
 
 bindsym mod4+l exec i3lock
-for_window [class="^.*"] border pixel 3
+#for_window [class="^.*"] border normal
+for_window [class=Lxterminal] border pixel 3
+for_window [class=Opera] border pixel 3
+for_window [class="com-sun-javaws-Main"] floating enable
+#for_window [class="^.*"] border pixel 3
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
@@ -213,5 +219,6 @@ exec --no-startup-id nm-applet &
 exec --no-startup-id xfce4-power-manager &
 exec --no-startup-id synclient HorizTwoFingerScroll=1
 exec --no-startup-id synclient TapButton1=1
+exec --no-startup-id twmnd
 #exec --no-startup-id setxkbmap -option caps:escape
 #exec --no-startup-id setxkbmap -option shift:both_capslock
