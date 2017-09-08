@@ -4,7 +4,6 @@
   <property name="configver" type="int" value="2"/>
   <property name="panels" type="array">
     <value type="int" value="1"/>
-    <value type="int" value="2"/>
     <property name="panel-1" type="empty">
       <property name="position" type="string" value="p=6;x=0;y=0"/>
       <property name="length" type="uint" value="100"/>
@@ -19,19 +18,6 @@
         <value type="int" value="6"/>
         <value type="int" value="5"/>
       </property>
-    </property>
-    <property name="panel-2" type="empty">
-      <property name="position" type="string" value="p=6;x=2640;y=25"/>
-      <property name="plugin-ids" type="array">
-        <value type="int" value="4"/>
-        <value type="int" value="12"/>
-        <value type="int" value="13"/>
-        <value type="int" value="8"/>
-        <value type="int" value="9"/>
-        <value type="int" value="10"/>
-      </property>
-      <property name="size" type="uint" value="30"/>
-      <property name="position-locked" type="bool" value="true"/>
     </property>
   </property>
   <property name="plugins" type="empty">
@@ -56,6 +42,7 @@
         <value type="string" value="networkmanager applet"/>
         <value type="string" value="pithos"/>
         <value type="string" value="guake"/>
+        <value type="string" value="steam"/>
         <value type="string" value="do"/>
         <value type="string" value="deadbeef"/>
         <value type="string" value="parcellite"/>
@@ -74,29 +61,10 @@
       </property>
     </property>
     <property name="plugin-2" type="string" value="pager"/>
-    <property name="plugin-4" type="string" value="applicationsmenu"/>
     <property name="button-icon" type="string" value="applications-system-symbolic"/>
-    <property name="plugin-8" type="string" value="separator">
-      <property name="expand" type="bool" value="true"/>
-      <property name="style" type="uint" value="0"/>
-    </property>
-    <property name="plugin-9" type="string" value="pager"/>
-    <property name="plugin-10" type="string" value="clock">
-      <property name="digital-format" type="string" value="%I:%M %p"/>
-    </property>
     <property name="plugin-11" type="string" value="launcher">
       <property name="items" type="array">
         <value type="string" value="14939205942.desktop"/>
-      </property>
-    </property>
-    <property name="plugin-12" type="string" value="launcher">
-      <property name="items" type="array">
-        <value type="string" value="14939206843.desktop"/>
-      </property>
-    </property>
-    <property name="plugin-13" type="string" value="launcher">
-      <property name="items" type="array">
-        <value type="string" value="14939206974.desktop"/>
       </property>
     </property>
   </property>
