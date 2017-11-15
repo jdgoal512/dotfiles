@@ -53,6 +53,7 @@ for_window [class=Lxterminal] border pixel 3
 for_window [class=Tilix] border pixel 3
 for_window [class=Opera] border pixel 3
 for_window [class="com-sun-javaws-Main"] floating enable
+for_window [class="VirtualBox"] floating enable
 #for_window [class="^.*"] border pixel 3
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
