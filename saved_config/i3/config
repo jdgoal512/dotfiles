@@ -50,6 +50,7 @@ bindsym mod4+space exec dmenu_run -fn 'Droid Sans Mono-12' -sb '#4B81AF'
 bindsym mod4+l exec i3lock
 #for_window [class="^.*"] border normal
 for_window [class=Lxterminal] border pixel 3
+for_window [class=Tilix] border pixel 3
 for_window [class=Opera] border pixel 3
 for_window [class="com-sun-javaws-Main"] floating enable
 #for_window [class="^.*"] border pixel 3
