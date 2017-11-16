@@ -1,5 +1,6 @@
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
+export JAVA_HOME='/usr/lib/jvm/java-8-jdk'
 
 # Path to your oh-my-zsh installation.
   export ZSH=$HOME/.zsh/oh-my-zsh
@@ -97,6 +98,7 @@ alias leafpad='gedit'
 alias viewnetwork='sudo arp-scan --interface=wlp2s0 --localnet'
 alias getip="ifconfig | grep inet | grep broadcast | awk "\''{print$2}'\'
 alias nolonglines="sed '/^.\{500\}./d'"
+alias serialcable="sudo screen /dev/ttyUSB0 115100"
 
 if [ ! -z `which highlight 2>/dev/null` ]; then
 	alias cat="highlight -O ansi --stdout --force"
@@ -132,3 +134,7 @@ PERL5LIB="/home/jdgoal512/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL
 PERL_LOCAL_LIB_ROOT="/home/jdgoal512/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
 PERL_MB_OPT="--install_base \"/home/jdgoal512/perl5\""; export PERL_MB_OPT;
 PERL_MM_OPT="INSTALL_BASE=/home/jdgoal512/perl5"; export PERL_MM_OPT;
+
+if [ $TILIX_ID ] || [ $VTE_VERSION ]; then
+        source /etc/profile.d/vte.sh
+fi

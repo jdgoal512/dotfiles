@@ -1,8 +1,8 @@
 delay=1
-region=1
-action=1
+region=3
+action=2
 show_mouse=0
-screenshot_dir=file:/home/jdgoal512/Pictures
+screenshot_dir=file:/home/jdgoal512/pw/128
 app=gimp-2.8
 last_user=
 

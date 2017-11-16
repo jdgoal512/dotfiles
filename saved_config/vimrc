@@ -29,6 +29,8 @@ set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 color solarized
 set background=dark
+"Set tabs to 4 spaces
+set tabstop=8 softtabstop=0 expandtab shiftwidth=4 smarttab
 
 "Makes you be able to move around on wrapping lines
 noremap j gj
