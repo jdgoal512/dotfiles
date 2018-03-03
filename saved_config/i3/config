@@ -217,7 +217,9 @@ exec --no-startup-id nitrogen --restore &
 #exec --no-startup-id cairo-compmgr &
 exec --no-startup-id thunar --daemon &
 exec --no-startup-id guake &
-exec --no-startup-id xfce4-panel &
+#exec --no-startup-id xfce4-panel &
+exec --no-startup-id tint2 &
+exec --no-startup-id pnmixer &
 exec --no-startup-id nm-applet &
 exec --no-startup-id xfce4-power-manager &
 exec --no-startup-id synclient HorizTwoFingerScroll=1 &

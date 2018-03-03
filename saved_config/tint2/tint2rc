@@ -5,9 +5,9 @@
 # ID 1
 rounded = 0
 border_width = 1
-background_color = #2D2D2D 100
-border_color = #2D2D2D 100
-#border_color = #484848 100
+background_color = #1D1D1D 100
+#border_color = #2D2D2D 100
+border_color = #484848 100
 
 # ID 2
 rounded = 0
@@ -111,14 +111,14 @@ font_shadow = 0
 
 # System Tray
 systray = 1
-systray_padding = 0 6 15
+systray_padding = 0 2 15
 systray_sort = left2right
 systray_background_id = 0
 systray_icon_size = 24
 systray_icon_asb = 100 0 0
 
 # Clock
-time1_format = %H:%M
+time1_format = %I:%M
 time1_font = Droid Sans 9
 clock_font_color = #dcdcdc 100
 clock_tooltip = 
@@ -165,7 +165,7 @@ button_mclick_command =
 button_uwheel_command = 
 button_dwheel_command = 
 button_font_color = #000000 100
-button_padding = 0 0
+button_padding = 5 2
 button_background_id = 0
 button_centered = 0
 button_max_icon_size = 0
