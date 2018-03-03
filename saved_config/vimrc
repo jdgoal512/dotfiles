@@ -45,3 +45,4 @@ let g:syntatic_check_on_wq = 0
 
 "Set prolog syntax highlighting
 au BufReadPost *.pro set syntax=prolog
+command Diff execute 'w !git diff --no-index % -'

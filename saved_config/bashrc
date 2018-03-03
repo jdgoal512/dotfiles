@@ -9,13 +9,16 @@ fi
 [[ $- != *i* ]] && return
 
 alias ls='ls --color=auto'
-PS1='[\u@\h \W]\$ '
 
-#SHELL=`which zsh 2>/dev/null`
-#if [ ! -z $SHELL ]; then
-#	export SHELL=`which zsh`
-#	exec $SHELL
-#else
-#	echo "Sorry, zsh is not installed on this system."
-#fi
+BYELLOW='\[\033[0;33m\]'
+PS_CLEAR='\[\033[0m\]'
+export PS1="${BYELLOW}[\w]${PS_CLEAR}\$ "
 
+function cdls {
+	if [ "$#" = 0 ]; then
+		cd ~ 2>/dev/null && ls
+	else
+		cd "$@" && ls
+	fi
+}
+alias cd="cdls"
