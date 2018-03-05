@@ -1,0 +1,172 @@
+# Tint2 config file by Kexolino
+
+# Background definitions
+
+# ID 1
+rounded = 0
+border_width = 1
+background_color = #CDCDCD 100
+border_color = #484848 100
+
+# ID 2
+rounded = 0
+border_width = 0
+background_color = #EDEDED 100
+border_color = #000000 100
+
+# Panel
+# panel_items = LTSBC defines the items tint2 will show and the order of those items. Each letter refers to an item, defined as:
+#               L shows the Launcher
+#               T shows the Taskbar
+#               S shows the Systray (also called notification area)
+#               B shows the Battery status
+#               C shows the Clock
+#               F adds an extensible spacer (freespace). You can specify more than one. Has no effect if T is also present. (since 0.12)
+#               E adds an executor plugin. You can specify more than one. (since 0.12.4)
+#               P adds a push button. You can specify more than one. (since 0.14)
+#               : adds a separator. You can specify more than one. (since 0.13.0)
+#For example, panel_items = STC will show the systray, the taskbar and the clock (from left to right).
+
+panel_items = PTSC
+
+#panel_monitor = all
+panel_monitor = 1
+panel_position =  top center horizontal
+panel_size = 100% 31
+panel_margin = 0 0
+#panel_padding = 0 0 10
+panel_padding = 0 3 5
+panel_dock = 0
+wm_menu = 1
+panel_layer = normal
+panel_background_id = 1
+
+#panel_background_id = 1
+#panel_layer = top
+#panel_shrink = 0
+#panel_window_name = tint2
+#
+#disable_transparency = 1
+#mouse_effects = 1
+#font_shadow = 0
+#mouse_hover_icon_asb = 100 0 10
+#mouse_pressed_icon_asb = 100 0 0
+#scale_relative_to_dpi = 0
+#scale_relative_to_screen_height = 0
+
+# Panel Autohide
+autohide = 0
+autohide_show_timeout = 0.2
+autohide_hide_timeout = 1
+autohide_height = 0
+strut_policy = follow_size
+
+# Taskbar
+taskbar_mode = single_desktop
+#taskbar_hide_if_empty = 0
+#taskbar_padding = 0 0 10
+taskbar_padding = 0 0 0
+taskbar_background_id = 0
+taskbar_active_background_id = 0
+#taskbar_name = 1
+#taskbar_hide_inactive_tasks = 0
+#taskbar_hide_different_monitor = 0
+#taskbar_hide_different_desktop = 0
+#taskbar_always_show_all_desktop_tasks = 0
+#taskbar_name_padding = 4 2
+#taskbar_name_background_id = 0
+#taskbar_name_active_background_id = 0
+#taskbar_name_font_color = #e3e3e3 100
+#taskbar_name_active_font_color = #ffffff 100
+#taskbar_distribute_size = 0
+#taskbar_sort_order = none
+#task_align = left
+
+# Tasks
+urgent_nb_of_blink = 20
+task_icon = 1
+task_text = 1
+task_centered = 0
+task_maximum_size = 200 32
+task_padding = 10 4
+task_background_id = 0
+task_active_background_id = 2
+task_urgent_background_id = 0
+task_iconified_background_id = 0
+
+# Task Icons
+task_icon_asb = 100 0 0
+task_active_icon_asb = 100 0 0
+task_urgent_icon_asb = 100 0 0
+task_iconified_icon_asb = 100 0 0
+
+# Fonts
+task_font = Droid Sans 9
+task_font_color = #101010 100
+task_active_font_color = #101010 100
+task_urgent_font_color = #FF1010 100
+task_iconified_font_color = #101010 80
+font_shadow = 0
+
+# System Tray
+systray = 1
+systray_padding = 0 2 15
+systray_sort = left2right
+systray_background_id = 0
+systray_icon_size = 24
+systray_icon_asb = 100 0 0
+
+# Clock
+time1_format = %I:%M
+time1_font = Droid Sans 9
+clock_font_color = #101010 100
+clock_tooltip = 
+clock_padding = 10 6
+clock_background_id = 0
+clock_lclick_command = gsimplecal
+time1_timezone = 
+time2_timezone = 
+clock_tooltip_timezone = 
+
+# Tooltips
+tooltip = 0
+tooltip_padding = 2 2
+tooltip_show_timeout = 0.0
+tooltip_hide_timeout = 0.0
+tooltip_background_id = 2
+tooltip_font = Droid Sans 9
+tooltip_font_color = #101010 100
+
+# Mouse
+mouse_middle = none
+mouse_right = close
+mouse_scroll_up = toggle
+mouse_scroll_down = iconify
+
+# Battery
+battery = 0
+battery_low_status = 20
+battery_low_cmd = notify-send "battery low"
+battery_hide = 96
+bat1_font = Liberation Mono 8
+bat2_font = Liberation Mono 8
+battery_font_color = #B5B5B5 100
+battery_padding = 2 0
+battery_background_id = 0
+
+#-------------------------------------
+# Button 1
+button = new
+button_icon = /home/jdgoal512/.config/tint2/gear_dark.png
+button_lclick_command = jgmenu_run
+button_rclick_command = 
+button_mclick_command = 
+button_uwheel_command = 
+button_dwheel_command = 
+button_font_color = #000000 100
+button_padding = 5 2
+button_background_id = 0
+button_centered = 0
+button_max_icon_size = 0
+
+# End of config
