@@ -5,14 +5,20 @@
 # ID 1
 rounded = 0
 border_width = 1
-background_color = #CDCDCD 100
+background_color = #DEDEDE 100
 border_color = #484848 100
 
 # ID 2
 rounded = 0
 border_width = 0
-background_color = #EDEDED 100
+background_color = #F8F8F8 100
 border_color = #000000 100
+
+# ID 3 - System Tray
+rounded = 0
+border_width = 1
+background_color = #CECECE 100
+border_color = #BABABA 100
 
 # Panel
 # panel_items = LTSBC defines the items tint2 will show and the order of those items. Each letter refers to an item, defined as:
@@ -63,6 +69,7 @@ strut_policy = follow_size
 
 # Taskbar
 taskbar_mode = single_desktop
+#taskbar_mode = multi_desktop
 #taskbar_hide_if_empty = 0
 #taskbar_padding = 0 0 10
 taskbar_padding = 0 0 0
@@ -110,15 +117,15 @@ font_shadow = 0
 
 # System Tray
 systray = 1
-systray_padding = 0 2 15
+systray_padding = 5 1 8
 systray_sort = left2right
-systray_background_id = 0
+systray_background_id = 3
 systray_icon_size = 24
 systray_icon_asb = 100 0 0
 
 # Clock
-time1_format = %I:%M
-time1_font = Droid Sans 9
+time1_format = %a %l:%M %p
+time1_font = Droid Sans 10
 clock_font_color = #101010 100
 clock_tooltip = 
 clock_padding = 10 6
