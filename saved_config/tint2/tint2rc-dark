@@ -6,14 +6,19 @@
 rounded = 0
 border_width = 1
 background_color = #1D1D1D 100
-#border_color = #2D2D2D 100
-border_color = #484848 100
+border_color = #282828 100
 
 # ID 2
 rounded = 0
 border_width = 0
-background_color = #1C1C1C 100
+background_color = #3C3C3C 100
 border_color = #000000 100
+
+# ID 3 - System Tray
+rounded = 0
+border_width = 1
+background_color = #8E8E8E 100
+border_color = #606060 100
 
 # Panel
 # panel_items = LTSBC defines the items tint2 will show and the order of those items. Each letter refers to an item, defined as:
@@ -36,7 +41,7 @@ panel_position =  top center horizontal
 panel_size = 100% 31
 panel_margin = 0 0
 #panel_padding = 0 0 10
-panel_padding = 0 0 10
+panel_padding = 0 3 5
 panel_dock = 0
 wm_menu = 1
 panel_layer = normal
@@ -64,6 +69,7 @@ strut_policy = follow_size
 
 # Taskbar
 taskbar_mode = single_desktop
+#taskbar_mode = multi_desktop
 #taskbar_hide_if_empty = 0
 #taskbar_padding = 0 0 10
 taskbar_padding = 0 0 0
@@ -111,16 +117,16 @@ font_shadow = 0
 
 # System Tray
 systray = 1
-systray_padding = 0 2 15
+systray_padding = 5 1 8
 systray_sort = left2right
-systray_background_id = 0
+systray_background_id = 3
 systray_icon_size = 24
 systray_icon_asb = 100 0 0
 
 # Clock
-time1_format = %I:%M
-time1_font = Droid Sans 9
-clock_font_color = #dcdcdc 100
+time1_format = %a %l:%M %p
+time1_font = Droid Sans 10
+clock_font_color = #DCDCDC 100
 clock_tooltip = 
 clock_padding = 10 6
 clock_background_id = 0
@@ -158,7 +164,7 @@ battery_background_id = 0
 #-------------------------------------
 # Button 1
 button = new
-button_icon = /home/jdgoal512/.config/tint2/gear.png
+button_icon = /home/jdgoal512/.config/tint2/gear_light.png
 button_lclick_command = jgmenu_run
 button_rclick_command = 
 button_mclick_command = 
