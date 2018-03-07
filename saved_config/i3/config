@@ -32,7 +32,7 @@ floating_modifier $mod
 floating_modifier mod1
 
 # start a terminal
-bindsym $mod+Return exec lxterminal
+bindsym $mod+Return exec urxvtc
 bindsym $mod+t exec thunar
 bindsym --release $mod+Escape exec xkill
 #bindsym Control+k exec ~/.config/i3/workspace_up
@@ -50,6 +50,7 @@ bindsym mod4+space exec dmenu_run -fn 'Droid Sans Mono-12' -sb '#4B81AF'
 bindsym mod4+l exec i3lock
 #for_window [class="^.*"] border normal
 for_window [class=Lxterminal] border pixel 3
+for_window [class=URxvt] border pixel 3
 for_window [class=Tilix] border pixel 3
 for_window [class=Opera] border pixel 3
 for_window [class="com-sun-javaws-Main"] floating enable
@@ -217,8 +218,10 @@ exec --no-startup-id nitrogen --restore &
 #exec --no-startup-id cairo-compmgr &
 exec --no-startup-id thunar --daemon &
 exec --no-startup-id guake &
+exec --no-startup-id urxvtd &
 #exec --no-startup-id xfce4-panel &
 exec --no-startup-id tint2 &
+exec --no-startup-id jgmenu --at-pointer --hide-on-startup &
 exec --no-startup-id pnmixer &
 exec --no-startup-id nm-applet &
 exec --no-startup-id xfce4-power-manager &

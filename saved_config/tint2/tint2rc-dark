@@ -35,8 +35,8 @@ border_color = #606060 100
 
 panel_items = PTSC
 
-#panel_monitor = all
-panel_monitor = 1
+panel_monitor = all
+#panel_monitor = 1
 panel_position =  top center horizontal
 panel_size = 100% 31
 panel_margin = 0 0

@@ -7,7 +7,7 @@ printf "\n        [0;34m/###\       "
 printf "[1;37m\\__,_|_| \\__|_||_[0;34m|_|_|_||_\\_,_/_\_\\"
 printf "\n       [0;34m/#####\      "
 printf "\n      [0;34m/[2;36m##'''##[0;34m\          "
-printf "[1;34mWelcome %s@%s" "$USER" $(hostname)
+printf "[1;34mWelcome %s@%s[0;0m" "$USER" $(hostname) 
 printf "\n     [2;36m/##;   ;##\      "
 printf "[0;34mUptime:[0;37m "
 uptime -p | sed -e 's/^...//' | xargs echo -n

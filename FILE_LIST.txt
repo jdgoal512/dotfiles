@@ -4,6 +4,7 @@ $HOME/.zshrc:zshrc
 $HOME/.gitconfig:gitconfig
 $HOME/.config/i3:i3
 $HOME/.xinitrc:xinitrc
+$HOME/.Xdefaults:Xdefaults
 $HOME/.zsh:zsh
 $HOME/.pekwm:pekwm
 $HOME/.config/gconf/apps/guake:guake
