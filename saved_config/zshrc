@@ -112,7 +112,7 @@ function cd {
 	if [ $# -eq 0 ]; then 
 		new_directory=${HOME};
 	fi;
-	if [ $1 = cd ] && [ ! -z $2 ]; then
+	if [ ! -z $1 ] && [ $1 = cd ] && [ ! -z $2 ]; then
 		builtin cd $2 2>/dev/null
 		if [ $? -eq 0 ]; then
 			ls
