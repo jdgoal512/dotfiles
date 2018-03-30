@@ -56,6 +56,11 @@ Xft.hintstyle:              hintslight
 ################
 # URXVT settings
 ################
+URxvt.perl-ext-common: default,clipboard,tabbed
+URxvt.iso14755 : false
+URxvt.keysym.C-C: perl:clipboard:copy
+#URxvt.keysym.C-V: perl:clipboard:paste
+URxvt.keysym.Control-Shift-V:     perl:clipboard:paste
 
 URxvt.depth:                32
 URxvt.geometry:             90x30
@@ -95,3 +100,5 @@ URxvt*scrollBar_right: true
 
 # scrollbar style - rxvt (default), plain, next, or xterm
 URxvt*scrollstyle: plain
+URxvt.secondaryScreen: 1
+URxvt.secondaryScroll: 0

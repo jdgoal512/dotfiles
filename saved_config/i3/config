@@ -229,6 +229,8 @@ exec --no-startup-id synclient HorizTwoFingerScroll=1 &
 exec --no-startup-id synclient TapButton1=1 &
 exec --no-startup-id twmnd &
 exec --no-startup-id xfce4-clipman &
+exec --no-startup-id kdeconnect-indicator &
+exec --no-startup-id gnome-keyring-daemon &
 #exec --no-startup-id setxkbmap -option caps:escape
 #exec --no-startup-id setxkbmap -option shift:both_capslock
 exec --no-startup-id i3-msg workspace $(i3-msg -t get_outputs | jq '.[] | select(.active == true and .current_workspace == '`i3-msg -t get_workspaces | jq '.[] | select(.focused==true).name'`') | .name' | cut -d"\"" -f2):1 &
