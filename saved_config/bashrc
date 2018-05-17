@@ -14,6 +14,10 @@ BYELLOW='\[\033[0;33m\]'
 PS_CLEAR='\[\033[0m\]'
 export PS1="${BYELLOW}[\w]${PS_CLEAR}\$ "
 
+if [ -f ~/.profile ]; then
+    source ~/.profile
+fi
+
 function cdls {
 	if [ "$#" = 0 ]; then
 		cd ~ 2>/dev/null && ls

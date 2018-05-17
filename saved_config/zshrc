@@ -1,3 +1,6 @@
+if [ -f ~/.profile ]; then
+    source ~/.profile
+fi
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 export JAVA_HOME='/usr/lib/jvm/java-8-jdk'
@@ -104,6 +107,7 @@ alias reboot="/usr/bin/systemctl reboot"
 
 if [ ! -z `which highlight 2>/dev/null` ]; then
 	alias cat="highlight -O ansi --stdout --force"
+        alias cat2="/bin/cat"
 fi
 
 alias sc='systemctl'

@@ -8,8 +8,10 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'mbbill/undotree'
 Plugin 'scrooloose/syntastic'
-Plugin 'Valloric/YouCompleteMe'
 Plugin 'altercation/vim-colors-solarized'
+
+set encoding=utf-8
+Plugin 'Valloric/YouCompleteMe'
 
 call vundle#end()
 
