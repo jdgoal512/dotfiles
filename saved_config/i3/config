@@ -35,6 +35,7 @@ floating_modifier mod1
 bindsym $mod+Return exec urxvtc
 bindsym $mod+t exec thunar
 bindsym Mod4+t exec ~/.config/i3/toggle_touchpad
+bindsym $mod+o exec opera
 bindsym --release $mod+Escape exec xkill
 #bindsym Control+k exec ~/.config/i3/workspace_up
 
