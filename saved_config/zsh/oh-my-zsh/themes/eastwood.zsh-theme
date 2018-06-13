@@ -20,4 +20,8 @@ git_custom_status() {
   fi
 }
 
-PROMPT='$(git_custom_status)%{$fg[cyan]%}[%~% ]%{$reset_color%}%B$%b '
+c0="%{$fg_no_bold[cyan]%}"
+c1="%{$fg_no_bold[blue]%}"
+c2="%{$fg_bold[blue]%}"
+
+PROMPT='$(git_custom_status)%{$fg[cyan]%}[$c1$(pwd | sed "s,$HOME,~," | sed "s,/,$c0/$c1,g" | sed "s,\(.*\)/[^m]*m,\1/$c2,")$c1]%{$reset_color%}%B$%b '
