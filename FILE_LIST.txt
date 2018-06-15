@@ -14,3 +14,4 @@ $HOME/.config/awesome:awesome
 $HOME/.config/tint2:tint2
 $HOME/.config/jgmenu:jgmenu
 $HOME/.config/fish:fish
+$HOME/.tmux.conf:tmux.conf

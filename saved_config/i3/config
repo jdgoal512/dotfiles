@@ -32,12 +32,16 @@ floating_modifier $mod
 floating_modifier mod1
 
 # start a terminal
-bindsym $mod+Return exec urxvtc
+bindsym $mod+Return exec st -e tmux
 bindsym $mod+t exec thunar
 bindsym Mod4+t exec ~/.config/i3/toggle_touchpad
 bindsym $mod+o exec opera
 bindsym --release $mod+Escape exec xkill
 #bindsym Control+k exec ~/.config/i3/workspace_up
+bindsym Mod4+h exec tmux select-pane -L
+bindsym Mod4+j exec tmux select-pane -D
+bindsym Mod4+k exec tmux select-pane -U
+bindsym Mod4+l exec tmux select-pane -R
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -49,9 +53,10 @@ bindsym $mod+space exec dmenu_run -fn 'Droid Sans Mono-12' -sb '#4B81AF'
 bindsym mod4+space exec dmenu_run -fn 'Droid Sans Mono-12' -sb '#4B81AF'
 
 
-bindsym mod4+l exec i3lock
+bindsym mod4+semicolon exec i3lock
 #for_window [class="^.*"] border normal
 for_window [class=Lxterminal] border pixel 3
+for_window [class=st-256color] border pixel 3
 for_window [class=URxvt] border pixel 3
 for_window [class=Tilix] border pixel 3
 for_window [class=Opera] border pixel 3
