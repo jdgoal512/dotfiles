@@ -10,15 +10,23 @@ fi
 
 alias ls='ls --color=auto'
 
-BYELLOW='\[\033[0;33m\]'
-PS_CLEAR='\[\033[0m\]'
+esc=$(printf '\033')
+RED='\[${esc}[31m\]'
+GREEN='\[${esc}[32m\]'
+BYELLOW='\[${esc}[33m\]'
+BLUE='\[${esc}[34m\]'
+CYAN='\[${esc}[36m\]'
+WHITE='\[${esc}[37m\]'
+BWHITE='\[${esc}[1;37m\]'
+PS_CLEAR='\[${esc}[0m\]'
 export PS1="${BYELLOW}[\w]${PS_CLEAR}\$ "
+PS1=$CYAN'$(pwd | sed "s,"$HOME",~," | sed "s,/,'$WHITE'/'$BYELLOW',g" | sed "s,\(.*\)/[^m]*m,\1/'$BLUE',")'"$BWHITE%$PS_CLEAR "
 
 if [ -f ~/.profile ]; then
     source ~/.profile
 fi
 
-function cdls {
+cdls() {
 	if [ "$#" = 0 ]; then
 		cd ~ 2>/dev/null && ls
 	else
@@ -26,3 +34,12 @@ function cdls {
 	fi
 }
 alias cd="cdls"
+kj () { job="$(jobs -l | awk '{print $2}' | tail -n1)"
+        if [ "$job" != "" ]
+        then
+                kill $job && fg
+        fi
+}
+# nodenv setup from platform-install
+export PATH="$HOME/.nodenv/bin:$PATH"
+eval "$(nodenv init -)"

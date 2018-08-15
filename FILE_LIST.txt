@@ -6,6 +6,7 @@ $HOME/.config/i3:i3
 $HOME/.xinitrc:xinitrc
 $HOME/.Xdefaults:Xdefaults
 $HOME/.zsh:zsh
+$HOME/.tmux.conf:tmux.conf
 $HOME/.pekwm:pekwm
 $HOME/.config/gconf/apps/guake:guake
 $HOME/.config/xfce4:xfce4
@@ -14,4 +15,4 @@ $HOME/.config/awesome:awesome
 $HOME/.config/tint2:tint2
 $HOME/.config/jgmenu:jgmenu
 $HOME/.config/fish:fish
-$HOME/.tmux.conf:tmux.conf
+$HOME/.config/tmux:tmux

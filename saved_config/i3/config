@@ -63,6 +63,7 @@ for_window [class=Opera] border pixel 3
 for_window [class="com-sun-javaws-Main"] floating enable
 for_window [class="VirtualBox"] floating enable
 for_window [class="Unity" title="Hold on"] floating enable
+for_window [class="Gsimplecal"] floating enable
 #for_window [class="^.*"] border pixel 3
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
@@ -225,7 +226,7 @@ exec --no-startup-id nitrogen --restore &
 #exec --no-startup-id cairo-compmgr &
 exec --no-startup-id thunar --daemon &
 exec --no-startup-id guake &
-exec --no-startup-id urxvtd &
+#exec --no-startup-id urxvtd &
 #exec --no-startup-id xfce4-panel &
 exec --no-startup-id tint2 &
 exec --no-startup-id jgmenu --at-pointer --hide-on-startup &
@@ -238,6 +239,7 @@ exec --no-startup-id twmnd &
 exec --no-startup-id xfce4-clipman &
 exec --no-startup-id kdeconnect-indicator &
 exec --no-startup-id gnome-keyring-daemon &
+#exec --no-startup-id syndaemon -i 0.50 -m 0.10 -d -K
 #exec --no-startup-id setxkbmap -option caps:escape
 #exec --no-startup-id setxkbmap -option shift:both_capslock
 exec --no-startup-id i3-msg workspace $(i3-msg -t get_outputs | jq '.[] | select(.active == true and .current_workspace == '`i3-msg -t get_workspaces | jq '.[] | select(.focused==true).name'`') | .name' | cut -d"\"" -f2):1 &

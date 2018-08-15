@@ -28,7 +28,7 @@ if [ $? -eq 0 ]; then
 fi
 
 #Make cd do an ls afterwards
-function cd {
+cdls() {
     new_directory="$*";
     if [ $# -eq 0 ]; then 
         new_directory=${HOME};
@@ -48,6 +48,15 @@ function cd {
             echo no such file or directory: $1
         fi
     fi
+}
+alias cd='cdls'
+
+kj () {
+        job="$(jobs -l | awk '{print $3}' | tail -n1)"
+        if [ "$job" != "" ]
+        then
+                kill $job && fg
+        fi
 }
 
 #Load oh-my-zsh libraries
