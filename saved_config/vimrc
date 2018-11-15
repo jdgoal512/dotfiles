@@ -39,6 +39,8 @@ set tabstop=8 softtabstop=0 expandtab shiftwidth=4 smarttab
 noremap j gj
 noremap k gk
 map <F3> :UndotreeToggle
+map <F7> :w !xclip -selection c<CR><CR>
+map <S-F7> :r!xclip -o<CR>
 cmap w!! w !sudo tee > /dev/null %
 
 let g:syntatic_always_populate_loc_list = 1
@@ -49,3 +51,4 @@ let g:syntatic_check_on_wq = 0
 "Set prolog syntax highlighting
 au BufReadPost *.pro set syntax=prolog
 command Diff execute 'w !git diff --no-index % -'
+set tags=~/prog/.tags
