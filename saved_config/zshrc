@@ -76,7 +76,7 @@ source "$HOME/.zsh/themes/$ZSH_THEME.zsh-theme"
 #Load plugins
 source $HOME/.zsh/plugins/zsh-autosuggestions.zsh #Add autosuggetions
 source $HOME/.zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh #Add syntax highlighting
-source $HOME/.zsh/plugins/bash.command-not-found #Add insults
+#source $HOME/.zsh/plugins/bash.command-not-found #Add insults
 
 
 # A shortcut function that simplifies usage of xclip.
