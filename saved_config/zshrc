@@ -19,7 +19,7 @@ alias nolonglines="sed '/^.\{500\}./d'"
 #alias poweroff="/usr/bin/systemctl poweroff"
 #alias reboot="/usr/bin/systemctl reboot"
 alias sc='systemctl'
-alias graphviz='dot -Tx11'
+alias o='xdg-open'
 
 #Add syntax highlighting in cat if available
 which highlight 1>/dev/null 2>/dev/null
