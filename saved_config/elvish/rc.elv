@@ -1,8 +1,5 @@
 use builtin
 use re
-#use github.com/zzamboni/elvish-modules/long-running-notifications
-use github.com/zzamboni/elvish-modules/bang-bang
-use github.com/zzamboni/elvish-modules/proxy
 use epm
 epm:install &silent-if-installed=$true   \
   github.com/zzamboni/elvish-modules     \
@@ -11,6 +8,10 @@ epm:install &silent-if-installed=$true   \
   github.com/muesli/elvish-libs          \
   github.com/iwoloschin/elvish-packages
   #github.com/zzamboni/elvish-themes      \
+
+#use github.com/zzamboni/elvish-modules/long-running-notifications
+use github.com/zzamboni/elvish-modules/bang-bang
+#use github.com/zzamboni/elvish-modules/proxy
 
 fn ls [@a]{ e:ls --color=auto $@a }
 fn sl [@a]{ ls $@a }
@@ -46,14 +47,12 @@ paths = [
 ]
 
 
-proxy:host = "http://proxy.corproot.net:8079"
-
-proxy:test = {
-  and ?(test -f /etc/resolv.conf) \
-  ?(egrep -q '^(search|domain).*(corproot.net|swissptt.ch)' /etc/resolv.conf)
-}
-
-proxy:autoset
+#proxy:host = "http://proxy.corproot.net:8079"
+#proxy:test = {
+#  and ?(test -f /etc/resolv.conf) \
+#  ?(egrep -q '^(search|domain).*(corproot.net|swissptt.ch)' /etc/resolv.conf)
+#}
+#proxy:autoset
 
 
 #use readline-binding
