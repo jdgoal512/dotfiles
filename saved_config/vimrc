@@ -9,6 +9,7 @@ Plugin 'scrooloose/nerdcommenter'
 Plugin 'mbbill/undotree'
 Plugin 'scrooloose/syntastic'
 Plugin 'altercation/vim-colors-solarized'
+Plugin 'dmix/elvish.vim'
 Bundle 'dag/vim-fish'
 
 set encoding=utf-8
