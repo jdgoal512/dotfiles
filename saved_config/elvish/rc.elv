@@ -7,11 +7,9 @@ epm:install &silent-if-installed=$true   \
   github.com/xiaq/edit.elv               \
   github.com/muesli/elvish-libs          \
   github.com/iwoloschin/elvish-packages
-  #github.com/zzamboni/elvish-themes      \
 
 #use github.com/zzamboni/elvish-modules/long-running-notifications
 use github.com/zzamboni/elvish-modules/bang-bang
-#use github.com/zzamboni/elvish-modules/proxy
 
 fn ls [@a]{ e:ls --color=auto $@a }
 fn sl [@a]{ ls $@a }
@@ -47,6 +45,7 @@ paths = [
 ]
 
 
+#use github.com/zzamboni/elvish-modules/proxy
 #proxy:host = "http://proxy.corproot.net:8079"
 #proxy:test = {
 #  and ?(test -f /etc/resolv.conf) \
@@ -71,8 +70,6 @@ edit:insert:binding[Ctrl-E] = $edit:move-dot-eol~
 use github.com/zzamboni/elvish-modules/alias
 use github.com/xiaq/edit.elv/smart-matcher
 smart-matcher:apply
-#use github.com/zzamboni/elvish-completions/vcsh
-#use github.com/zzamboni/elvish-completions/cd
 use github.com/zzamboni/elvish-completions/ssh
 use github.com/zzamboni/elvish-completions/builtins
 
@@ -81,17 +78,10 @@ use github.com/zzamboni/elvish-completions/builtins
 #git:init
 
 use github.com/zzamboni/elvish-completions/comp
-#use github.com/zzamboni/elvish-themes/chain
 use theme
 theme:bold-prompt = $true
+theme:prompt-pwd-dir-length = 0 #Don't abbreviate working directory in prompt
 
-#theme:segment-style = [
-#  &dir=          session
-#  &chain=        session
-#  &arrow=        session
-#  &git-combined= session
-#]
-#theme:glyph[git-ahead] = "⬆ "
 
 edit:prompt-stale-transform = { each [x]{ styled $x[text] "gray" } }
 
