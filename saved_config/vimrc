@@ -1,19 +1,23 @@
 set nocompatible
+set noshowmode
 filetype off
 
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
 Plugin 'VundleVim/Vundle.vim'
-Plugin 'scrooloose/nerdcommenter'
-Plugin 'mbbill/undotree'
+Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/syntastic'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'dmix/elvish.vim'
 Bundle 'dag/vim-fish'
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+Plugin 'Shougo/deoplete.nvim'
+Plugin 'roxma/vim-hug-neovim-rpc'
+Plugin 'roxma/nvim-yarp'
 
 set encoding=utf-8
-Plugin 'Valloric/YouCompleteMe'
 
 call vundle#end()
 
@@ -39,15 +43,30 @@ set tabstop=8 softtabstop=0 expandtab shiftwidth=4 smarttab
 "Makes you be able to move around on wrapping lines
 noremap j gj
 noremap k gk
-map <F3> :UndotreeToggle
 map <F7> :w !xclip -selection c<CR><CR>
 map <S-F7> :r!xclip -o<CR>
+map <C-n> :NERDTreeToggle<CR>
+map <F4> :NERDTreeToggle<CR>
 cmap w!! w !sudo tee > /dev/null %
+"Use space to toggle folds
+noremap <space> za
 
 let g:syntatic_always_populate_loc_list = 1
 let g:syntatic_auto_loc_list = 1
 let g:syntatic_check_on_open = 1
 let g:syntatic_check_on_wq = 0
+let g:airline_theme='badwolf'
+let g:deoplete#enable_at_startup = 1
+
+function! s:check_back_space() abort "{{{
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~ '\s'
+endfunction"}}}
+
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ deoplete#manual_complete()
 
 "Set prolog syntax highlighting
 au BufReadPost *.pro set syntax=prolog
