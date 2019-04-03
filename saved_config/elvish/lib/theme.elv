@@ -168,7 +168,7 @@ fn -git-prompt-segment [segment]{
   }
 }
 
--git-indicator-segments = [untracked deleted dirty staged ahead behind]
+-git-indicator-segments = [untracked deleted dirty ahead behind]
 
 each [ind]{
   segment[git-$ind] = { -git-prompt-segment git-$ind }

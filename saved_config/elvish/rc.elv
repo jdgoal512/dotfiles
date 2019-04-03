@@ -11,17 +11,18 @@ epm:install &silent-if-installed=$true   \
 #use github.com/zzamboni/elvish-modules/long-running-notifications
 use github.com/zzamboni/elvish-modules/bang-bang
 
-fn ls [@a]{ e:ls --color=auto $@a }
-fn sl [@a]{ ls $@a }
-fn LS [@a]{ ls $@a }
+fn ls [@args]{ e:ls --color=auto $@args }
+fn l [@args]{ e:ls --color=auto -lah $@args }
+fn sl [@args]{ ls $@args }
+fn LS [@args]{ ls $@args }
+fn grep [@args]{ e:grep --color=auto --exclude-dir={env,site-packages,.bzr,CVS,.git,.hg,.svn} $@args }
 
-fn grep [@a]{ e:grep --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn} $@a }
-
-fn cd [@dir]{
-    if (eq $@dir []) {
+fn cd [@args]{
+    dir = "" 
+    if (eq $args []) {
         dir = ~
     } else {
-        dir @rest = $@dir
+        dir = $args[0]
         while (re:match '\.\.\.' $dir) {
             dir = (re:replace '\.\.\.' '../..' $dir)
         }
@@ -30,7 +31,7 @@ fn cd [@dir]{
         builtin:cd $dir
         e:ls --color=auto
     } except {
-            echo "No such file or directory :"$@dir
+            echo "No such file or directory:" $dir
     }
 }
 
@@ -43,16 +44,6 @@ paths = [
   /usr/bin
   /bin
 ]
-
-
-#use github.com/zzamboni/elvish-modules/proxy
-#proxy:host = "http://proxy.corproot.net:8079"
-#proxy:test = {
-#  and ?(test -f /etc/resolv.conf) \
-#  ?(egrep -q '^(search|domain).*(corproot.net|swissptt.ch)' /etc/resolv.conf)
-#}
-#proxy:autoset
-
 
 #use readline-binding
 
@@ -88,9 +79,7 @@ edit:prompt-stale-transform = { each [x]{ styled $x[text] "gray" } }
 edit:-prompt-eagerness = 10
 
 #use github.com/zzamboni/elvish-modules/dir
-
 #edit:insert:binding[Alt-i] = $dir:history-chooser~
-
 #edit:insert:binding[Alt-b] = $dir:left-small-word-or-prev-dir~
 #edit:insert:binding[Alt-f] = $dir:right-small-word-or-next-dir~
 
@@ -116,4 +105,6 @@ update:curl-timeout = 3
 
 #-exports- = (alias:export)
 
-
+use hex
+fn fromhex [@args]{ hex:fromhex $@args }
+fn tohex [@args]{ hex:tohex $@args }
