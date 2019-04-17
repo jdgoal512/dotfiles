@@ -38,20 +38,21 @@ fn getopts [&@flags=[] &@opts=[&] @args]{
     for opt [(keys $opts)] {
         new_args = []
         i = 0
-        while (< $i (- (count $args_no_opts) 1)) {
-            if (eq $opt $args_no_opts[$i]) {
-                opts[$opt] = $args_no_opts[(+ $i 1)]
-                rest = $args_no_opts[(+ $i 2):]
-                new_args = [$@new_args $@rest]
-                break
+        while (< $i (count $args_no_opts)) {
+            #Add last arg onto the list if the end is reached
+            if (eq $i (- (count $args_no_opts) 1)) {
+                new_args = [$@new_args $args_no_opts[-1]]
             } else {
-                new_args = [$@new_args $args_no_opts[$i]]
+                if (eq $opt $args_no_opts[$i]) {
+                    opts[$opt] = $args_no_opts[(+ $i 1)]
+                    rest = $args_no_opts[(+ $i 2):]
+                    new_args = [$@new_args $@rest]
+                    break
+                } else {
+                    new_args = [$@new_args $args_no_opts[$i]]
+                }
             }
             i = (+ $i 1)
-            #Add last arg onto the list if the end is reached
-            if (>= $i (- (count $args_no_opts) 1)) {
-                new_args = [$@new_args $args_no_opts[-1]]
-            }
         }
         args_no_opts = $new_args
     }
