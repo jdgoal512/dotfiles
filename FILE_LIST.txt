@@ -17,3 +17,6 @@ $HOME/.config/tint2:tint2
 $HOME/.config/jgmenu:jgmenu
 $HOME/.config/fish:fish
 $HOME/.config/tmux:tmux
+$HOME/.config/kak:kak
+$HOME/.config/bspwm:bspwm
+$HOME/.config/sxhkd:sxhkd
