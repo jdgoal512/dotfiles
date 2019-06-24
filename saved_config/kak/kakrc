@@ -1,0 +1,159 @@
+# User preference
+# ───────────────
+
+set-option global makecmd 'make -j8'
+set-option global grepcmd 'ag --column'
+
+hook global WinCreate ^[^*]+$ %{ add-highlighter window/ number-lines -relative -hlcursor -separator ' '}
+
+# jj to escape edit mode
+hook global InsertChar j %{ try %{
+      exec -draft hH <a-k>jj<ret> d
+        exec <esc>
+}}
+
+colorscheme solarized-dark-termcolors
+set global ui_options ncurses_status_on_top=yes
+
+# Statusline
+# ----------
+declare-option -hidden str statusline_current_position ''
+declare-option -hidden str statusline_readonly
+define-command -hidden statusline-update-readonly %{ set-option window statusline_readonly %sh{
+    if [ -w "${kak_buffile}" ]; then
+        echo ''
+    else
+        echo '!'
+    fi
+}}
+hook -once global KakBegin .* %{
+    hook global WinDisplay .* statusline-update-readonly
+    hook global BufWritePost .* statusline-update-readonly
+}
+define-command -hidden statusline-update-position %{ evaluate-commands %sh{
+    position="$(($kak_cursor_line * 100 / $kak_buf_line_count))%"
+    echo "set-option window statusline_current_position $position"
+}}
+hook global WinDisplay .* statusline-update-position
+hook global NormalKey (j|k) statusline-update-position
+hook global NormalIdle .* statusline-update-position
+set global modelinefmt {{mode_info}}
+set -add global modelinefmt %{ {black,blue} %val{bufname}{{context_info}}}
+set -add global modelinefmt %{%opt{statusline_readonly} {blue+u}}
+set -add global modelinefmt %{ %opt{filetype} }
+set -add global modelinefmt %{{black,blue+b}[%opt{statusline_current_position}]}
+
+# Pane management (Tmux)
+# ----------------------
+define-command horizontal-split -docstring "Create a horizontal split using tmux" %{ tmux-terminal-horizontal kak -c %val{session} }
+alias global hs horizontal-split
+define-command vertical-split -docstring "Create a vertical split using tmux" %{ tmux-terminal-vertical kak -c %val{session} }
+alias global vs vertical-split
+define-command tab -docstring "Create a new tab using tmux" %{ tmux-terminal-window kak -c %val{session} }
+map global normal <c-t> :tab<ret>
+map global normal <c-v> :vertical-split<ret>
+map global normal <c-s> :horizontal-split<ret>
+
+
+# Enable editor config
+# ────────────────────
+hook global BufOpenFile .* %{ editorconfig-load }
+hook global BufNewFile .* %{ editorconfig-load }
+
+# Filetype specific hooks
+# ───────────────────────
+hook global WinSetOption filetype=(c|cpp) %{
+    clang-enable-autocomplete 
+    clang-enable-diagnostics
+    alias window lint clang-parse
+    alias window lint-next-error clang-diagnostics-next
+}
+hook global WinSetOption filetype=python %{
+    jedi-enable-autocomplete
+    lint-enable
+    set-option global lintcmd 'flake8'
+}
+
+map -docstring "xml tag objet" global object t %{c<lt>([\w.]+)\b[^>]*?(?<lt>!/)>,<lt>/([\w.]+)\b[^>]*?(?<lt>!/)><ret>}
+set-option -add current ctagsfiles ~/prog/.tags
+
+# Highlight the word under the cursor
+# ───────────────────────────────────
+declare-option -hidden regex curword
+hook global NormalIdle .* %{
+    eval -draft %{ try %{
+        exec <space><a-i>w <a-k>\A\w+\z<ret>
+        set-option buffer curword "\b\Q%val{selection}\E\b"
+    } catch %{
+        set-option buffer curword ''
+    } }
+}
+add-highlighter global/ dynregex '%opt{curword}' 0:default+u
+
+# Highlight current search
+# ───────────────────────────────────
+add-highlighter global/ show-matching
+add-highlighter global/hltoggle dynregex '%reg{/}' 0:default,rgb:444444+b
+
+# Wrap text
+add-highlighter global/ wrap
+
+# Custom mappings
+# ───────────────
+map global normal = ':prompt math: %{exec "a%val{text}<lt>esc>|bc<lt>ret>"}<ret>'
+
+# System clipboard handling
+# ─────────────────────────
+evaluate-commands %sh{
+    case $(uname) in
+        Linux) copy="xclip -i"; paste="xclip -o" ;;
+        Darwin)  copy="pbcopy"; paste="pbpaste" ;;
+    esac
+    printf "map global user -docstring 'paste (after) from clipboard' p '!%s<ret>'\n" "$paste"
+    printf "map global user -docstring 'paste (before) from clipboard' P '<a-!>%s<ret>'\n" "$paste"
+    printf "map global user -docstring 'yank to clipboard' y '<a-|>%s<ret>:echo -markup %%{{Information}copied selection to X11 clipboard}<ret>'\n" "$copy"
+    printf "map global user -docstring 'replace from clipboard' R '|%s<ret>'\n" "$paste"
+}
+
+# Various mappings
+# ────────────────
+map global normal '#' :comment-line<ret>
+map global user -docstring 'next lint error' n ':lint-next-error<ret>'
+map global normal <c-p> :lint<ret>
+map global user -docstring 'gdb helper mode' g ':gdb-helper<ret>'
+map global user -docstring 'gdb helper mode (repeat)' G ':gdb-helper-repeat<ret>'
+hook global -always BufOpenFifo '\*grep\*' %{ map -- global normal - ':grep-next-match<ret>' }
+hook global -always BufOpenFifo '\*make\*' %{ map -- global normal - ':make-next-error<ret>' }
+
+# Enable <tab>/<s-tab> for insert completion selection
+# ──────────────────────────────────────────────────────
+hook global InsertCompletionShow .* %{ map window insert <tab> <c-n>; map window insert <s-tab> <c-p> }
+hook global InsertCompletionHide .* %{ unmap window insert <tab> <c-n>; unmap window insert <s-tab> <c-p> }
+
+# Increment/decrement numbers
+define-command -hidden -params 2 inc %{
+    evaluate-commands %sh{
+        if [ "$1" = 0 ]; then
+             count=1
+        else
+            count="$1"
+        fi
+        printf '%s%s\n' 'exec h"_/\d<ret><a-i>na' "$2($count)<esc>|bc<ret>h"
+    }
+}
+map global normal <c-a> ':inc %val{count} +<ret>'
+map global normal <c-x> ':inc %val{count} -<ret>'
+
+# Helper commands
+# ───────────────
+define-command find -params 1 -shell-script-candidates %{ ag -g '' --ignore "$kak_opt_ignored_files" } %{ edit %arg{1} }
+
+define-command delete-buffers-matching -params 1 %{
+    evaluate-commands -buffer * %{
+        evaluate-commands %sh{ case "$kak_buffile" in $1) echo "delete-buffer" ;; esac }
+    }
+}
+
+# Load local Kakoune config file if it exists
+# ───────────────────────────────────────────
+evaluate-commands %sh{ [ -f $kak_config/local.kak ] && echo "source $kak_config/local.kak" }
