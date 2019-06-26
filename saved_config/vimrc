@@ -16,6 +16,8 @@ Plugin 'roxma/vim-hug-neovim-rpc'
 Plugin 'roxma/nvim-yarp'
 Plugin 'ap/vim-buftabline'
 Plugin 'tmhedberg/SimpylFold'
+Plugin 'xolox/vim-misc.git'
+Plugin 'xolox/vim-notes.git'
 
 set encoding=utf-8
 
@@ -41,6 +43,7 @@ set hidden
 
 color solarized
 set background=dark
+set shell=/bin/bash
 
 "Statusline
 hi User1 ctermfg=0 ctermbg=4
@@ -85,6 +88,10 @@ hi default link BufTabLineFill User2
 "Makes you be able to move around on wrapping lines
 noremap j gj
 noremap k gk
+noremap gl $
+noremap gh 0
+noremap gk gg
+noremap gj G
 map <F7> :w !xclip -selection c<CR><CR>
 map <S-F7> :r!xclip -o<CR>
 map <C-n> :NERDTreeToggle<CR>
@@ -93,7 +100,7 @@ cmap w!! w !sudo tee > /dev/null %
 nnoremap <C-.> :bnext<CR>
 nnoremap <C-,> :bprev<CR>
 "Use space to toggle folds
-noremap <space> za
+"noremap <space> za
 noremap H :bprev<CR>
 noremap L :bnext<CR>
 noremap <C-w>1 :1b<CR>
@@ -105,6 +112,20 @@ noremap <C-w>6 :6b<CR>
 noremap <C-w>7 :7b<CR>
 noremap <C-w>8 :8b<CR>
 noremap <C-w>9 :9b<CR>
+nnoremap <F9> :!%:p<CR>
+imap jj <Esc>
+
+let mapleader=" "
+nnoremap <leader>' vi'
+nnoremap <leader>" vi"
+nnoremap <leader>` vi`
+nnoremap <leader>[ vi[
+nnoremap <leader>] vi[
+nnoremap <leader>{ vi{
+nnoremap <leader>} vi{
+nnoremap <leader>( vi(
+nnoremap <leader>) vi(
+nnoremap <leader>w viw
 
 let g:syntatic_always_populate_loc_list = 1
 let g:syntatic_auto_loc_list = 1
@@ -112,6 +133,7 @@ let g:syntatic_check_on_open = 1
 let g:syntatic_check_on_wq = 0
 let g:deoplete#enable_at_startup = 1
 let g:buftabline_numbers = 1
+let g:notes_directories = ['~/Documents/Notes']
 
 function! s:check_back_space() abort "{{{
   let col = col('.') - 1
