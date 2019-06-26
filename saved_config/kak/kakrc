@@ -4,13 +4,8 @@
 set-option global makecmd 'make -j8'
 set-option global grepcmd 'ag --column'
 
+# Relative number lines
 hook global WinCreate ^[^*]+$ %{ add-highlighter window/ number-lines -relative -hlcursor -separator ' '}
-
-# jj to escape edit mode
-hook global InsertChar j %{ try %{
-      exec -draft hH <a-k>jj<ret> d
-        exec <esc>
-}}
 
 colorscheme solarized-dark-termcolors
 set global ui_options ncurses_status_on_top=yes
@@ -45,14 +40,14 @@ set -add global modelinefmt %{{black,blue+b}[%opt{statusline_current_position}]}
 
 # Pane management (Tmux)
 # ----------------------
-define-command horizontal-split -docstring "Create a horizontal split using tmux" %{ tmux-terminal-horizontal kak -c %val{session} }
+define-command horizontal-split -docstring "Create a horizontal split using tmux" %{ tmux-terminal-vertical kak -c %val{session} }
 alias global hs horizontal-split
-define-command vertical-split -docstring "Create a vertical split using tmux" %{ tmux-terminal-vertical kak -c %val{session} }
+define-command vertical-split -docstring "Create a vertical split using tmux" %{ tmux-terminal-horizontal kak -c %val{session} }
 alias global vs vertical-split
 define-command tab -docstring "Create a new tab using tmux" %{ tmux-terminal-window kak -c %val{session} }
 map global normal <c-t> :tab<ret>
-map global normal <c-v> :vertical-split<ret>
-map global normal <c-s> :horizontal-split<ret>
+map global normal <c-v> :horizontal-split<ret>
+map global normal <c-s> :vertical-split<ret>
 
 
 # Enable editor config
@@ -71,7 +66,7 @@ hook global WinSetOption filetype=(c|cpp) %{
 hook global WinSetOption filetype=python %{
     jedi-enable-autocomplete
     lint-enable
-    set-option global lintcmd 'flake8'
+    set global lintcmd kak_pylint
 }
 
 map -docstring "xml tag objet" global object t %{c<lt>([\w.]+)\b[^>]*?(?<lt>!/)>,<lt>/([\w.]+)\b[^>]*?(?<lt>!/)><ret>}
@@ -106,7 +101,7 @@ map global normal = ':prompt math: %{exec "a%val{text}<lt>esc>|bc<lt>ret>"}<ret>
 # ─────────────────────────
 evaluate-commands %sh{
     case $(uname) in
-        Linux) copy="xclip -i"; paste="xclip -o" ;;
+        Linux) copy="xsel -i -b"; paste="xsel -b" ;;
         Darwin)  copy="pbcopy"; paste="pbpaste" ;;
     esac
     printf "map global user -docstring 'paste (after) from clipboard' p '!%s<ret>'\n" "$paste"
@@ -117,13 +112,55 @@ evaluate-commands %sh{
 
 # Various mappings
 # ────────────────
+map global normal <backspace> <space> -docstring 'remove all sels except main'
+map global normal <a-backspace> <a-space> -docstring 'remove main sel'
 map global normal '#' :comment-line<ret>
+map global normal f '<s-f>'
+map global normal F '<a-s-f>'
+map global normal t '<s-t>'
+map global normal T '<a-s-t>'
+map global normal D '<a-l>d' -docstring 'delete to end of line'
+map global normal Y '<a-l>y' -docstring 'yank to end of line'
+map global normal ^ 'gi'
+
+# User mode mappings
+# ------------------
+map global normal <space> , -docstring 'leader'
 map global user -docstring 'next lint error' n ':lint-next-error<ret>'
-map global normal <c-p> :lint<ret>
 map global user -docstring 'gdb helper mode' g ':gdb-helper<ret>'
 map global user -docstring 'gdb helper mode (repeat)' G ':gdb-helper-repeat<ret>'
+map global user j '<a-j>' -docstring 'Join line with next'
+map global user k 'k<a-j>' -docstring 'Join line with previous'
+map global user "'" "<a-t>'t'" -docstring 'Select text in single quotes'
+map global user "'" "['l]'H" -docstring 'Select text in single quotes'
+map global user '"' '["l]"H' -docstring 'Select text in double quotes'
+map global user '(' "[(l](H" -docstring 'Select text in parenthesis'
+map global user ')' "[(l](H"
+map global user '[' "[[l][H" -docstring 'Select text in square brackets'
+map global user ']' "[[l][H"
+map global user '{' "[{l]{H" -docstring 'Select text in square brackets'
+map global user '}' "[{l]{H"
+map global user 'w' "[we" -docstring 'Select current word'
+map global user 'i' "[i]iH" -docstring 'Select indent level'
+
 hook global -always BufOpenFifo '\*grep\*' %{ map -- global normal - ':grep-next-match<ret>' }
 hook global -always BufOpenFifo '\*make\*' %{ map -- global normal - ':make-next-error<ret>' }
+
+define-command -params 1 extend-line-down %{
+      exec "<a-:>%arg{1}X"
+      # exec "%arg{1}X"
+}
+
+define-command -params 1 extend-line-up %{
+    exec "<a-:><a-;>%arg{1}K<a-;>"
+    try %{
+        exec -draft ';<a-K>\n<ret>'
+        exec X
+    }
+    exec '<a-;><a-X>'
+}
+map global normal x ':extend-line-down %val{count}<ret>'
+map global normal X ':extend-line-up %val{count}<ret>'
 
 # Enable <tab>/<s-tab> for insert completion selection
 # ──────────────────────────────────────────────────────
@@ -143,6 +180,24 @@ define-command -hidden -params 2 inc %{
 }
 map global normal <c-a> ':inc %val{count} +<ret>'
 map global normal <c-x> ':inc %val{count} -<ret>'
+
+# jj to escape edit mode
+hook global InsertChar j %{ try %{
+      exec -draft hH <a-k>jj<ret> d
+        exec <esc>
+}}
+
+# 0 to go to beginning of line if not part of inputting a number
+map global normal 0 ':zero<ret>'
+define-command zero %{
+    evaluate-commands %sh{
+        if [ $kak_count = 0 ]; then
+            echo "exec gh"
+        else
+            echo "exec ${kak_count}0"
+        fi
+    }
+}
 
 # Helper commands
 # ───────────────
