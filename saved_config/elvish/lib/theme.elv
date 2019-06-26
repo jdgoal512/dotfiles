@@ -3,27 +3,17 @@
 # https://github.com/zzamboni/elvish-themes/blob/master/chain.org.
 # You should make any changes there and regenerate it from Emacs org-mode using C-c C-v t
 
-#prompt-segments-defaults = [ su dir git-branch git-combined arrow ]
-#prompt-segments-defaults = [ su dir arrow ]
 prompt-segments-defaults = [ su arrow ]
-rprompt-segments-defaults = [ git-branch git-combined timestamp ]
+rprompt-segments-defaults = [ timestamp ]
 
 use re
 
-use github.com/muesli/elvish-libs/git
+#use github.com/muesli/elvish-libs/git
 
 prompt-segments = $prompt-segments-defaults
 rprompt-segments = $rprompt-segments-defaults
 
-#&chain=         "-"
 default-glyph = [
-  &git-branch=    "⎇"
-  &git-dirty=     "●"
-  &git-ahead=     "⬆"
-  &git-behind=    "⬇"
-  &git-staged=    "✔"
-  &git-untracked= "+"
-  &git-deleted=   "-"
   &su=            "⚡"
   &chain=         ""
   &session=       "▪"
@@ -31,15 +21,6 @@ default-glyph = [
 ]
 
 default-segment-style = [
-  &git-branch=    [ blue    ]
-  &git-dirty=     [ yellow  ]
-  &git-ahead=     [ red     ]
-  &git-behind=    [ red     ]
-  &git-staged=    [ green   ]
-  &git-untracked= [ red     ]
-  &git-deleted=   [ red     ]
-  &git-combined=  [ default ]
-  &git-timestamp= [ cyan    ]
   &su=            [ yellow  ]
   &chain=         [ default ]
   &arrow=         [ white   ]
@@ -59,12 +40,9 @@ root-id = 0
 
 bold-prompt = $false
 
-git-get-timestamp = { git log -1 --date=short --pretty=format:%cd }
-
 fn -session-color {
   valid-colors = [ black red green yellow blue magenta cyan lightgray gray lightred lightgreen lightyellow lightblue lightmagenta lightcyan white ]
   put $valid-colors[(% $pid (count $valid-colors))]
-  #put white
 }
 
 fn -colorized [what @color]{
@@ -112,7 +90,6 @@ fn prompt-segment [segment-or-style @texts]{
   if (has-key $default-glyph $segment-or-style) {
     texts = [ (-glyph $segment-or-style) $@texts ]
   }
-  #text = "["(joins ' ' $texts)"]"
   text = (joins ' ' $texts)
   -colorized $text $style
 }
@@ -125,63 +102,6 @@ fn -any-staged {
   count [(each [k]{
         explode $last-status[$k]
   } [staged-modified staged-deleted staged-added renamed copied])]
-}
-
-fn -parse-git {
-  last-status = (git:status)
-  last-status[any-staged] = (-any-staged)
-}
-
-segment[git-branch] = {
-  branch = $last-status[branch-name]
-  if (not-eq $branch "") {
-    if (eq $branch '(detached)') {
-      branch = $last-status[branch-oid][0:7]
-    }
-    prompt-segment git-branch $branch
-  }
-}
-
-segment[git-timestamp] = {
-  ts = ($git-get-timestamp)
-  prompt-segment git-timestamp $ts
-}
-
-fn -show-git-indicator [segment]{
-  status-name = [
-    &git-dirty=  local-modified  &git-staged=    any-staged
-    &git-ahead=  rev-ahead       &git-untracked= untracked
-    &git-behind= rev-behind      &git-deleted=   local-deleted
-  ]
-  value = $last-status[$status-name[$segment]]
-  # The indicator must show if the element is >0 or a non-empty list
-  if (eq (kind-of $value) list) {
-    not-eq $value []
-  } else {
-    > $value 0
-  }
-}
-
-fn -git-prompt-segment [segment]{
-  if (-show-git-indicator $segment) {
-    prompt-segment $segment
-  }
-}
-
--git-indicator-segments = [untracked deleted dirty ahead behind]
-
-each [ind]{
-  segment[git-$ind] = { -git-prompt-segment git-$ind }
-} $-git-indicator-segments
-
-segment[git-combined] = {
-  indicators = [(each [ind]{
-        if (-show-git-indicator git-$ind) { -colorized-glyph git-$ind }
-  } $-git-indicator-segments)]
-  if (> (count $indicators) 0) {
-    color = (-segment-style git-combined)
-    put (-colorized '[' $color) $@indicators (-colorized ']' $color)
-  }
 }
 
 fn -prompt-pwd {
@@ -199,7 +119,6 @@ fn -prompt-pwd2 {
 }
 
 segment[dir] = {
-  #prompt-segment dir (-prompt-pwd)
   put (-colorized (-prompt-pwd) blue)
 }
 
@@ -209,7 +128,6 @@ segment[su] = {
     prompt-segment su
   }
 }
-  #valid-colors = [ white ]
 
 segment[timestamp] = {
   prompt-segment timestamp (date +$timestamp-format)
@@ -248,7 +166,7 @@ fn -build-chain [segments]{
   }
   first = $true
   output = ""
-  -parse-git
+  #-parse-git
   for seg $segments {
     output = [(-interpret-segment $seg)]
     if (> (count $output) 0) {
@@ -280,20 +198,3 @@ fn init {
 }
 
 init
-
-summary-repos = []
-
-fn summary-status {
-  prev = $pwd
-  each $echo~ $summary-repos | sort | each [r]{
-    cd $r
-    -parse-git
-    status = [($segment[git-combined])]
-    if (eq $status []) {
-      status = [(-colorized "[" session) (styled OK green) (-colorized "]" session)]
-    }
-    status = [$@status ' ' ($segment[git-branch]) ' ' ($segment[git-timestamp])]
-    echo &sep="" $@status ' ' (styled (tilde-abbr $r) blue)
-  } | sort -r +2 -3
-  cd $prev
-}
