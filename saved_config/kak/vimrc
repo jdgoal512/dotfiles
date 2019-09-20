@@ -1,3 +1,4 @@
+"My kakoune-like bindings for vim :)
 set nocompatible
 set noshowmode
 filetype off
@@ -11,14 +12,11 @@ Plugin 'scrooloose/syntastic'
 Plugin 'tpope/vim-commentary'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'dmix/elvish.vim'
-Bundle 'dag/vim-fish'
 Plugin 'Shougo/deoplete.nvim'
 Plugin 'roxma/vim-hug-neovim-rpc'
 Plugin 'roxma/nvim-yarp'
 Plugin 'ap/vim-buftabline'
-Plugin 'tmhedberg/SimpylFold'
 Plugin 'xolox/vim-misc.git'
-Plugin 'xolox/vim-notes.git'
 
 set encoding=utf-8
 
@@ -87,6 +85,8 @@ hi default link BufTabLineHidden User2
 hi default link BufTabLineFill User2
 
 "Makes you be able to move around on wrapping lines
+"Kakoune bindings
+noremap K kJ
 noremap j gj
 noremap k gk
 noremap gl $
@@ -94,6 +94,36 @@ noremap gh 0
 noremap gi ^
 noremap gk gg
 noremap gj G
+noremap d x
+noremap U <C-r>
+noremap e ve
+xnoremap e e
+xnoremap j e
+vmap ; v
+xnoremap j vgj
+xnoremap J j
+xnoremap k vgk
+xnoremap K k
+xnoremap h vh
+xnoremap H h
+xnoremap l vl
+xnoremap L l
+"noremap x 0v$
+"noremap X $v0k
+noremap x V
+noremap X V
+noremap # :Commentary<CR>
+
+xnoremap x j
+xnoremap X k
+noremap f vf
+xnoremap f f
+noremap F vF
+xnoremap F F
+noremap t vt
+xnoremap t t
+noremap T vT
+xnoremap T T
 map <F7> :w !xclip -selection c<CR><CR>
 map <S-F7> :r!xclip -o<CR>
 map <C-n> :NERDTreeToggle<CR>
@@ -103,8 +133,8 @@ nnoremap <C-.> :bnext<CR>
 nnoremap <C-,> :bprev<CR>
 "Use space to toggle folds
 "noremap <space> za
-noremap H :bprev<CR>
-noremap L :bnext<CR>
+"noremap H :bprev<CR>
+"noremap L :bnext<CR>
 noremap <C-w>1 :1b<CR>
 noremap <C-w>2 :2b<CR>
 noremap <C-w>3 :3b<CR>
@@ -117,7 +147,7 @@ noremap <C-w>9 :9b<CR>
 nnoremap <F9> :!%:p<CR>
 imap jj <Esc>
 
-let mapleader=" "
+let mapleader=","
 nnoremap <leader>' vi'
 nnoremap <leader>" vi"
 nnoremap <leader>` vi`
@@ -147,8 +177,6 @@ inoremap <silent><expr> <TAB>
       \ <SID>check_back_space() ? "\<TAB>" :
       \ deoplete#manual_complete()
 
-"Set prolog syntax highlighting
-au BufReadPost *.pro set syntax=prolog
 command Diff execute 'w !git diff --no-index % -'
 set tags=~/prog/.tags
 
