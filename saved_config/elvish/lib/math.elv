@@ -51,3 +51,12 @@ fn pi {
     put 3.14159265359
 }
 
+fn average [@args]{
+    put (/ (+ $@args) (count $args))
+}
+
+fn sqrt [@args]{
+    for arg $args {
+        put (^ $arg .5)
+    }
+}

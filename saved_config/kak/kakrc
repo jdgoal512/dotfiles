@@ -36,6 +36,7 @@ set global modelinefmt {{mode_info}}
 set -add global modelinefmt %{ {black,blue} %val{bufname}{{context_info}}}
 set -add global modelinefmt %{%opt{statusline_readonly} {blue+u}}
 set -add global modelinefmt %{ %opt{filetype} }
+set -add global modelinefmt %{{black,%sh{if (( $kak_cursor_char_column < 80 )); then echo blue; else echo red; fi}+b}%val{cursor_char_column}}
 set -add global modelinefmt %{{black,blue+b}[%opt{statusline_current_position}]}
 
 # Pane management (Tmux)
