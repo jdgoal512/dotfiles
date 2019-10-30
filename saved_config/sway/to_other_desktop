@@ -1,0 +1,21 @@
+#!/bin/bash
+desktops=($(i3-msg -t get_outputs | jq '.[] | select(.current_workspace != null) | .current_workspace' | cut -d"\"" -f2))
+#echo Desktops: $desktops
+
+current_workspace=`i3-msg -t get_workspaces | jq '.[] | select(.focused==true).name' | cut -d"\"" -f2`
+#echo Current Workspace: $current_workspace
+
+num_desktops=${#desktops[@]}
+if [ $num_desktops -eq 1 ]; then
+	echo "Sorry, you only have 1 desktop"
+	exit 0;
+else
+	if [ ${desktops[0]} == $current_workspace ]; then
+		other_desktop=${desktops[1]}
+	else
+		other_desktop=${desktops[0]}
+	fi
+	#echo Other Desktop: $other_desktop
+	i3-msg move container to workspace $other_desktop
+	i3-msg workspace $other_desktop
+fi

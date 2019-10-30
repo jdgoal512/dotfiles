@@ -1,0 +1,3 @@
+#!/bin/bash
+
+twmnc --id 123 --content "$@" 
