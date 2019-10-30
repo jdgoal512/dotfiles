@@ -1,199 +1,184 @@
-# font pango:DejaVu Sans 8
 font Droid Sans Mono-12
 
 set $mod              mod1
 set $term             st -e tmux
-set $file_manager     nemo
-set $dmenu            bemenu-run -p "" -i --fb "#222222" --hf "#eeeeee" \
-                                 --hb "#4B81AF" --nb "#222222" \
-                                 --fn "Droid Sans Mono-12"
-set $shift_workspace  switch_desktop sway switch
-set $move_workspace   switch_desktop sway move
-set $warn_resize_mode ~/.config/sway/notify "You are in resize mode"
-set $to_normal_mode   ~/.config/sway/notify 'Normal Mode'; sway-msg mode default
+set $file_manager     thunar
+set $dmenu            dmenu_run -fn 'Droid Sans Mono-12' -sb '#4B81AF'
+set $shift_workspace  switch_desktop i3 switch
+set $move_workspace   switch_desktop i3 move
+set $warn_resize_mode ~/.config/i3/notify "You are in resize mode"
+set $to_normal_mode   "~/.config/i3/notify 'Normal Mode'; i3-msg mode default"
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
 # Key bindings for launching applications
-bindsym {
-    $mod+Return    exec $term
-    $mod+t         exec $file_manager
-    mod4+semicolon exec swaylock
-    Mod4+t         exec ~/.config/sway/toggle_touchpad
-    $mod+d         exec $dmenu
-    mod1+space     exec $dmenu
-    mod4+space     exec $dmenu
-    F12            exec guake -t
-}
+bindsym $mod+Return    exec $term
+bindsym $mod+t         exec $file_manager
+bindsym mod4+semicolon exec i3lock
+bindsym Mod4+t         exec ~/.config/i3/toggle_touchpad
+bindsym $mod+d         exec $dmenu
+bindsym mod1+space     exec $dmenu
+bindsym mod4+space     exec $dmenu
+bindsym F12            exec guake -t
 
 # kill focused window
 bindsym $mod+Shift+q kill
 bindsym mod1+F4      kill
 
 # Window navigation
-bindsym {
-    # change focus
-    $mod+h     focus left
-    $mod+j     focus down
-    $mod+k     focus up
-    $mod+l     focus right
-    $mod+Left  focus left
-    $mod+Down  focus down
-    $mod+Up    focus up
-    $mod+Right focus right
+# change focus
+bindsym $mod+h     focus left
+bindsym $mod+j     focus down
+bindsym $mod+k     focus up
+bindsym $mod+l     focus right
+bindsym $mod+Left  focus left
+bindsym $mod+Down  focus down
+bindsym $mod+Up    focus up
+bindsym $mod+Right focus right
 
-    # move focused window
-    $mod+Shift+h     move left
-    $mod+Shift+j     move down
-    $mod+Shift+k     move up
-    $mod+Shift+l     move right
-    $mod+Shift+Left  move left
-    $mod+Shift+Down  move down
-    $mod+Shift+Up    move up
-    $mod+Shift+Right move right
+# move focused window
+bindsym Shift+$mod+h     move left
+bindsym Shift+$mod+j     move down
+bindsym Shift+$mod+k     move up
+bindsym Shift+$mod+l     move right
+bindsym Shift+$mod+Left  move left
+bindsym Shift+$mod+Down  move down
+bindsym Shift+$mod+Up    move up
+bindsym Shift+$mod+Right move right
 
-    # Change focus in Tmux
-    Mod4+h exec tmux select-pane -L
-    Mod4+j exec tmux select-pane -D
-    Mod4+k exec tmux select-pane -U
-    Mod4+l exec tmux select-pane -R
-}
+# Change focus in Tmux
+bindsym Mod4+h exec tmux select-pane -L
+bindsym Mod4+j exec tmux select-pane -D
+bindsym Mod4+k exec tmux select-pane -U
+bindsym Mod4+l exec tmux select-pane -R
+
 
 # Container management
-bindsym {
-    # Change split to horizontal or verical
-    $mod+b split h  # Split horizontally
-    $mod+v split v  # Split vertically
-    # Change container layout (stacked, tabbed, toggle split)
-    $mod+w layout tabbed
-    $mod+e layout toggle split
-    $mod+f fullscreen toggle  # enter fullscreen mode for the focused container
-    # Change container focus
-    $mod+a focus parent # focus the parent container
-    # $mod+d focus child # focus the child container
-}
+# Change split to horizontal or verical
+bindsym $mod+b split h  # Split horizontally
+bindsym $mod+v split v  # Split vertically
+# Change container layout (stacked, tabbed, toggle split)
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+bindsym $mod+f fullscreen toggle  # enter fullscreen mode for the focused container
+# Change container focus
+bindsym $mod+a focus parent # focus the parent container
+# bindsym $mod+d focus child # focus the child container
 
 # toggle tiling / floating
 bindsym $mod+Shift+space floating toggle
 
 # switch to workspace
-bindsym {
-    $mod+1 workspace 1
-    $mod+2 workspace 2
-    $mod+3 workspace 3
-    $mod+4 workspace 4
-    $mod+5 workspace 5
-    $mod+6 workspace 6
-    $mod+7 workspace 7
-    $mod+8 workspace 8
-    $mod+9 workspace 9
-    $mod+0 workspace 10
-    Control+$mod+h     exec $shift_workspace left
-    Control+$mod+j     exec $shift_workspace down
-    Control+$mod+k     exec $shift_workspace up
-    Control+$mod+l     exec $shift_workspace right
-    Control+$mod+Left  exec $shift_workspace left bindsym Control+$mod+Down  exec $shift_workspace down
-    Control+$mod+Up    exec $shift_workspace up
-    Control+$mod+Right exec $shift_workspace right
-    $mod+Tab workspace next 
-    mod4+Tab exec ~/.config/sway/to_other_desktop
-}
+bindsym $mod+1 workspace 1
+bindsym $mod+2 workspace 2
+bindsym $mod+3 workspace 3
+bindsym $mod+4 workspace 4
+bindsym $mod+5 workspace 5
+bindsym $mod+6 workspace 6
+bindsym $mod+7 workspace 7
+bindsym $mod+8 workspace 8
+bindsym $mod+9 workspace 9
+bindsym $mod+0 workspace 10
+bindsym Control+$mod+h     exec $shift_workspace left
+bindsym Control+$mod+j     exec $shift_workspace down
+bindsym Control+$mod+k     exec $shift_workspace up
+bindsym Control+$mod+l     exec $shift_workspace right
+bindsym Control+$mod+Left  exec $shift_workspace left bindsym Control+$mod+Down  exec $shift_workspace down
+bindsym Control+$mod+Up    exec $shift_workspace up
+bindsym Control+$mod+Right exec $shift_workspace right
+bindsym $mod+Tab workspace next 
+bindsym mod4+Tab exec ~/.config/i3/to_other_desktop
 
 # move focused container to workspace
-bindsym {
-    Shift+$mod+1 move container to workspace 1
-    Shift+$mod+2 move container to workspace 2
-    Shift+$mod+3 move container to workspace 3
-    Shift+$mod+4 move container to workspace 4
-    Shift+$mod+5 move container to workspace 5
-    Shift+$mod+6 move container to workspace 6
-    Shift+$mod+7 move container to workspace 7
-    Shift+$mod+8 move container to workspace 8
-    Shift+$mod+9 move container to workspace 9
-    Shift+$mod+0 move container to workspace 10
-    Control+Shift+$mod+h     exec $move_workspace left
-    Control+Shift+$mod+j     exec $move_workspace down
-    Control+Shift+$mod+k     exec $move_workspace up
-    Control+Shift+$mod+l     exec $move_workspace right
-    Control+Shift+$mod+Left  exec $move_workspace left
-    Control+Shift+$mod+Down  exec $move_workspace down
-    Control+Shift+$mod+Up    exec $move_workspace up
-    Control+Shift+$mod+Right exec $move_workspace right
-}
+bindsym Shift+$mod+1 move container to workspace 1
+bindsym Shift+$mod+2 move container to workspace 2
+bindsym Shift+$mod+3 move container to workspace 3
+bindsym Shift+$mod+4 move container to workspace 4
+bindsym Shift+$mod+5 move container to workspace 5
+bindsym Shift+$mod+6 move container to workspace 6
+bindsym Shift+$mod+7 move container to workspace 7
+bindsym Shift+$mod+8 move container to workspace 8
+bindsym Shift+$mod+9 move container to workspace 9
+bindsym Shift+$mod+0 move container to workspace 10
+bindsym Control+Shift+$mod+h     exec $move_workspace left
+bindsym Control+Shift+$mod+j     exec $move_workspace down
+bindsym Control+Shift+$mod+k     exec $move_workspace up
+bindsym Control+Shift+$mod+l     exec $move_workspace right
+bindsym Control+Shift+$mod+Left  exec $move_workspace left
+bindsym Control+Shift+$mod+Down  exec $move_workspace down
+bindsym Control+Shift+$mod+Up    exec $move_workspace up
+bindsym Control+Shift+$mod+Right exec $move_workspace right
 
 # Session management
-bindsym {
-    # Reload the configuration file
-    bindsym Shift+$mod+c reload
-    # Restart sway inplace (preserves your layout/session, can be used to upgrade sway)
-    bindsym Shift+$mod+r restart
-    # Exit sway (logs you out)
-    Shift+$mod+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway?' -b 'Yes, exit sway' 'swaymsg exit'
-}
+# Reload the configuration file
+bindsym Shift+$mod+c reload
+# Restart i3 (preserves your layout/session, can be used to upgrade i3)
+bindsym Shift+$mod+r restart
+# Exit i3 (logs you out of your X session)
+bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
 # Resize mode
-bindsym $mod+r exec "~/.config/sway/no tify 'Resize Mode'; sway-msg mode resize"
-mode "resize" bindsym {
+bindsym $mod+r exec "~/.config/i3/notify 'Resize Mode'; i3-msg mode resize"
+mode "resize" {
     # Resize window
-    h     resize shrink width  10 px or 10 ppt
-    l     resize grow   width  10 px or 10 ppt
-    k     resize shrink height 10 px or 10 ppt
-    j     resize grow   height 10 px or 10 ppt
-    Left  resize shrink width  10 px or 10 ppt
-    Right resize grow   width  10 px or 10 ppt
-    Up    resize shrink height 10 px or 10 ppt
-    Down  resize grow   height 10 px or 10 ppt
+    bindsym h     resize shrink width  10 px or 10 ppt
+    bindsym l     resize grow   width  10 px or 10 ppt
+    bindsym k     resize shrink height 10 px or 10 ppt
+    bindsym j     resize grow   height 10 px or 10 ppt
+    bindsym Left  resize shrink width  10 px or 10 ppt
+    bindsym Right resize grow   width  10 px or 10 ppt
+    bindsym Up    resize shrink height 10 px or 10 ppt
+    bindsym Down  resize grow   height 10 px or 10 ppt
 
     # Let the user know if they try to do something and they are still in resize mode
-    Control+Shift+$mod+h     exec $warn_resize_mode
-    Control+Shift+$mod+j     exec $warn_resize_mode
-    Control+Shift+$mod+k     exec $warn_resize_mode
-    Control+Shift+$mod+l     exec $warn_resize_mode
-    Control+Shift+$mod+Left  exec $warn_resize_mode
-    Control+Shift+$mod+Down  exec $warn_resize_mode
-    Control+Shift+$mod+Up    exec $warn_resize_mode
-    Control+Shift+$mod+Right exec $warn_resize_mode
-    Control+$mod+h           exec $warn_resize_mode
-    Control+$mod+j           exec $warn_resize_mode
-    Control+$mod+k           exec $warn_resize_mode
-    Control+$mod+l           exec $warn_resize_mode
-    Control+$mod+Left        exec $warn_resize_mode
-    Control+$mod+Down        exec $warn_resize_mode
-    Control+$mod+Up          exec $warn_resize_mode
-    Control+$mod+Right       exec $warn_resize_mode
+    bindsym Control+Shift+$mod+h     exec $warn_resize_mode
+    bindsym Control+Shift+$mod+j     exec $warn_resize_mode
+    bindsym Control+Shift+$mod+k     exec $warn_resize_mode
+    bindsym Control+Shift+$mod+l     exec $warn_resize_mode
+    bindsym Control+Shift+$mod+Left  exec $warn_resize_mode
+    bindsym Control+Shift+$mod+Down  exec $warn_resize_mode
+    bindsym Control+Shift+$mod+Up    exec $warn_resize_mode
+    bindsym Control+Shift+$mod+Right exec $warn_resize_mode
+    bindsym Control+$mod+h           exec $warn_resize_mode
+    bindsym Control+$mod+j           exec $warn_resize_mode
+    bindsym Control+$mod+k           exec $warn_resize_mode
+    bindsym Control+$mod+l           exec $warn_resize_mode
+    bindsym Control+$mod+Left        exec $warn_resize_mode
+    bindsym Control+$mod+Down        exec $warn_resize_mode
+    bindsym Control+$mod+Up          exec $warn_resize_mode
+    bindsym Control+$mod+Right       exec $warn_resize_mode
 
     # back to normal: Enter or Escape
-    Return exec $to_normal_mode
-    Escape exec $to_normal_mode
-    q      exec $to_normal_mode
-    F12    exec guake -t         # Toggle guake
+    bindsym Return exec $to_normal_mode
+    bindsym Escape exec $to_normal_mode
+    bindsym q      exec $to_normal_mode
 }
 
 # Window Rules
-for_window {
-    [class="com-sun-javaws-Main"]   floating enable
-    [class="VirtualBox"]            floating enable
-    [class="unity" title="hold on"] floating enable
-    [class="Gsimplecal"]            floating enable
-    [class="Lxterminal"]            border pixel 3
-    [class="st-256color"]           border pixel 3
-    [class="URxvt"]                 border pixel 3
-    [class="Tilix"]                 border pixel 3
-    [app_id="guake"]                border pixel 0; floating enable; move position 0 0
-}
+for_window [class=Lxterminal] border pixel 3
+for_window [class=st-256color] border pixel 3
+for_window [class=URxvt] border pixel 3
+for_window [class=Tilix] border pixel 3
+for_window [class="com-sun-javaws-Main"] floating enable
+for_window [class="VirtualBox"] floating enable
+for_window [class="Unity" title="Hold on"] floating enable
+for_window [class="Gsimplecal"] floating enable
 
 # Startup programs
-exec pnmixer &
-exec nm-applet &
-exec xfce4-power-manager &
-exec twmnd &
-exec kdeconnect-indicator &
-exec gnome-keyring-daemon &
-exec waybar &
-
-# Touchpad settings
-input "2:7:SynPS/2_Synaptics_TouchPad" {
-    tap enabled
-    natural_scroll enabled
-}
+exec --no-startup-id nitrogen --restore &
+#exec --no-startup-id compton &
+#exec --no-startup-id cairo-compmgr &
+exec --no-startup-id thunar --daemon &
+exec --no-startup-id guake &
+exec --no-startup-id tint2 &
+exec --no-startup-id jgmenu --at-pointer --hide-on-startup &
+exec --no-startup-id pnmixer &
+exec --no-startup-id nm-applet &
+exec --no-startup-id xfce4-power-manager &
+exec --no-startup-id synclient HorizTwoFingerScroll=1 &
+exec --no-startup-id synclient TapButton1=1 &
+exec --no-startup-id twmnd &
+exec --no-startup-id xfce4-clipman &
+exec --no-startup-id kdeconnect-indicator &
+exec --no-startup-id gnome-keyring-daemon &
