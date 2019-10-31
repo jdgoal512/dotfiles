@@ -7,8 +7,10 @@ set $file_manager     nemo
 set $dmenu            bemenu-run -p "" -i --fb "#222222" --hf "#eeeeee" \
                                  --hb "#4B81AF" --nb "#222222" \
                                  --fn "Droid Sans Mono-12"
-set $shift_workspace  switch_desktop sway switch
-set $move_workspace   switch_desktop sway move
+set $shift_workspace  switch_workspace sway switch
+set $move_workspace   switch_workspace sway move
+set $goto_workspace   switch_workspace sway goto
+set $move_to_workspace   switch_workspace sway moveto
 set $warn_resize_mode ~/.config/sway/notify "You are in resize mode"
 set $to_normal_mode   ~/.config/sway/notify 'Normal Mode'; sway-msg mode default
 
@@ -79,16 +81,16 @@ bindsym $mod+Shift+space floating toggle
 
 # switch to workspace
 bindsym {
-    $mod+1 workspace 1
-    $mod+2 workspace 2
-    $mod+3 workspace 3
-    $mod+4 workspace 4
-    $mod+5 workspace 5
-    $mod+6 workspace 6
-    $mod+7 workspace 7
-    $mod+8 workspace 8
-    $mod+9 workspace 9
-    $mod+0 workspace 10
+    $mod+1             exec $goto_workspace 1
+    $mod+2             exec $goto_workspace 2
+    $mod+3             exec $goto_workspace 3
+    $mod+4             exec $goto_workspace 4
+    $mod+5             exec $goto_workspace 5
+    $mod+6             exec $goto_workspace 6
+    $mod+7             exec $goto_workspace 7
+    $mod+8             exec $goto_workspace 8
+    $mod+9             exec $goto_workspace 9
+    $mod+0             exec $goto_workspace 10
     Control+$mod+h     exec $shift_workspace left
     Control+$mod+j     exec $shift_workspace down
     Control+$mod+k     exec $shift_workspace up
@@ -102,16 +104,16 @@ bindsym {
 
 # move focused container to workspace
 bindsym {
-    Shift+$mod+1 move container to workspace 1
-    Shift+$mod+2 move container to workspace 2
-    Shift+$mod+3 move container to workspace 3
-    Shift+$mod+4 move container to workspace 4
-    Shift+$mod+5 move container to workspace 5
-    Shift+$mod+6 move container to workspace 6
-    Shift+$mod+7 move container to workspace 7
-    Shift+$mod+8 move container to workspace 8
-    Shift+$mod+9 move container to workspace 9
-    Shift+$mod+0 move container to workspace 10
+    Shift+$mod+1             exec $move_to_workspace 1
+    Shift+$mod+2             exec $move_to_workspace 2
+    Shift+$mod+3             exec $move_to_workspace 3
+    Shift+$mod+4             exec $move_to_workspace 4
+    Shift+$mod+5             exec $move_to_workspace 5
+    Shift+$mod+6             exec $move_to_workspace 6
+    Shift+$mod+7             exec $move_to_workspace 7
+    Shift+$mod+8             exec $move_to_workspace 8
+    Shift+$mod+9             exec $move_to_workspace 9
+    Shift+$mod+0             exec $move_to_workspace 10
     Control+Shift+$mod+h     exec $move_workspace left
     Control+Shift+$mod+j     exec $move_workspace down
     Control+Shift+$mod+k     exec $move_workspace up
