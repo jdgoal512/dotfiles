@@ -20,3 +20,4 @@ $HOME/.config/tmux:tmux
 $HOME/.config/kak:kak
 $HOME/.config/bspwm:bspwm
 $HOME/.config/sxhkd:sxhkd
+$HOME/.config/sway:sway
