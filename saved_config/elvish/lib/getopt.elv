@@ -1,101 +1,142 @@
-fn flag [flag @args]{
-    if (eq $flag[0] '-') {
-        flag = $flag[1:]
-        if (eq $flag[0] '-') {
-            flag = $flag[1:]
-        }
-    }
+flags = []
+flags_flat = []
+flag_help = [&]
+opts = [&]
+opts_order = []
+opt_help = [&]
+
+use list
+
+fn -remove_dashes [@args]{
     for arg $args {
-        if (eq $arg[0] '-') {
-            arg = $arg[1:]
-            try {
-                if (eq $arg[0] '-') {
-                    arg = $arg[1:]
-                }
-                if (eq $flag $arg) {
-                    put $true
-                    return
-                }
-            } except { }
+        if (has-prefix $arg '--') {
+            put $arg[2:]
+        } elif (has-prefix $arg '-') {
+            put $arg[1:]
+        } else {
+            put $arg
         }
     }
-    put $false
 }
 
-fn opt [opt @args]{
-    for i [(range (- (count $args) 1))] {
-        if (eq $opt $args[$i]) {
-            put $args[(+ $i 1)]
-            return
-        }
+fn -check_if_parm [parm value]{
+    if (has-prefix $value '-') {
+        put (eq $parm (-remove_dashes $value))
+    } else {
+        put $false
     }
-    fail "Option "$opt" not found"
 }
 
-fn getopts [&@flags=[] &@opts=[&] @args]{
-    args_no_opts = $args
-    #Remove opts from arguments
-    for opt [(keys $opts)] {
-        new_args = []
-        i = 0
-        while (< $i (count $args_no_opts)) {
-            #Add last arg onto the list if the end is reached
-            if (eq $i (- (count $args_no_opts) 1)) {
-                new_args = [$@new_args $args_no_opts[-1]]
+fn -check_if_opt [value]{
+    put (has-value [(put (keys $opts))] (-remove_dashes $value))
+}
+
+fn -check_if_flag [value]{
+    put (has-value $flags_flat (-remove_dashes $value))
+}
+
+fn clear []{
+    flags = []
+    flags_flat = []
+    flag_help = [&]
+    opts = [&]
+    opts_order = []
+    opt_help = [&]
+}
+
+fn add_flag [&help=$false primary_flag @rest]{
+    primary_flag @rest = (-remove_dashes $primary_flag $@rest)
+    if $help {
+        flag_help[$primary_flag] = $help
+    }
+    flags = [$@flags [$primary_flag $@rest]]
+    flags_flat = [$@flags_flat $primary_flag $@rest]
+}
+
+fn add_opt [&help=$false opt default]{
+    opt = (-remove_dashes $opt)
+    if $help {
+        opt_help[$opt] = $help
+    }
+    opts[$opt] = $default
+    opts_order = [$@opts_order $opt]
+}
+
+fn help_message []{
+    if (not-eq $flags []) {
+        echo "---- Flags ----"
+        for flag $flags {
+            primary_flag @rest = $@flag
+            all_flags = (joins '/--' $flag)
+            if (has-key $flag_help $primary_flag) {
+                echo "  --"$all_flags":\t"$flag_help[$primary_flag]
             } else {
-                if (eq $opt $args_no_opts[$i]) {
-                    opts[$opt] = $args_no_opts[(+ $i 1)]
-                    rest = $args_no_opts[(+ $i 2):]
-                    new_args = [$@new_args $@rest]
-                    break
-                } else {
-                    new_args = [$@new_args $args_no_opts[$i]]
-                }
-            }
-            i = (+ $i 1)
-        }
-        args_no_opts = $new_args
-    }
-    #Remove - and -- from front of flag arguments if present
-    formatted_flags = []
-    for flag $flags {
-        if (eq $flag[0] '-') {
-            flag = $flag[1:]
-            if (eq $flag[0] '-') {
-                flag = $flag[1:]
+                echo "  --"$all_flags
             }
         }
-        formatted_flags = [$@formatted_flags $flag]
     }
+    if (not-eq $opts [&]) {
+        echo "---- Opts ----"
+        for opt $opts_order {
+            if (has-key $opt_help $opt) {
+                echo "  --"$opt" ["$opts[$opt]"]:\t"$opt_help[$opt]
+            } else {
+                echo "  --"$opt" ["$opts[$opt]"]"
+            }
+        }
+    }
+    put $flags_flat
+
+}
+
+fn getopts [@args]{
+    args_no_opts = []
+    #Remove opts from arguments
+    new_args = []
+    if (> (count $args) 1) {
+        items = [(list:zip $args [(explode $args[1:]) $false])]
+        i = 0
+        while (< $i (count $items)) {
+            current next = (explode $items[$i])
+            if (and $next (-check_if_opt $current)) {
+                opts[(-remove_dashes $current)] = $next
+                i = (+ $i 2)
+            } else {
+                args_no_opts = [$@args_no_opts $current]
+                i = (+ $i 1)
+            }
+        }
+    } else {
+        args_no_opts = $args
+    }
+
     #Initialize flags to false
     found_flags = [&]
-    for flag $formatted_flags {
+    for flag $flags_flat {
         found_flags[$flag] = $false
     }
     #Find flags and remove them from the arguments
     new_args = []
-    for i [(range (count $args_no_opts))] {
-        arg = $args_no_opts[$i]
+    for arg $args_no_opts {
         add_arg = $true
-        for flag $formatted_flags {
-            if (eq $arg[0] '-') {
-                flag_arg = $arg[1:]
-                try {
-                    if (eq $flag_arg[0] '-') {
-                        flag_arg = $flag_arg[1:]
-                    }
-                    if (eq $flag $flag_arg) {
-                        add_arg = $false
-                        found_flags[$flag] = $true
-                        break
-                    }
-                } except { }
+        for flag $flags_flat {
+            if (-check_if_parm $flag $arg) {
+                add_arg = $false
+                found_flags[$flag] = $true
+                break
             }
         }
         if $add_arg {
             new_args = [$@new_args $arg]
         }
     }
-    output = [&opts=$opts &flags=$found_flags &args=$new_args]
+    #Condense duplicate flags
+    condensed_flags = [&]
+    for flag_group $flags {
+        primary_flag = $flag_group[0]
+        value =  (or $found_flags[$@flag_group])
+        condensed_flags[$primary_flag] = $value
+    }
+    output = [&opts=$opts &flags=$condensed_flags &args=$new_args]
     put $output
 }

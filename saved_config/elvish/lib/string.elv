@@ -21,3 +21,9 @@ fn reverse [@strings]{
         put $output
     }
 }
+
+fn trim [@strings]{
+    for line $strings {
+        put (echo $line | sed 's/^[[:blank:]]\+//g;s/[[:blank:]]\+$//g')
+    }
+}
