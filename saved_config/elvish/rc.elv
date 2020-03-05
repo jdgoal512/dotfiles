@@ -6,6 +6,7 @@ epm:install &silent-if-installed=$true   \
   github.com/zzamboni/elvish-completions \
   github.com/xiaq/edit.elv               \
   github.com/muesli/elvish-libs          \
+  github.com/jdgoal512/elvish-modules          \
   github.com/iwoloschin/elvish-packages
 
 #use github.com/zzamboni/elvish-modules/long-running-notifications
@@ -17,10 +18,28 @@ fn sl [@args]{ ls $@args }
 fn LS [@args]{ ls $@args }
 fn grep [@args]{ e:grep --color=auto --exclude-dir={env,site-packages,.bzr,CVS,.git,.hg,.svn} $@args }
 
+cd_history = []
+
 fn cd [@args]{
     dir = "" 
     if (eq $args []) {
         dir = ~
+    } elif (eq $args[0] '-') {
+        if ?(test -d '-') {
+            dir = '-'
+        } else {
+            if (not-eq $cd_history []) {
+                dir = $cd_history[0]
+                if (> (count $cd_history) 1) {
+                    cd_history = $cd_history[2:]
+                } else {
+                    cd_history = []
+                }
+
+            } else {
+                dir = '.'
+            }
+        }
     } else {
         dir = $args[0]
         while (re:match '\.\.\.' $dir) {
@@ -28,10 +47,39 @@ fn cd [@args]{
         }
     }
     try {
+        cd_history = [(pwd) $@cd_history]
         builtin:cd $dir
         e:ls --color=auto
     } except {
             echo "No such file or directory:" $dir
+    }
+}
+
+fn cat [@args]{
+    if (has-external highlight) {
+        (external highlight) -O ansi --stdout --force $@args
+    } else {
+        (external cat) $@args
+    }
+}
+
+fn lsd [@args]{
+    if (eq [] $args) {
+        ls -d */
+    } else {
+        for arg $args {
+            ls  -d $arg/*/
+        }
+    }
+}
+
+fn lsf [@args]{
+    if (eq $args []) {
+        lsf .
+    } else {
+        for arg $args {
+            ls (ls -p $arg | grep -v /)
+        }
     }
 }
 
@@ -63,6 +111,7 @@ use github.com/xiaq/edit.elv/smart-matcher
 smart-matcher:apply
 use github.com/zzamboni/elvish-completions/ssh
 use github.com/zzamboni/elvish-completions/builtins
+use github.com/zzamboni/elvish-completions/cd
 
 #use github.com/zzamboni/elvish-completions/git
 #git:git-command = hub
@@ -108,3 +157,5 @@ update:curl-timeout = 3
 use hex
 fn fromhex [@args]{ hex:fromhex $@args }
 fn tohex [@args]{ hex:tohex $@args }
+
+fn ag [@args]{ /usr/bin/ag "--ignore-dir=env" "--ignore-dir=site-packages" $@args }

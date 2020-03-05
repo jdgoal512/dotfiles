@@ -14,6 +14,9 @@ set $move_to_workspace   switch_workspace sway moveto
 set $warn_resize_mode ~/.config/sway/notify "You are in resize mode"
 set $to_normal_mode   ~/.config/sway/notify 'Normal Mode'; sway-msg mode default
 
+# Set background
+output "*" bg ~/.config/background fill
+
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
@@ -176,13 +179,14 @@ mode "resize" bindsym {
 # Window Rules
 for_window {
     [class="com-sun-javaws-Main"]   floating enable
-    [class="VirtualBox"]            floating enable
     [class="unity" title="hold on"] floating enable
     [class="Gsimplecal"]            floating enable
     [class="Lxterminal"]            border pixel 3
     [class="st-256color"]           border pixel 3
     [class="URxvt"]                 border pixel 3
     [class="Tilix"]                 border pixel 3
+    [class="VirtualBox"]            border pixel 3
+    [class="Vivaldi-stable"]        border pixel 3
     [app_id="guake"]                border pixel 0; floating enable; move position 0 0
 }
 

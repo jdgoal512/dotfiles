@@ -71,7 +71,22 @@ hook global WinSetOption filetype=python %{
 }
 
 map -docstring "xml tag objet" global object t %{c<lt>([\w.]+)\b[^>]*?(?<lt>!/)>,<lt>/([\w.]+)\b[^>]*?(?<lt>!/)><ret>}
-set-option -add current ctagsfiles ~/prog/.tags
+# set-option -add current ctagsfiles ~/prog/.tags
+
+hook global KakBegin .* %{
+    evaluate-commands %sh{
+        path="$PWD"
+        while [ "$path" != "$HOME" ] && [ "$path" != "/" ]; do
+            if [ -e "./.tags" ]; then
+                printf "%s\n" "set-option -add current ctagsfiles %{$path/.tags}"
+                break
+            else
+                cd ..
+                path="$PWD"
+            fi
+        done
+    }
+}
 
 # Highlight the word under the cursor
 # ───────────────────────────────────
@@ -100,16 +115,22 @@ map global normal = ':prompt math: %{exec "a%val{text}<lt>esc>|bc<lt>ret>"}<ret>
 
 # System clipboard handling
 # ─────────────────────────
-evaluate-commands %sh{
-    case $(uname) in
-        Linux) copy="xsel -i -b"; paste="xsel -b" ;;
-        Darwin)  copy="pbcopy"; paste="pbpaste" ;;
-    esac
-    printf "map global user -docstring 'paste (after) from clipboard' p '!%s<ret>'\n" "$paste"
-    printf "map global user -docstring 'paste (before) from clipboard' P '<a-!>%s<ret>'\n" "$paste"
-    printf "map global user -docstring 'yank to clipboard' y '<a-|>%s<ret>:echo -markup %%{{Information}copied selection to X11 clipboard}<ret>'\n" "$copy"
-    printf "map global user -docstring 'replace from clipboard' R '|%s<ret>'\n" "$paste"
-}
+# evaluate-commands %sh{
+#     case $(uname) in
+#         # Linux) copy="wl-copy >/dev/null 2>&1 &"; paste="wl-paste -n" ;;
+#         Linux) copy="wl-copy >/dev/null 2>&1 &"; paste="wl-paste -n" ;;
+#         # Linux) copy="xsel -i -b"; paste="xsel -b" ;;
+#         Darwin)  copy="pbcopy"; paste="pbpaste" ;;
+#     esac
+#     printf "map global user -docstring 'paste (after) from clipboard' p '!%s<ret>'\n" "$paste"
+#     printf "map global user -docstring 'paste (before) from clipboard' P '<a-!>%s<ret>'\n" "$paste"
+#     printf "map global user -docstring 'yank to clipboard' y '<a-|>%s<ret>:echo -markup %%{{Information}copied selection to Wayland clipboard}<ret>'\n" "$copy"
+#     printf "map global user -docstring 'replace from clipboard' R '|%s<ret>'\n" "$paste"
+# }
+# Use system's clipboard
+hook global NormalKey y|d|c %{ nop %sh{
+  printf %s "$kak_main_reg_dquote" | wl-copy > /dev/null 2>&1 &
+}}
 
 # Various mappings
 # ────────────────
