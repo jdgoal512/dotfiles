@@ -1,7 +1,1 @@
-fn fromhex [@args]{
-    for value $args {
-        put (perl -e "print(hex('"$value"'));")
-    }
-}
-
-fn tohex [@args]{ put (base 16 $@args) }
+github.com/jdgoal512/elvish-modules/hex.elv

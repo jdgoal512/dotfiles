@@ -231,6 +231,8 @@ define-command delete-buffers-matching -params 1 %{
     }
 }
 
+source ~/.elvish/syntax/elvish.kak
+
 # Load local Kakoune config file if it exists
 # ───────────────────────────────────────────
 evaluate-commands %sh{ [ -f $kak_config/local.kak ] && echo "source $kak_config/local.kak" }
