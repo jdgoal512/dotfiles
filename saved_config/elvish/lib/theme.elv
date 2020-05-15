@@ -14,19 +14,19 @@ prompt-segments = $prompt-segments-defaults
 rprompt-segments = $rprompt-segments-defaults
 
 default-glyph = [
-  &su=            "⚡"
-  &chain=         ""
-  &session=       "▪"
-  &arrow=         "$"
+    &su=            "⚡"
+    &chain=         ""
+    &session=       "▪"
+    &arrow=         "$"
 ]
 
 default-segment-style = [
-  &su=            [ yellow  ]
-  &chain=         [ default ]
-  &arrow=         [ white   ]
-  &dir=           [ cyan    ]
-  &session=       [ session ]
-  &timestamp=     [ default ]
+    &su=            [ yellow  ]
+    &chain=         [ default ]
+    &arrow=         [ white   ]
+    &dir=           [ cyan    ]
+    &session=       [ session ]
+    &timestamp=     [ default ]
 ]
 
 glyph = [&]
@@ -41,57 +41,57 @@ root-id = 0
 bold-prompt = $false
 
 fn -session-color {
-  valid-colors = [ black red green yellow blue magenta cyan lightgray gray lightred lightgreen lightyellow lightblue lightmagenta lightcyan white ]
-  put $valid-colors[(% $pid (count $valid-colors))]
+    valid-colors = [ black red green yellow blue magenta cyan lightgray gray lightred lightgreen lightyellow lightblue lightmagenta lightcyan white ]
+    put $valid-colors[(% $pid (count $valid-colors))]
 }
 
 fn -colorized [what @color]{
-  if (and (not-eq $color []) (eq (kind-of $color[0]) list)) {
-    color = [(explode $color[0])]
-  }
-  if (and (not-eq $color [default]) (not-eq $color [])) {
-    if (eq $color [session]) {
-      color = [(-session-color)]
+    if (and (not-eq $color []) (eq (kind-of $color[0]) list)) {
+        color = [(explode $color[0])]
     }
-    if $bold-prompt {
-      color = [ $@color bold ]
+    if (and (not-eq $color [default]) (not-eq $color [])) {
+        if (eq $color [session]) {
+            color = [(-session-color)]
+        }
+        if $bold-prompt {
+            color = [ $@color bold ]
+        }
+        styled $what $@color
+    } else {
+        put $what
     }
-    styled $what $@color
-  } else {
-    put $what
-  }
 }
 
 fn -glyph [segment-name]{
-  if (has-key $glyph $segment-name) {
-    put $glyph[$segment-name]
-  } else {
-    put $default-glyph[$segment-name]
-  }
+    if (has-key $glyph $segment-name) {
+        put $glyph[$segment-name]
+    } else {
+        put $default-glyph[$segment-name]
+    }
 }
 
 fn -segment-style [segment-name]{
-  if (has-key $segment-style $segment-name) {
-    put $segment-style[$segment-name]
-  } else {
-    put $default-segment-style[$segment-name]
-  }
+    if (has-key $segment-style $segment-name) {
+        put $segment-style[$segment-name]
+    } else {
+        put $default-segment-style[$segment-name]
+    }
 }
 
 fn -colorized-glyph [segment-name @extra-text]{
-  -colorized (-glyph $segment-name)(joins "" $extra-text) (-segment-style $segment-name)
+    -colorized (-glyph $segment-name)(joins "" $extra-text) (-segment-style $segment-name)
 }
 
 fn prompt-segment [segment-or-style @texts]{
-  style = $segment-or-style
-  if (has-key $default-segment-style $segment-or-style) {
-    style = (-segment-style $segment-or-style)
-  }
-  if (has-key $default-glyph $segment-or-style) {
-    texts = [ (-glyph $segment-or-style) $@texts ]
-  }
-  text = (joins ' ' $texts)
-  -colorized $text $style
+    style = $segment-or-style
+    if (has-key $default-segment-style $segment-or-style) {
+        style = (-segment-style $segment-or-style)
+    }
+    if (has-key $default-glyph $segment-or-style) {
+        texts = [ (-glyph $segment-or-style) $@texts ]
+    }
+    text = (joins ' ' $texts)
+    -colorized $text $style
 }
 
 segment = [&]
@@ -99,102 +99,122 @@ segment = [&]
 last-status = [&]
 
 fn -any-staged {
-  count [(each [k]{
+    count [(each [k]{
         explode $last-status[$k]
-  } [staged-modified staged-deleted staged-added renamed copied])]
+    } [staged-modified staged-deleted staged-added renamed copied])]
 }
 
 fn -prompt-pwd {
-  tmp = (tilde-abbr $pwd)
-  if (== $prompt-pwd-dir-length 0) {
-    put $tmp
-  } else {
-    re:replace '(\.?[^/]{'$prompt-pwd-dir-length'})[^/]*/' '$1/' $tmp
-  }
+    tmp = (tilde-abbr $pwd)
+    if (== $prompt-pwd-dir-length 0) {
+        put $tmp
+    } else {
+        re:replace '(\.?[^/]{'$prompt-pwd-dir-length'})[^/]*/' '$1/' $tmp
+    }
 }
 
 fn -prompt-pwd2 {
-    dir = [(re:split "/" (-prompt-pwd) | each [x]{ put (styled $x blue) (styled "/" cyan) })][:-1]
-    put [(explode $dir[:-1]) (styled $dir[-1] bold)]
+    abbr-length = 3
+    hidden-abbr = 4
+    @path = (re:split '/' (-prompt-pwd))
+    dir = $path[-1]
+    put [(for parent $path[:-1] {
+        if (has-prefix $parent '.') {
+            if (> (count $parent) $hidden-abbr) {
+                styled $parent[:$hidden-abbr] blue italic
+            } else {
+                styled $parent blue
+            }
+        } else {
+            if (> (count $parent) $abbr-length) {
+                styled $parent[:$abbr-length] blue italic
+            } else {
+                styled $parent blue
+            }
+        }
+        styled '/' cyan
+    }
+    styled $path[-1] blue bold)]
 }
 
 segment[dir] = {
-  put (-colorized (-prompt-pwd) blue)
+    put (-colorized (-prompt-pwd) blue)
 }
 
 segment[su] = {
-  uid = (id -u)
-  if (eq $uid $root-id) {
-    prompt-segment su
-  }
+    uid = (id -u)
+    if (eq $uid $root-id) {
+        prompt-segment su
+    }
 }
 
 segment[timestamp] = {
-  prompt-segment timestamp (date +$timestamp-format)
+    prompt-segment timestamp (date +$timestamp-format)
 }
 
 segment[session] = {
-  prompt-segment session
+    prompt-segment session
 }
 
 segment[arrow] = {
-  -colorized-glyph arrow " "
+    -colorized-glyph arrow " "
 }
 
 fn -interpret-segment [seg]{
-  k = (kind-of $seg)
-  if (eq $k 'fn') {
-    # If it's a lambda, run it
-    $seg
-  } elif (eq $k 'string') {
-    if (has-key $segment $seg) {
-      # If it's the name of a built-in segment, run its function
-      $segment[$seg]
-    } else {
-      # If it's any other string, return it as-is
-      put $seg
+    k = (kind-of $seg)
+    if (eq $k 'fn') {
+        # If it's a lambda, run it
+        $seg
+    } elif (eq $k 'string') {
+        if (has-key $segment $seg) {
+            # If it's the name of a built-in segment, run its function
+            $segment[$seg]
+        } else {
+            # If it's any other string, return it as-is
+            put $seg
+        }
+    } elif (or (eq $k 'ui:text') (eq $k 'styled') (eq $k 'styled-text')) {
+        # If it's a styled object, return it as-is
+        put $seg
     }
-  } elif (or (eq $k 'styled') (eq $k 'styled-text')) {
-    # If it's a styled object, return it as-is
-    put $seg
-  }
 }
 
 fn -build-chain [segments]{
-  if (eq $segments []) {
-    return
-  }
-  first = $true
-  output = ""
-  #-parse-git
-  for seg $segments {
-    output = [(-interpret-segment $seg)]
-    if (> (count $output) 0) {
-      if (not $first) {
-        -colorized-glyph chain
-      }
-      put $@output
-      first = $false
+    if (eq $segments []) {
+        return
     }
-  }
+    first = $true
+    output = ""
+    #-parse-git
+    for seg $segments {
+        output = [(-interpret-segment $seg)]
+        if (> (count $output) 0) {
+            if (not $first) {
+                -colorized-glyph chain
+            }
+            put $@output
+            first = $false
+        }
+    }
 }
 
+
 fn prompt {
-  -build-chain (-prompt-pwd2)
-  if (not-eq $prompt-segments []) {
-    -build-chain $prompt-segments
-  }
+  -build-chain [(explode (-prompt-pwd2)) $@prompt-segments]
+  # if (not-eq $prompt-segments []) {
+  #   -build-chain $prompt-segments
+  # }
 }
 
 fn rprompt {
-  if (not-eq $rprompt-segments []) {
-    -build-chain $rprompt-segments
-  }
+    if (not-eq $rprompt-segments []) {
+        -build-chain $rprompt-segments
+    }
 }
 
 fn init {
-  edit:prompt = $prompt~
-  edit:rprompt = $rprompt~
+    edit:prompt = $prompt~
+    edit:rprompt = $rprompt~
 }
 
 init
