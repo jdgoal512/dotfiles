@@ -1,12 +1,13 @@
 use builtin
 use re
 use epm
-epm:install &silent-if-installed=$true   \
-  github.com/zzamboni/elvish-modules     \
-  github.com/zzamboni/elvish-completions \
-  github.com/xiaq/edit.elv               \
-  github.com/muesli/elvish-libs          \
-  github.com/jdgoal512/elvish-modules          \
+use str
+epm:install &silent-if-installed=$true   ^
+  github.com/zzamboni/elvish-modules     ^
+  github.com/zzamboni/elvish-completions ^
+  github.com/xiaq/edit.elv               ^
+  github.com/muesli/elvish-libs          ^
+  github.com/jdgoal512/elvish-modules    ^
   github.com/iwoloschin/elvish-packages
 
 #use github.com/zzamboni/elvish-modules/long-running-notifications
@@ -91,6 +92,7 @@ paths = [
   /sbin
   /usr/bin
   /bin
+  /usr/games
 ]
 
 #use readline-binding
@@ -112,6 +114,7 @@ smart-matcher:apply
 use github.com/zzamboni/elvish-completions/ssh
 use github.com/zzamboni/elvish-completions/builtins
 use github.com/zzamboni/elvish-completions/cd
+use github.com/jdgoal512/elvish-modules/completions/pass
 
 #use github.com/zzamboni/elvish-completions/git
 #git:git-command = hub
@@ -143,6 +146,7 @@ use github.com/zzamboni/elvish-modules/leanpub
 E:LESS = "-i -R"
 E:EDITOR = "vim"
 E:LC_ALL = "en_US.UTF-8"
+E:QT_QPA_PLATFORMTHEME = "qt5ct"
 
 use github.com/zzamboni/elvish-modules/util
 use github.com/muesli/elvish-libs/git
@@ -159,3 +163,29 @@ fn fromhex [@args]{ hex:fromhex $@args }
 fn tohex [@args]{ hex:tohex $@args }
 
 fn ag [@args]{ /usr/bin/ag "--ignore-dir=env" "--ignore-dir=site-packages" $@args }
+fn path [@fds]{
+    if (eq $fds []) {
+        pwd
+    }
+    for fd $fds {
+        echo (pwd)/$fd
+    }
+}
+fn p [@args]{ path $@args }
+fn sp [@args]{ pwd > ~/.elvish/saved_path }
+fn lp [@args]{ cd (cat ~/.elvish/saved_path) }
+
+fn pip [@args]{
+    try {
+        cmd @rest = $@args
+        if (eq $cmd search) {
+            echo 'Searching....'
+            ag $@rest ~/.elvish/lib/pip_index.html | sed -re 's|.*>(.*)</a>|\1|g'
+        } else {
+            (external pip3) $cmd $@rest
+        }
+    } except {
+        (external pip3) --help
+    }
+
+}

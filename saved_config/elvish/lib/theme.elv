@@ -7,6 +7,7 @@ prompt-segments-defaults = [ su arrow ]
 rprompt-segments-defaults = [ timestamp ]
 
 use re
+use str
 
 #use github.com/muesli/elvish-libs/git
 
@@ -47,7 +48,7 @@ fn -session-color {
 
 fn -colorized [what @color]{
     if (and (not-eq $color []) (eq (kind-of $color[0]) list)) {
-        color = [(explode $color[0])]
+        color = [(all $color[0])]
     }
     if (and (not-eq $color [default]) (not-eq $color [])) {
         if (eq $color [session]) {
@@ -79,7 +80,7 @@ fn -segment-style [segment-name]{
 }
 
 fn -colorized-glyph [segment-name @extra-text]{
-    -colorized (-glyph $segment-name)(joins "" $extra-text) (-segment-style $segment-name)
+    -colorized (-glyph $segment-name)(str:join "" $extra-text) (-segment-style $segment-name)
 }
 
 fn prompt-segment [segment-or-style @texts]{
@@ -90,7 +91,7 @@ fn prompt-segment [segment-or-style @texts]{
     if (has-key $default-glyph $segment-or-style) {
         texts = [ (-glyph $segment-or-style) $@texts ]
     }
-    text = (joins ' ' $texts)
+    text = (str:join ' ' $texts)
     -colorized $text $style
 }
 
@@ -100,7 +101,7 @@ last-status = [&]
 
 fn -any-staged {
     count [(each [k]{
-        explode $last-status[$k]
+        all $last-status[$k]
     } [staged-modified staged-deleted staged-added renamed copied])]
 }
 
@@ -118,16 +119,16 @@ fn -prompt-pwd2 {
     hidden-abbr = 4
     @path = (re:split '/' (-prompt-pwd))
     dir = $path[-1]
-    put [(for parent $path[:-1] {
-        if (has-prefix $parent '.') {
+    put [(for parent $path[..-1] {
+        if (str:has-prefix $parent '.') {
             if (> (count $parent) $hidden-abbr) {
-                styled $parent[:$hidden-abbr] blue italic
+                styled $parent[..$hidden-abbr] blue italic
             } else {
                 styled $parent blue
             }
         } else {
             if (> (count $parent) $abbr-length) {
-                styled $parent[:$abbr-length] blue italic
+                styled $parent[..$abbr-length] blue italic
             } else {
                 styled $parent blue
             }
@@ -200,7 +201,7 @@ fn -build-chain [segments]{
 
 
 fn prompt {
-  -build-chain [(explode (-prompt-pwd2)) $@prompt-segments]
+  -build-chain [(all (-prompt-pwd2)) $@prompt-segments]
   # if (not-eq $prompt-segments []) {
   #   -build-chain $prompt-segments
   # }
