@@ -12,15 +12,11 @@ local menubar = require("menubar")
 local debian = require("debian.menu")
 local has_fdo, freedesktop = pcall(require, "freedesktop")
 local hotkeys_popup = require("awful.hotkeys_popup").widget
+local dpi   = require("beautiful.xresources").apply_dpi
+local calendar_widget = require("calendar")
 -- Enable hotkeys help widget for VIM and other apps
 -- when client with a matching name is opened:
 require("awful.hotkeys_popup.keys")
--- Calendar
--- load the widget code
--- local calendar = require("calendar")
-
--- attach it as popup to your text clock widget:
--- calendar({}):attach(mytextclock)
 
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
@@ -50,7 +46,10 @@ end
 -- {{{ Variable definitions
 -- Themes define colours, icons, font and wallpapers.
 beautiful.init(gears.filesystem.get_themes_dir() .. "default/theme.lua")
-beautiful.font = "Droid Sans Mono-12"
+beautiful.font = "Poppins Regular 16"
+beautiful.border_width = dpi(0)
+beautiful.menu_width = dpi(240)
+beautiful.menu_height = dpi(27)
 -- awful.key({ modkey,           }, "space", function () awful.spawn("dmenu_run -fn 'Droid Sans Mono-12' -sb '#4B81AF'") end,
 
 -- local chosen_theme = "dremora"
@@ -74,7 +73,7 @@ modkey = "Mod1" --Mod1 is Alt, Mod4 is Windows
 -- Table of layouts to cover with awful.layout.inc, order matters.
 awful.layout.layouts = {
     awful.layout.suit.tile,
-    awful.layout.suit.tile.bottom,
+    -- awful.layout.suit.tile.bottom,
     awful.layout.suit.floating,
     -- awful.layout.suit.tile.left,
     -- awful.layout.suit.tile.top,
@@ -144,14 +143,28 @@ mylauncher = awful.widget.launcher({ image = beautiful.awesome_icon,
 menubar.utils.terminal = terminal -- Set the terminal for applications that require it
 -- }}}
 
--- Keyboard map indicator and switcher
-mykeyboardlayout = awful.widget.keyboardlayout()
-
 -- {{{ Wibar
+-- Calendar widget
+local cw = calendar_widget({
+    theme = 'nord',
+    placement = 'top_right',
+    start_sunday = true
+})
 -- Create a textclock widget
 mytextclock = awful.widget.textclock(" %a %l:%M %P", 5)
 local popup_cal = awful.widget.calendar_popup.month()
-popup_cal:attach(mytextclock)
+mytextclock:connect_signal("button::press",
+    function(_, _, _, button)
+        if button == 1 then
+            if mymainmenu.wibox.visible then
+                mymainmenu:hide()
+            else
+                cw.toggle()
+            end
+        end
+        if button == 3 then mymainmenu:toggle() end
+    end
+)
 
 -- Create a wibox for each screen and add it
 local taglist_buttons = gears.table.join(
@@ -216,62 +229,13 @@ end
 
 -- Re-set wallpaper when a screen's geometry changes (e.g. different resolution)
 screen.connect_signal("property::geometry", set_wallpaper)
-function grid(direction)
-    local rows = 3
-    local columns = 3
-    local i = awful.tag.getidx() - 1
-    local j = 0
-    if direction == "up" then
-        j = i - columns + 1
-        if j < 1 then
-            return
-        end
-    elseif direction == "down" then
-        j = i + columns + 1
-        if j > rows*columns then
-            return
-        end
-    elseif direction == "right" then
-        j = i + 2
-        if i % columns == columns - 1 then
-            return
-        end
-    elseif direction == "left" then
-        j = i
-        if j % columns == 0 then
-            return
-        end
-    end
-    return j
-end
-
-function to_grid(direction)
-    local j = grid(direction)
-    local screen = mouse.screen
-    local tag = awful.tag.gettags(screen)[j]
-    if tag then
-        awful.tag.viewonly(tag)
-    end
-end
-
-function move_to_grid(direction)
-    local j = grid(direction)
-    local screen = mouse.screen
-    local tag = awful.tag.gettags(screen)[j]
-    if tag then
-        if client.focus then
-          client.focus:move_to_tag(tag)
-        end
-        awful.tag.viewonly(tag)
-    end
-end
 
 awful.screen.connect_for_each_screen(function(s)
     -- Wallpaper
     set_wallpaper(s)
 
     -- Each screen has its own tag table.
-    awful.tag({ "1", "2", "3", "4", "5", "6", "7", "8", "9" }, s, awful.layout.layouts[1])
+    awful.tag({ "1", "2", "3", "4" }, s, awful.layout.layouts[1])
 
     -- Create a promptbox for each screen
     s.mypromptbox = awful.widget.prompt()
@@ -291,7 +255,7 @@ awful.screen.connect_for_each_screen(function(s)
     s.mytasklist = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, tasklist_buttons)
 
     -- Create the wibox
-    s.mywibox = awful.wibar({ position = "top", screen = s })
+    s.mywibox = awful.wibar({ position = "top", screen = s, height=dpi(30) })
 
     -- Add widgets to the wibox
     s.mywibox:setup {
@@ -343,10 +307,6 @@ globalkeys = gears.table.join(
     awful.key({ }, "XF86AudioPrev",    function () awful.util.spawn("playerctl previous") end),
     awful.key({ modkey,           }, "s",      hotkeys_popup.show_help,
               {description="show help", group="awesome"}),
-    -- awful.key({ modkey,           }, "Left",   awful.tag.viewprev,
-    --           {description = "view previous", group = "tag"}),
-    -- awful.key({ modkey,           }, "Right",  awful.tag.viewnext,
-    --           {description = "view next", group = "tag"}),
     awful.key({ modkey,           }, "Escape", awful.tag.history.restore, {description = "go back", group = "tag"}),
 
     awful.key({ modkey,           }, "j",
@@ -389,10 +349,12 @@ globalkeys = gears.table.join(
               {description = "open a terminal", group = "launcher"}),
     awful.key({ modkey,           }, "t", function () awful.spawn("thunar") end,
               {description = "file explorer", group = "launcher"}),
-    -- awful.key({ modkey,           }, "space", function () awful.spawn("dmenu_run -fn 'Droid Sans Mono-12' -sb '#4B81AF'") end,
+    awful.key({ modkey,           }, "space", function () awful.spawn("rofi -show run") end,
+              {description = "launch a program", group = "launcher"}),
+        -- awful.key({ modkey,           }, "space", function () awful.spawn("dmenu_run -fn 'Droid Sans Mono-12' -sb '#4B81AF'") end,
     --           {description = "launch a program", group = "launcher"}),
-    awful.key({ modkey }, "space", function() menubar.show() end,
-              {description = "show the menubar", group = "launcher"}),
+    -- awful.key({ modkey }, "space", function() menubar.show() end,
+    --           {description = "show the menubar", group = "launcher"}),
     awful.key({ modkey, "Shift" }, "r", awesome.restart,
               {description = "reload awesome", group = "awesome"}),
     awful.key({ modkey, "Shift"   }, "e", awesome.quit,
@@ -401,14 +363,6 @@ globalkeys = gears.table.join(
               {description = "increase master width factor", group = "layout"}),
     awful.key({ modkey,           }, "h",     function () awful.tag.incmwfact(-0.05)          end,
               {description = "decrease master width factor", group = "layout"}),
-    -- awful.key({ modkey, "Shift"   }, "h",     function () awful.tag.incnmaster( 1, nil, true) end,
-    --          {description = "increase the number of master clients", group = "layout"}),
-    -- awful.key({ modkey, "Shift"   }, "l",     function () awful.tag.incnmaster(-1, nil, true) end,
-    --          {description = "decrease the number of master clients", group = "layout"}),
-    -- awful.key({ modkey, "Control" }, "h",     function () awful.tag.incncol( 1, nil, true)    end,
-    --           {description = "increase the number of columns", group = "layout"}),
-    -- awful.key({ modkey, "Control" }, "l",     function () awful.tag.incncol(-1, nil, true)    end,
-    --           {description = "decrease the number of columns", group = "layout"}),
     awful.key({ "Mod4",           }, "space", function () awful.layout.inc( 1)                end,
               {description = "select next", group = "layout"}),
     awful.key({ "Mod4", "Shift"   }, "space", function () awful.layout.inc(-1)                end,
@@ -441,31 +395,6 @@ globalkeys = gears.table.join(
                   }
               end,
               {description = "lua execute prompt", group = "awesome"}),
-    awful.key({ modkey, "Control" }, "Up",     function () to_grid("up") end,
-              {description = "go up a workspace", group = "layout"}),
-    awful.key({ modkey, "Control" }, "Down",   function () to_grid("down") end,
-              {description = "go down a workspace", group = "layout"}),
-    awful.key({ modkey, "Control" }, "Left",   function () to_grid("left") end,
-              {description = "go left a workspace", group = "layout"}),
-    awful.key({ modkey, "Control" }, "Right",  function () to_grid("right") end,
-              {description = "go right a workspace", group = "layout"}),
-    awful.key({ modkey, "Control" }, "h",  function () to_grid("left") end,
-              {description = "go left a workspace", group = "layout"}),
-    awful.key({ modkey, "Control" }, "j",  function () to_grid("down") end,
-              {description = "go down a workspace", group = "layout"}),
-    awful.key({ modkey, "Control" }, "k",  function () to_grid("up") end,
-              {description = "go up a workspace", group = "layout"}),
-    awful.key({ modkey, "Control" }, "l",  function () to_grid("right") end,
-              {description = "go left a workspace", group = "layout"}),
-    awful.key({ modkey, "Control", "Shift" }, "h",  function () move_to_grid("left") end,
-              {description = "go left a workspace", group = "layout"}),
-    awful.key({ modkey, "Control", "Shift" }, "j",  function () move_to_grid("down") end,
-              {description = "go down a workspace", group = "layout"}),
-    awful.key({ modkey, "Control", "Shift" }, "k",  function () move_to_grid("up") end,
-              {description = "go up a workspace", group = "layout"}),
-    awful.key({ modkey, "Control", "Shift" }, "l",  function () move_to_grid("right") end,
-              {description = "go left a workspace", group = "layout"}),
-    --
     -- Menubar
     awful.key({ modkey }, "p", function() menubar.show() end,
               {description = "show the menubar", group = "launcher"})
@@ -518,10 +447,10 @@ clientkeys = gears.table.join(
 -- Bind all key numbers to tags.
 -- Be careful: we use keycodes to make it work on any keyboard layout.
 -- This should map on the top row of your keyboard, usually 1 to 9.
-for i = 1, 9 do
+for i = 1, 4 do
     globalkeys = gears.table.join(globalkeys,
         -- View tag only.
-        awful.key({ modkey }, "#" .. i + 9,
+        awful.key({ }, "F" .. i,
                   function ()
                         local screen = awful.screen.focused()
                         local tag = screen.tags[i]
@@ -530,18 +459,8 @@ for i = 1, 9 do
                         end
                   end,
                   {description = "view tag #"..i, group = "tag"}),
-        -- Toggle tag display.
-        awful.key({ modkey, "Control" }, "#" .. i + 9,
-                  function ()
-                      local screen = awful.screen.focused()
-                      local tag = screen.tags[i]
-                      if tag then
-                         awful.tag.viewtoggle(tag)
-                      end
-                  end,
-                  {description = "toggle tag #" .. i, group = "tag"}),
         -- Move client to tag.
-        awful.key({ modkey, "Shift" }, "#" .. i + 9,
+        awful.key({ "Shift" }, "F" .. i,
                   function ()
                       if client.focus then
                           local tag = client.focus.screen.tags[i]
@@ -550,18 +469,7 @@ for i = 1, 9 do
                           end
                      end
                   end,
-                  {description = "move focused client to tag #"..i, group = "tag"}),
-        -- Toggle tag on focused client.
-        awful.key({ modkey, "Control", "Shift" }, "#" .. i + 9,
-                  function ()
-                      if client.focus then
-                          local tag = client.focus.screen.tags[i]
-                          if tag then
-                              client.focus:toggle_tag(tag)
-                          end
-                      end
-                  end,
-                  {description = "toggle focused client on tag #" .. i, group = "tag"})
+                  {description = "move focused client to tag #"..i, group = "tag"})
     )
 end
 
@@ -702,7 +610,6 @@ do
   {
     "guake",
     "xcompmgr",
-    -- "pnmixer",
     "thunar --daemon",
     "twmnd",
     "xfce4-clipman",

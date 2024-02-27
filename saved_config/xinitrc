@@ -5,5 +5,5 @@ export DBUS_SESSION_BUS_PID
 export GDK_CORE_DEVICE_EVENTS=1
 
 
-#awesome
-i3
+awesome
+#i3

@@ -13,50 +13,50 @@ epm:install &silent-if-installed=$true   ^
 #use github.com/zzamboni/elvish-modules/long-running-notifications
 use github.com/zzamboni/elvish-modules/bang-bang
 
-fn ls [@args]{ e:ls --color=auto $@args }
-fn l [@args]{ e:ls --color=auto -lah $@args }
-fn sl [@args]{ ls $@args }
-fn LS [@args]{ ls $@args }
-fn grep [@args]{ e:grep --color=auto --exclude-dir={env,site-packages,.bzr,CVS,.git,.hg,.svn} $@args }
+fn ls {|@args| e:ls --color=auto $@args }
+fn l {|@args| e:ls --color=auto -lah $@args }
+fn sl {|@args| ls $@args }
+fn LS {|@args| ls $@args }
+fn grep {|@args| e:grep --color=auto --exclude-dir={env,site-packages,.bzr,CVS,.git,.hg,.svn} $@args }
 
-cd_history = []
+var cd_history = []
 
-fn cd [@args]{
-    dir = "" 
+fn cd { |@args|
+    var dir = ""
     if (eq $args []) {
-        dir = ~
+        set dir = ~
     } elif (eq $args[0] '-') {
         if ?(test -d '-') {
-            dir = '-'
+            set dir = '-'
         } else {
             if (not-eq $cd_history []) {
-                dir = $cd_history[0]
+                set dir = $cd_history[0]
                 if (> (count $cd_history) 1) {
-                    cd_history = $cd_history[2:]
+                    set cd_history = $cd_history[2:]
                 } else {
-                    cd_history = []
+                    set cd_history = []
                 }
 
             } else {
-                dir = '.'
+                set dir = '.'
             }
         }
     } else {
-        dir = $args[0]
+        set dir = $args[0]
         while (re:match '\.\.\.' $dir) {
-            dir = (re:replace '\.\.\.' '../..' $dir)
+            set dir = (re:replace '\.\.\.' '../..' $dir)
         }
     }
     try {
-        cd_history = [(pwd) $@cd_history]
+        set cd_history = [(pwd) $@cd_history]
         builtin:cd $dir
         e:ls --color=auto
-    } except {
+    } catch {
             echo "No such file or directory:" $dir
     }
 }
 
-fn cat [@args]{
+fn cat {|@args|
     if (has-external highlight) {
         (external highlight) -O ansi --stdout --force $@args
     } else {
@@ -64,7 +64,7 @@ fn cat [@args]{
     }
 }
 
-fn lsd [@args]{
+fn lsd {|@args|
     if (eq [] $args) {
         ls -d */
     } else {
@@ -74,7 +74,7 @@ fn lsd [@args]{
     }
 }
 
-fn lsf [@args]{
+fn lsf {|@args|
     if (eq $args []) {
         lsf .
     } else {
@@ -84,7 +84,7 @@ fn lsf [@args]{
     }
 }
 
-paths = [
+var paths = [
   ~/bin
   /usr/local/bin
   /usr/local/sbin
@@ -101,12 +101,12 @@ paths = [
 #edit:insert:binding[Alt-d] = $edit:kill-small-word-right~
 
 #Vim bindings in file manager
-edit:navigation:binding[h] = $edit:navigation:left~
-edit:navigation:binding[j] = $edit:navigation:down~
-edit:navigation:binding[k] = $edit:navigation:up~
-edit:navigation:binding[l] = $edit:navigation:right~
-edit:insert:binding[Ctrl-A] = $edit:move-dot-sol~
-edit:insert:binding[Ctrl-E] = $edit:move-dot-eol~
+#edit:navigation:binding[h] = $edit:navigation:left~
+#edit:navigation:binding[j] = $edit:navigation:down~
+#edit:navigation:binding[k] = $edit:navigation:up~
+#edit:navigation:binding[l] = $edit:navigation:right~
+#edit:insert:binding[Ctrl-A] = $edit:move-dot-sol~
+#edit:insert:binding[Ctrl-E] = $edit:move-dot-eol~
 
 use github.com/zzamboni/elvish-modules/alias
 use github.com/xiaq/edit.elv/smart-matcher
@@ -126,7 +126,7 @@ theme:bold-prompt = $true
 theme:prompt-pwd-dir-length = 0 #Don't abbreviate working directory in prompt
 
 
-edit:prompt-stale-transform = { each [x]{ styled $x[text] "gray" } }
+edit:prompt-stale-transform = { each {|x| styled $x[text] "gray" } }
 
 edit:-prompt-eagerness = 10
 
@@ -159,11 +159,11 @@ update:curl-timeout = 3
 #-exports- = (alias:export)
 
 use hex
-fn fromhex [@args]{ hex:fromhex $@args }
-fn tohex [@args]{ hex:tohex $@args }
+fn fromhex {|@args| hex:fromhex $@args }
+fn tohex {|@args| hex:tohex $@args }
 
-fn ag [@args]{ /usr/bin/ag "--ignore-dir=env" "--ignore-dir=site-packages" $@args }
-fn path [@fds]{
+fn ag {|@args| /usr/bin/ag "--ignore-dir=env" "--ignore-dir=site-packages" $@args }
+fn path {|@fds|
     if (eq $fds []) {
         pwd
     }
@@ -171,20 +171,20 @@ fn path [@fds]{
         echo (pwd)/$fd
     }
 }
-fn p [@args]{ path $@args }
-fn sp [@args]{ pwd > ~/.elvish/saved_path }
-fn lp [@args]{ cd (cat ~/.elvish/saved_path) }
+fn p {|@args| path $@args }
+fn sp {|@args| pwd > ~/.elvish/saved_path }
+fn lp {|@args| cd (cat ~/.elvish/saved_path) }
 
-fn pip [@args]{
+fn pip {|@args|
     try {
-        cmd @rest = $@args
+        var cmd @rest = $@args
         if (eq $cmd search) {
             echo 'Searching....'
             ag $@rest ~/.elvish/lib/pip_index.html | sed -re 's|.*>(.*)</a>|\1|g'
         } else {
             (external pip3) $cmd $@rest
         }
-    } except {
+    } catch {
         (external pip3) --help
     }
 

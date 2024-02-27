@@ -7,7 +7,7 @@ set-option global grepcmd 'ag --column'
 # Relative number lines
 hook global WinCreate ^[^*]+$ %{ add-highlighter window/ number-lines -relative -hlcursor -separator ' '}
 
-colorscheme solarized-dark-termcolors
+colorscheme desertex
 set global ui_options ncurses_status_on_top=yes
 
 # Statusline
