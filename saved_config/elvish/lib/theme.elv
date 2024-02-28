@@ -3,25 +3,25 @@
 # https://github.com/zzamboni/elvish-themes/blob/master/chain.org.
 # You should make any changes there and regenerate it from Emacs org-mode using C-c C-v t
 
-prompt-segments-defaults = [ su arrow ]
-rprompt-segments-defaults = [ timestamp ]
+var prompt-segments-defaults = [ su arrow ]
+var rprompt-segments-defaults = [ timestamp ]
 
 use re
 use str
 
 #use github.com/muesli/elvish-libs/git
 
-prompt-segments = $prompt-segments-defaults
-rprompt-segments = $rprompt-segments-defaults
+var prompt-segments = $prompt-segments-defaults
+var rprompt-segments = $rprompt-segments-defaults
 
-default-glyph = [
+var default-glyph = [
     &su=            "⚡"
     &chain=         ""
     &session=       "▪"
     &arrow=         "$"
 ]
 
-default-segment-style = [
+var default-segment-style = [
     &su=            [ yellow  ]
     &chain=         [ default ]
     &arrow=         [ white   ]
@@ -30,32 +30,32 @@ default-segment-style = [
     &timestamp=     [ default ]
 ]
 
-glyph = [&]
-segment-style = [&]
+var glyph = [&]
+var segment-style = [&]
 
-prompt-pwd-dir-length = 1
+var prompt-pwd-dir-length = 1
 
-timestamp-format = " %-I:%M:%S"
+var timestamp-format = " %-I:%M:%S"
 
-root-id = 0
+var root-id = 0
 
-bold-prompt = $false
+var bold-prompt = $false
 
 fn -session-color {
-    valid-colors = [ black red green yellow blue magenta cyan lightgray gray lightred lightgreen lightyellow lightblue lightmagenta lightcyan white ]
+    var valid-colors = [ black red green yellow blue magenta cyan lightgray gray lightred lightgreen lightyellow lightblue lightmagenta lightcyan white ]
     put $valid-colors[(% $pid (count $valid-colors))]
 }
 
-fn -colorized [what @color]{
+fn -colorized {|what @color|
     if (and (not-eq $color []) (eq (kind-of $color[0]) list)) {
-        color = [(all $color[0])]
+        set color = [(all $color[0])]
     }
     if (and (not-eq $color [default]) (not-eq $color [])) {
         if (eq $color [session]) {
-            color = [(-session-color)]
+            set color = [(-session-color)]
         }
         if $bold-prompt {
-            color = [ $@color bold ]
+            set color = [ $@color bold ]
         }
         styled $what $@color
     } else {
@@ -63,7 +63,7 @@ fn -colorized [what @color]{
     }
 }
 
-fn -glyph [segment-name]{
+fn -glyph {|segment-name|
     if (has-key $glyph $segment-name) {
         put $glyph[$segment-name]
     } else {
@@ -71,7 +71,7 @@ fn -glyph [segment-name]{
     }
 }
 
-fn -segment-style [segment-name]{
+fn -segment-style {|segment-name|
     if (has-key $segment-style $segment-name) {
         put $segment-style[$segment-name]
     } else {
@@ -79,34 +79,34 @@ fn -segment-style [segment-name]{
     }
 }
 
-fn -colorized-glyph [segment-name @extra-text]{
+fn -colorized-glyph {|segment-name @extra-text|
     -colorized (-glyph $segment-name)(str:join "" $extra-text) (-segment-style $segment-name)
 }
 
-fn prompt-segment [segment-or-style @texts]{
-    style = $segment-or-style
+fn prompt-segment {|segment-or-style @texts|
+    var style = $segment-or-style
     if (has-key $default-segment-style $segment-or-style) {
-        style = (-segment-style $segment-or-style)
+        set style = (-segment-style $segment-or-style)
     }
     if (has-key $default-glyph $segment-or-style) {
-        texts = [ (-glyph $segment-or-style) $@texts ]
+        set texts = [ (-glyph $segment-or-style) $@texts ]
     }
-    text = (str:join ' ' $texts)
+    var text = (str:join ' ' $texts)
     -colorized $text $style
 }
 
-segment = [&]
+var segment = [&]
 
-last-status = [&]
+var last-status = [&]
 
 fn -any-staged {
-    count [(each [k]{
+    count [(each {|k|
         all $last-status[$k]
     } [staged-modified staged-deleted staged-added renamed copied])]
 }
 
 fn -prompt-pwd {
-    tmp = (tilde-abbr $pwd)
+    var tmp = (tilde-abbr $pwd)
     if (== $prompt-pwd-dir-length 0) {
         put $tmp
     } else {
@@ -115,10 +115,10 @@ fn -prompt-pwd {
 }
 
 fn -prompt-pwd2 {
-    abbr-length = 3
-    hidden-abbr = 4
-    @path = (re:split '/' (-prompt-pwd))
-    dir = $path[-1]
+    var abbr-length = 3
+    var hidden-abbr = 4
+    var @path = (re:split '/' (-prompt-pwd))
+    var dir = $path[-1]
     put [(for parent $path[..-1] {
         if (str:has-prefix $parent '.') {
             if (> (count $parent) $hidden-abbr) {
@@ -138,31 +138,31 @@ fn -prompt-pwd2 {
     styled $path[-1] blue bold)]
 }
 
-segment[dir] = {
+set segment[dir] = {
     put (-colorized (-prompt-pwd) blue)
 }
 
-segment[su] = {
-    uid = (id -u)
+set segment[su] = {
+    var uid = (id -u)
     if (eq $uid $root-id) {
         prompt-segment su
     }
 }
 
-segment[timestamp] = {
+set segment[timestamp] = {
     prompt-segment timestamp (date +$timestamp-format)
 }
 
-segment[session] = {
+set segment[session] = {
     prompt-segment session
 }
 
-segment[arrow] = {
+set segment[arrow] = {
     -colorized-glyph arrow " "
 }
 
-fn -interpret-segment [seg]{
-    k = (kind-of $seg)
+fn -interpret-segment {|seg|
+    var k = (kind-of $seg)
     if (eq $k 'fn') {
         # If it's a lambda, run it
         $seg
@@ -180,21 +180,21 @@ fn -interpret-segment [seg]{
     }
 }
 
-fn -build-chain [segments]{
+fn -build-chain {|segments|
     if (eq $segments []) {
         return
     }
-    first = $true
-    output = ""
+    var first = $true
+    var output = ""
     #-parse-git
     for seg $segments {
-        output = [(-interpret-segment $seg)]
+        set output = [(-interpret-segment $seg)]
         if (> (count $output) 0) {
             if (not $first) {
                 -colorized-glyph chain
             }
             put $@output
-            first = $false
+            set first = $false
         }
     }
 }
@@ -214,8 +214,8 @@ fn rprompt {
 }
 
 fn init {
-    edit:prompt = $prompt~
-    edit:rprompt = $rprompt~
+    set edit:prompt = $prompt~
+    set edit:rprompt = $rprompt~
 }
 
 init

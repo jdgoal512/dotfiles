@@ -122,13 +122,13 @@ use github.com/jdgoal512/elvish-modules/completions/pass
 
 use github.com/zzamboni/elvish-completions/comp
 use theme
-theme:bold-prompt = $true
-theme:prompt-pwd-dir-length = 0 #Don't abbreviate working directory in prompt
+set theme:bold-prompt = $true
+set theme:prompt-pwd-dir-length = 0 #Don't abbreviate working directory in prompt
 
 
-edit:prompt-stale-transform = { each {|x| styled $x[text] "gray" } }
+set edit:prompt-stale-transform = { each {|x| styled $x[text] "gray" } }
 
-edit:-prompt-eagerness = 10
+set edit:-prompt-eagerness = 10
 
 #use github.com/zzamboni/elvish-modules/dir
 #edit:insert:binding[Alt-i] = $dir:history-chooser~
@@ -137,21 +137,21 @@ edit:-prompt-eagerness = 10
 
 use github.com/zzamboni/elvish-modules/terminal-title
 
-private-loaded = ?(use private)
+var private-loaded = ?(use private)
 
 use github.com/zzamboni/elvish-modules/atlas
 use github.com/zzamboni/elvish-modules/opsgenie
 use github.com/zzamboni/elvish-modules/leanpub
 
-E:LESS = "-i -R"
-E:EDITOR = "vim"
-E:LC_ALL = "en_US.UTF-8"
-E:QT_QPA_PLATFORMTHEME = "qt5ct"
+set E:LESS = "-i -R"
+set E:EDITOR = "vim"
+set E:LC_ALL = "en_US.UTF-8"
+set E:QT_QPA_PLATFORMTHEME = "qt5ct"
 
 use github.com/zzamboni/elvish-modules/util
 use github.com/muesli/elvish-libs/git
 use github.com/iwoloschin/elvish-packages/update
-update:curl-timeout = 3
+set update:curl-timeout = 3
 #update:check-commit &verbose
 
 #use swisscom
