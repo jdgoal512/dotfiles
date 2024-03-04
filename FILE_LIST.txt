@@ -8,7 +8,7 @@ $HOME/.Xdefaults:Xdefaults
 $HOME/.zsh:zsh
 $HOME/.tmux.conf:tmux.conf
 $HOME/.pekwm:pekwm
-$HOME/.elvish:elvish
+$HOME/.config/elvish:elvish
 $HOME/.config/gconf/apps/guake:guake
 $HOME/.config/xfce4:xfce4
 $HOME/.config/lxterminal:lxterminal

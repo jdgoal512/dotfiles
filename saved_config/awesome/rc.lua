@@ -47,17 +47,76 @@ end
 -- Themes define colours, icons, font and wallpapers.
 beautiful.init(gears.filesystem.get_themes_dir() .. "default/theme.lua")
 beautiful.font = "Poppins Regular 16"
-beautiful.border_width = dpi(0)
+beautiful.menu_font = "Poppins Regular 14"
+titlebar_font = "Poppins Regular 13"
+beautiful.notification_font = "Poppins Regular 14"
 beautiful.menu_width = dpi(240)
 beautiful.menu_height = dpi(27)
--- awful.key({ modkey,           }, "space", function () awful.spawn("dmenu_run -fn 'Droid Sans Mono-12' -sb '#4B81AF'") end,
 
--- local chosen_theme = "dremora"
--- local theme_path = string.format("%s/.config/awesome/themes/%s/theme.lua", os.getenv("HOME"), chosen_theme)
--- beautiful.init(theme_path)
+text_color = '#F0F0F0'
+-- accent_light = '#4C3A6B' --purple
+-- accent_dark = '#36265A' --purple
+accent_light = "#09AC93" --turquoise
+accent_dark = "#03866A" --turquoise
+-- accent_light = "#079F36" --green
+-- accent_dark = "#02771F" --green
+-- accent_light = '#AA8B09' --yellow
+-- accent_dark = '#7E5F02' --yellow
+neutral_light = "#404040"
+neutral_dark = "#303030"
+
+wibar_height = dpi(36)
+wibar_color = gears.color({
+    type  = "linear",
+    from  = { wibar_height, 0 },
+    to    = { wibar_height, wibar_height },
+    stops = { { 0, neutral_light.."D8" }, { 0.3, neutral_dark.."D8" }, {0.7, neutral_dark.."D8"}, { 1, neutral_light.."D8" } }
+})
+
+
+titlebar_height = 25
+titlebar_focus_color = gears.color({
+    type  = "linear",
+    from  = { titlebar_height, 0 },
+    to    = { titlebar_height, titlebar_height },
+    stops = { { 0, accent_light.."D8" }, { 0.3, accent_dark.."D8" }, {0.7, accent_dark.."D8"}, { 1, accent_light.."D8"} }
+})
+titlebar_color = gears.color({
+    type  = "linear",
+    from  = { titlebar_height, 0 },
+    to    = { titlebar_height, titlebar_height },
+    stops = { { 0, neutral_light.."D8" }, { 0.3, neutral_dark.."D8" }, {0.7, neutral_dark.."D8"}, { 1, neutral_dark.."D8" } }
+})
+menu_focus_color = gears.color({
+    type  = "linear",
+    from  = { beautiful.menu_height, 0 },
+    to    = { beautiful.menu_height, beautiful.menu_height },
+    stops = { { 0, accent_light.."D0" }, { 0.3, accent_dark.."D0" }, {0.7, accent_dark.."D0"}, { 1, accent_light.."D0"} }
+})
+beautiful.wibar_border_color = neutral_light
+beautiful.wibar_bg = wibar_color
+beautiful.wibar_fg = text_color
+beautiful.bg_normal = neutral_dark
+beautiful.fg_normal = text_color
+beautiful.menu_bg_normal = neutral_dark.."D0"
+beautiful.menu_fg_normal = text_color
+beautiful.menu_bg_focus = menu_focus_color
+beautiful.menu_fg_focus = text_color
+beautiful.bg_systray = neutral_dark
+beautiful.taglist_fg_focus = text_color
+beautiful.taglist_fg_urgent = text_color
+beautiful.taglist_fg_occupied = text_color
+beautiful.taglist_fg_empty = text_color
+beautiful.taglist_bg_focus = beautiful.wibar_border_color
+beautiful.taglist_squares_unsel = beautiful.taglist_squares_sel
+beautiful.titlebar_bg = titlebar_color
+beautiful.titlebar_fg = text_color
+beautiful.titlebar_bg_focus = titlebar_focus_color
+beautiful.border_focus = accent_light
+beautiful.border_normal = neutral_light
+beautiful.border_width = dpi(3)
 
 -- This is used later as the default terminal and editor to run.
--- terminal = "lxterminal"
 terminal = "st -e tmux"
 editor = os.getenv("EDITOR") or "vim"
 -- editor_cmd = terminal .. " -e " .. editor
@@ -73,22 +132,8 @@ modkey = "Mod1" --Mod1 is Alt, Mod4 is Windows
 -- Table of layouts to cover with awful.layout.inc, order matters.
 awful.layout.layouts = {
     awful.layout.suit.tile,
-    -- awful.layout.suit.tile.bottom,
     awful.layout.suit.floating,
-    -- awful.layout.suit.tile.left,
-    -- awful.layout.suit.tile.top,
-    -- awful.layout.suit.fair,
-    -- awful.layout.suit.fair.horizontal,
-    -- awful.layout.suit.spiral,
-    -- awful.layout.suit.spiral.dwindle,
-    -- awful.layout.suit.max,
-    -- awful.layout.suit.max.fullscreen,
-    -- awful.layout.suit.magnifier,
     awful.layout.suit.fullscreen,
-    -- awful.layout.suit.corner.nw,
-    -- awful.layout.suit.corner.ne,
-    -- awful.layout.suit.corner.sw,
-    -- awful.layout.suit.corner.se,
 }
 -- }}}
 
@@ -136,9 +181,6 @@ else
     })
 end
 
-mylauncher = awful.widget.launcher({ image = beautiful.awesome_icon,
-                                     menu = mymainmenu })
-
 -- Menubar configuration
 menubar.utils.terminal = terminal -- Set the terminal for applications that require it
 -- }}}
@@ -146,7 +188,7 @@ menubar.utils.terminal = terminal -- Set the terminal for applications that requ
 -- {{{ Wibar
 -- Calendar widget
 local cw = calendar_widget({
-    theme = 'nord',
+    theme = 'naughty',
     placement = 'top_right',
     start_sunday = true
 })
@@ -163,6 +205,8 @@ mytextclock:connect_signal("button::press",
             end
         end
         if button == 3 then mymainmenu:toggle() end
+        if button == 4 then awful.tag.viewnext() end
+        if button == 5 then awful.tag.viewprev() end
     end
 )
 
@@ -248,41 +292,71 @@ awful.screen.connect_for_each_screen(function(s)
                            awful.button({ }, 4, function () awful.layout.inc( 1) end),
                            awful.button({ }, 5, function () awful.layout.inc(-1) end)))
     -- Create a taglist widget
-    -- s.mytaglist = awful.widget.taglist(s, awful.widget.taglist.filter.all, taglist_buttons)
-    s.mytaglist = awful.widget.taglist(s, awful.widget.taglist.filter.selected, taglist_buttons)
+    s.mytaglist = awful.widget.taglist {
+        screen = s,
+        -- filter = awful.widget.taglist.filter.selected,
+        filter = awful.widget.taglist.filter.all,
+        buttons = taglist_buttons,
+        widget_template = {
+            {
+                {
+                    {
+                        {
+                            id = 'text_role',
+                            widget = wibox.widget.textbox,
+                        },
+                        widget  = wibox.container.place,
+                    },
+                    layout = wibox.layout.fixed.horizontal,
+                },
+                widget = wibox.container.place,
+            },
+            id = 'background_role',
+            widget = wibox.container.background,
+            forced_width = dpi(30),
+        },
+    }
 
     -- Create a tasklist widget
     s.mytasklist = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, tasklist_buttons)
 
     -- Create the wibox
-    s.mywibox = awful.wibar({ position = "top", screen = s, height=dpi(30) })
+    s.mywibox = awful.wibar {
+        position = "top",
+        screen   = s,
+        stretch  = false,
+        width = s.geometry.width*0.7,
+        height = wibar_height,
+        shape = function(cr, w, h) gears.shape.rounded_rect(cr, w, h, dpi(6)) end
+    }
 
     -- Add widgets to the wibox
     s.mywibox:setup {
-        layout = wibox.layout.align.horizontal,
-        { -- Left widgets
-            layout = wibox.layout.fixed.horizontal,
-            -- mylauncher,
-            s.mytaglist,
-            s.mylayoutbox,
-            s.mypromptbox,
-        },
-        wibox.widget{
-            --markup = 'This <i>is</i> a <b>textbox</b>!!!',
-            markup = '',
-            align  = 'center',
-            valign = 'center',
-            widget = mytextclock
-            --widget = wibox.widget.textbox
-        },
-        --s.mytasklist, -- Middle widget
-        --mytextclock,
-        { -- Right widgets
+        layout = wibox.container.margin,
+        align  = 'center',
+        -- margins = dpi(3),
+        top = dpi(3),
+        bottom = dpi(3),
+        left = dpi(5),
+        right = dpi(5),
+        color = beautiful.wibar_border_color,
+        {
             layout = wibox.layout.align.horizontal,
-            --mykeyboardlayout,
-            wibox.widget.systray(),
-            --mytextclock,
-        },
+            { -- Left widgets
+                layout = wibox.layout.fixed.horizontal,
+                s.mytaglist,
+                s.mylayoutbox,
+                s.mypromptbox,
+            },
+            {
+                align  = 'center',
+                widget = mytextclock
+            },
+            { -- Right widgets
+                layout = wibox.layout.fixed.horizontal,
+                wibox.widget.systray(),
+            },
+        }
     }
 end)
 -- }}}
@@ -466,6 +540,7 @@ for i = 1, 4 do
                           local tag = client.focus.screen.tags[i]
                           if tag then
                               client.focus:move_to_tag(tag)
+                               tag:view_only()
                           end
                      end
                   end,
@@ -568,29 +643,41 @@ client.connect_signal("request::titlebars", function(c)
         end)
     )
 
-    awful.titlebar(c) : setup {
-        { -- Left
-            awful.titlebar.widget.iconwidget(c),
-            buttons = buttons,
-            layout  = wibox.layout.fixed.horizontal
-        },
-        { -- Middle
-            { -- Title
-                align  = "center",
-                widget = awful.titlebar.widget.titlewidget(c)
+    local top_titlebar = awful.titlebar(c, {
+        size = titlebar_height,
+    })
+
+    titlewidget = awful.titlebar.widget.titlewidget(c)
+    titlewidget.font = titlebar_font
+
+    top_titlebar : setup {
+        layout = wibox.container.margin,
+        bottom = beautiful.border_width,
+        {
+            { -- Left
+                awful.titlebar.widget.iconwidget(c),
+                buttons = buttons,
+                layout  = wibox.layout.fixed.horizontal
             },
-            buttons = buttons,
-            layout  = wibox.layout.flex.horizontal
-        },
-        { -- Right
-            awful.titlebar.widget.floatingbutton (c),
-            awful.titlebar.widget.maximizedbutton(c),
-            --awful.titlebar.widget.stickybutton   (c),
-            --awful.titlebar.widget.ontopbutton    (c),
-            awful.titlebar.widget.closebutton    (c),
-            layout = wibox.layout.fixed.horizontal()
-        },
-        layout = wibox.layout.align.horizontal
+            { -- Middle
+                { -- Title
+                    align  = "center",
+                    -- widget = awful.titlebar.widget.titlewidget(c, {font = "Poppins Regular 8"})
+                    widget = titlewidget
+                },
+                buttons = buttons,
+                layout  = wibox.layout.flex.horizontal
+            },
+            { -- Right
+                awful.titlebar.widget.floatingbutton (c),
+                awful.titlebar.widget.maximizedbutton(c),
+                --awful.titlebar.widget.stickybutton   (c),
+                --awful.titlebar.widget.ontopbutton    (c),
+                awful.titlebar.widget.closebutton    (c),
+                layout = wibox.layout.fixed.horizontal()
+            },
+            layout = wibox.layout.align.horizontal
+        }
     }
 end)
 
@@ -602,8 +689,14 @@ client.connect_signal("mouse::enter", function(c)
     end
 end)
 
-client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
-client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
+client.connect_signal("focus",
+    function(c)
+        c.border_color = beautiful.border_focus
+end)
+client.connect_signal("unfocus",
+    function(c)
+    c.border_color = beautiful.border_normal
+end)
 -- }}}
 do
   local cmds =
@@ -611,8 +704,6 @@ do
     "guake",
     "xcompmgr",
     "thunar --daemon",
-    "twmnd",
-    "xfce4-clipman",
     "xfce4-power-manager",
     "kdeconnect-indicator",
     "gnome-keyring-daemon",
