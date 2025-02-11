@@ -99,6 +99,8 @@ var paths = [
 
 #edit:insert:binding[Alt-Backspace] = $edit:kill-small-word-left~
 #edit:insert:binding[Alt-d] = $edit:kill-small-word-right~
+set edit:insert:binding[Ctrl-a] = { edit:move-dot-sol }
+set edit:insert:binding[Ctrl-e] = { edit:move-dot-eol }
 
 #Vim bindings in file manager
 #edit:navigation:binding[h] = $edit:navigation:left~

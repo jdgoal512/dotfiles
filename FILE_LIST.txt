@@ -22,3 +22,4 @@ $HOME/.config/bspwm:bspwm
 $HOME/.config/sxhkd:sxhkd
 $HOME/.config/sway:sway
 $HOME/.config/waybar:waybar
+$HOME/.xonshrc:xonshrc
